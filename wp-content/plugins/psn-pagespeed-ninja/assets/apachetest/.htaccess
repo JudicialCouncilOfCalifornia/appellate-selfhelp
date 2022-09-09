@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_URI} a\.htm$
+  RewriteRule ^ b.htm
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  <IfModule mod_mime.c>
+	<IfModule mod_headers.c>
+	  RewriteCond %{REQUEST_URI} [ab]\.htm$
+      RewriteRule ^ c.htm
+	</IfModule>
+  </IfModule>
+</IfModule>

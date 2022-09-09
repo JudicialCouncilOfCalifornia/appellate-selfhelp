@@ -1,0 +1,211 @@
+.navitems
+{
+	margin-bottom:10px;	
+}
+
+.navitem
+{
+font-family: Helvetica, Georgia, serif;
+}
+
+.navitems a
+{
+text-align: center;
+text-decoration: none;
+margin-right: 5px;
+margin-bottom: 5px;
+padding: 5px 10px;
+font-family: Helvetica, Georgia, serif !important;
+display: inline-block;
+text-shadow: none;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+font-weight: bold;
+}
+
+.navitemhidden
+{
+	display:none !important;
+}
+
+.tooltips_content_wrap .tooltips_list
+{
+margin-bottom: 16px;
+margin-top: 16px;
+}
+
+.tooltips_content_wrap .tooltips_list span
+{
+text-decoration: none;
+}
+
+.tooltiplist_count {
+vertical-align: super;
+padding-left: 3px;
+font-size: smaller;
+}
+
+.tooltips_table
+{
+	
+}
+
+.tooltips_directory
+{
+
+}
+
+.tooltips_table span
+{
+text-decoration: none;
+}
+.tooltiplist_count {
+vertical-align: super;
+padding-left: 3px;
+font-size: smaller;
+}
+
+
+/*---
+css for tables
+---*/
+.tooltips_table_items
+{
+	width:100%;
+	text-decoration: none;	
+    padding: 0;
+    margin: 0;    
+}	
+
+
+.tooltips_table_title
+{
+	width:40%;
+	display:inline-block;
+	text-transform: uppercase;
+	padding-top:0px;
+	padding-bottom:0px;
+	/* padding: 0 6px 0 6px; */
+	padding: 6px 6px 6px 6px;
+	border-left: 1px;
+	vertical-align: top;
+}
+
+.tooltips_table_content
+{
+	width:50%;
+	display:inline-block;
+	margin: 0;
+	padding: 6px 6px 6px 6px;
+}
+
+.navitems a
+{
+border: #ddd solid 1px;
+color: #007DBD !important;
+}
+
+.navitems a:hover
+{
+color: white !important;
+background: #007DBD !important; 
+}
+
+.navitems .selecteddirectory
+{
+color:#eee !important;
+}
+
+.tooltips_content_wrap .tooltips_list span
+{
+color: #1880d0;
+}
+
+.tooltiplist_count {
+color: #C0392B;
+}
+
+.tooltips_table
+{
+border-top: 1px solid #999;
+border-left: 1px solid #999;
+border-right: 1px solid #999;	
+}
+
+.tooltips_table
+{
+display: flex;
+/*
+version 5.1.9
+*/
+}
+/*
+.tooltips_list:last-child
+{
+	border-bottom: 1px solid #000;
+}
+*/
+
+.tooltips_directory
+{
+	border-bottom: 1px solid #999;
+}
+
+.tooltips_table span
+{
+color: #1880d0;
+}
+.tooltiplist_count {
+color: #C0392B;
+}
+
+
+/*---
+css for tables
+---*/
+.tooltips_table_items
+{
+	color: #333;
+    border-bottom: 1px solid #eee;
+}	
+
+
+.tooltips_table_title
+{
+	color: #666;
+}
+
+.tooltips_table_content
+{
+	color: #666;
+    border-left: 1px solid #999;
+}
+
+/* +++ version 4.9.1 20180101 */
+.tooltipsall:hover {
+	color: green !important;
+}
+
+.tipscale
+{
+	-ms-animation:scale 0.2s 1;
+	-moz-animation:scale 0.2s 1;
+	-webkit-animation:scale 0.2s 1;
+	animation:scale 0.2s 1;
+}
+
+/******	scale effect ******/ 
+@-ms-keyframes scale{0%{-ms-transform:scale(0.25);opacity: 0;}100%{-ms-transform:scale(1);opacity: 1;}}
+@-moz-keyframes scale{0%{-moz-transform:scale(0.25);opacity: 0;}100%{-moz-transform:scale(1);opacity: 1;}}
+@-webkit-keyframes scale{0%{-webkit-transform:scale(0.25);opacity: 0;}100%{-webkit-transform:scale(1);opacity: 1;}}
+@keyframes scale{0%{transform:scale(0.25);opacity: 0;}100%{transform:scale(1);opacity: 1;}}
+
+@media only screen and (max-width: 768px) 
+{
+.tooltips_directory
+{
+width:auto !important;
+}
+}
+

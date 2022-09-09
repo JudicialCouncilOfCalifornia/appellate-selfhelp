@@ -1,0 +1,15 @@
+{
+  "image": true,
+  "video": false,
+  "iframe": false,
+  "srcset": true,
+  "addsrcset": false,
+  "srcsetwidth": [320, 360, 640, 720, 768, 800, 1024, 1080, 1280],
+  "noscriptpos": "after",
+  "debug": false,
+  "lqip": false,
+  "edgey": 0,
+  "skipimages": 0,
+  "skipiframes": 0,
+  "addons": []
+}

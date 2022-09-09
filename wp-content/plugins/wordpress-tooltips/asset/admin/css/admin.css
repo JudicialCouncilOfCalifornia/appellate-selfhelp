@@ -1,0 +1,99 @@
+.tooltips-pro-how-to-each-bar{cursor:pointer}
+.postbox.tooltips-pro-how-to-each-bar{margin-bottom:0!important}
+.tooltips-pro-how-to-each-bar span
+{
+font-size:32px;color:#056;display:inline-block;position:relative;left:0;top:2px;margin-right:12px;margin-left:8px;float:left
+}
+.tooltips-pro-how-to-each-bar .hndle,
+.tooltips-pro-how-to-each-bar .hndle
+{border-bottom:0 solid #eee!important}
+
+/* !!!start */
+span.questionlanguagecustomizationaddon, span.questionlanguageforglossary, span.questiontooltipsPopupCreditLinkInPopupWindow
+, span.questionoceanwp, span.removenavbaringlossarypage
+{
+  cursor: pointer;
+  display: inline-block;
+  line-height: 16px;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  -webkit-border-radius:7px;
+  -moz-border-radius:7px;
+  background: #5893ae;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+span.questionlanguagecustomizationaddon:hover, span.questionlanguageforglossary:hover, span.questiontooltipsPopupCreditLinkInPopupWindow:hover
+, span.questionoceanwp:hover, span.removenavbaringlossarypage:hover
+{
+	background-color: #21759b; 
+}
+
+div.tooltiplanguagecustomizationaddon, div.tooltipforoceanwp, div.glossaryremovenavbaringlossarypage
+{
+  text-align: left;
+  left: 25px;
+  background: #21759b;
+  color: #fff;
+  position: absolute;
+  z-index: 1000000;
+  width: 550px;
+  border-radius: 5px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+top: -20px;
+}
+.tooltiplanguagecustomizationaddon:before, .tooltipforoceanwp:before
+{
+  border-color: transparent #21759b transparent transparent;
+  border-right: 6px solid #21759b;
+  border-style: solid;
+  border-width: 6px 6px 6px 0px;
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  position: absolute;
+  top: 40%;
+  left: -6px;
+}
+
+.tooltiplanguagecustomizationaddon p,  .tooltipforoceanwp p
+{
+  margin: 10px;
+ line-height:16px;
+ font-size:11px;
+ color:#eee; 
+}
+
+.glossaryremovenavbaringlossarypage:before
+{
+  border-color: transparent #21759b transparent transparent;
+  border-right: 6px solid #21759b;
+  border-style: solid;
+  border-width: 6px 6px 6px 0px;
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  position: absolute;
+  top: 40%;
+  left: -6px;
+}	
+
+.glossaryremovenavbaringlossarypage p
+{
+  margin: 10px;
+ line-height:16px;
+ font-size:11px;
+ color:#eee;	
+}
+
+/* !!!end */

@@ -1,0 +1,346 @@
+# Translation of Plugins - Helpful - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Helpful - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-01-17 10:22:01+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Helpful - Stable (latest release)\n"
+
+#: core/tabs/system.php:28
+msgctxt "option name"
+msgid "Reset plugin"
+msgstr "Restablecer plugin"
+
+#: core/tabs/system.php:17
+msgctxt "tab description"
+msgid "Here you can reset Helpful. This affects the database table, all options and also the stored values. The adjustments to the design remain. <b class=\"danger\">This process can not be undone!</b>"
+msgstr "Aquí puedes restablecer Helpful. Esto afecta a la tabla de la base de datos, todas las opciones y los valores guardados. Los ajustes de diseño se mantienen. <b class=\"danger\">¡Este proceso no se puede deshacer!</b>"
+
+#: core/tabs/general.php:173
+msgctxt "option name"
+msgid "Dashboard widget"
+msgstr "Widget de escritorio"
+
+#: core/tabs/general.php:158
+msgctxt "option name"
+msgid "Helpful"
+msgstr "Helpful"
+
+#: core/tabs/general.php:152
+msgctxt "label"
+msgid "show"
+msgstr "mostrar"
+
+#: core/tabs/general.php:148
+msgctxt "option name"
+msgid "Credits"
+msgstr "Créditos"
+
+#: core/tabs/general.php:144
+msgctxt "option info"
+msgid "Hide vote counters."
+msgstr "Ocultar contadores de votos."
+
+#: core/tabs/general.php:138
+msgctxt "option name"
+msgid "Votes"
+msgstr "Votos"
+
+#: core/tabs/general.php:134
+msgctxt "option info"
+msgid "Hide Helpful, if the user has already voted."
+msgstr "Ocultar Helpful si el usuario ya ha votado."
+
+#: core/tabs/general.php:132 core/tabs/general.php:142
+#: core/tabs/general.php:162 core/tabs/general.php:177
+msgctxt "label"
+msgid "hide"
+msgstr "ocultar"
+
+#: core/tabs/general.php:124
+msgctxt "option info"
+msgid "Here you can choose the post types, where helpful should appear."
+msgstr "Aquí puede elegir los tipos de publicación, en los que helpful debería aparecer."
+
+#: core/tabs/general.php:97
+msgctxt "option name"
+msgid "Post types"
+msgstr "Tipos de publicaciones"
+
+#: core/tabs/general.php:83
+msgctxt "option name"
+msgid "Column (contra)"
+msgstr "Columna (en contra)"
+
+#: core/tabs/general.php:76
+msgctxt "option name"
+msgid "Column (pro)"
+msgstr "Columna (a favor)"
+
+#: core/tabs/general.php:64
+msgctxt "option name"
+msgid "Button (contra)"
+msgstr "Botón (en contra)"
+
+#: core/tabs/general.php:57
+msgctxt "option name"
+msgid "Button (pro)"
+msgstr "Botón (a favor)"
+
+#: core/tabs/general.php:67
+msgctxt "option info"
+msgid "Here you can define your own text for the contra button."
+msgstr "Aquí puedes escribir tu texto para el botón \"en contra\"."
+
+#: core/tabs/general.php:179
+msgctxt "option info"
+msgid "Hide the Helpful dashboard widget."
+msgstr "Oculta el widget de escritorio de Helpful."
+
+#: core/tabs/general.php:164
+msgctxt "option info"
+msgid "Hide Helpful in your content. These option is useful by using the shortcode (<code>[helpful]</code>)."
+msgstr "Oculta Helpful en su contenido. Esta opción es útil si utilizas el shortcode (<code>[helpful]</code>)."
+
+#: core/tabs/general.php:154
+msgctxt "option info"
+msgid "Support us and show your visitors that Helpful is from us."
+msgstr "Apóyanos y muestra a tuus visitantes que Helpful es creado por nosotros."
+
+#: core/tabs/general.php:86
+msgctxt "helpful"
+msgid "Here you can define your own text for the contra column in the post edit list."
+msgstr "Aquí puedes escribir el texto para la columna \"en contra\" de la lista \"todas las publicaciones\"."
+
+#: core/tabs/general.php:79
+msgctxt "option info"
+msgid "Here you can define your own text for the pro column in the post edit list."
+msgstr "Aquí puedes escribir tu texto para la columna \"a favor\" de la lista \"todas las publicaciones\"."
+
+#: core/tabs/general.php:60
+msgctxt "option info"
+msgid "Here you can define your own text for the pro button."
+msgstr "Aquí puedes escribir tu texto para el botón \"a favor\"."
+
+#: core/tabs/general.php:48
+msgctxt "option info"
+msgid "This text will appear if the user has already voted."
+msgstr "Este texto aparecerá si el usuario ya ha votado."
+
+#: core/tabs/general.php:45 core/tabs/general.php:128
+msgctxt "option name"
+msgid "Already voted"
+msgstr "Ya votado"
+
+#: core/tabs/general.php:38
+msgctxt "option name"
+msgid "Content"
+msgstr "Contenido"
+
+#: core/tabs/general.php:31
+msgctxt "option name"
+msgid "Headline"
+msgstr "Título"
+
+#: core/tabs/design.php:125
+msgctxt "option name"
+msgid "Custom CSS"
+msgstr "CSS personalizado"
+
+#: core/tabs/design.php:30
+msgctxt "option name"
+msgid "Theme"
+msgstr "Tema"
+
+#: core/tabs/design.php:17
+msgctxt "tab description"
+msgid "In this section, you can change settings for the design."
+msgstr "En esta sección, puede cambiar los ajustes de diseño."
+
+#: core/Pro.class.php:155
+msgctxt "theme name"
+msgid "Theme"
+msgstr "Tema"
+
+#: core/Pro.class.php:154
+msgctxt "theme name"
+msgid "Flat"
+msgstr "Flat"
+
+#: core/Pro.class.php:153
+msgctxt "theme name"
+msgid "Minimal"
+msgstr "Minimal"
+
+#: core/Pro.class.php:152
+msgctxt "theme name"
+msgid "Dark"
+msgstr "Oscuro"
+
+#: core/Pro.class.php:151
+msgctxt "theme name"
+msgid "Base"
+msgstr "Base"
+
+#: core/Pro.class.php:116
+msgid "The text that is displayed, after a negative vote (shortcodes <b>without Ajax</b> are also possible!)"
+msgstr "El texto que se mostrará tras un voto negativo (¡también se pueden utilizar shortcodes <b>sin Ajax</b>!)"
+
+#: core/Pro.class.php:112
+msgctxt "message after a negative voting"
+msgid "After voting (contra)"
+msgstr "Después de votar (en contra)"
+
+#: core/Pro.class.php:105
+msgid "The text that is displayed, after a positive vote (shortcodes <b>without Ajax</b> are also possible!)"
+msgstr "El texto que se mostrará tras un voto positivo (¡también se pueden utilizar shortcodes <b>sin Ajax</b>!)"
+
+#: core/Pro.class.php:101
+msgctxt "message after a positive voting"
+msgid "After voting (pro)"
+msgstr "Después de votar (a favor)"
+
+#: core/Pro.class.php:65 core/tabs/design.php:15
+msgctxt "tab name"
+msgid "Design"
+msgstr "Diseño"
+
+#: core/Core.class.php:975
+msgid "Sorry, an error has occurred."
+msgstr "Lo siento, ha ocurrido un error."
+
+#: core/Core.class.php:965
+msgid "Thank you for voting."
+msgstr "Gracias por votar."
+
+#: core/Core.class.php:844
+msgctxt "link title dashboard widget"
+msgid "Settings"
+msgstr "Ajustes"
+
+#: core/Core.class.php:786
+msgctxt "headline dashboard widget"
+msgid "Helpful Stats"
+msgstr "Estadísticas de Helpful"
+
+#: core/Core.class.php:762
+msgctxt "link text sidebar options page"
+msgid "Support"
+msgstr "Soporte"
+
+#: core/Core.class.php:756
+msgctxt "link text sidebar options page"
+msgid "Changelogs"
+msgstr "Registro de cambios"
+
+#: core/Core.class.php:750
+msgctxt "description sidebar options page"
+msgid "You have an question?"
+msgstr "¿Tiene alguna pregunta?"
+
+#: core/Core.class.php:749
+msgctxt "headline sidebar options page"
+msgid "Links & Support"
+msgstr "Enlaces y soporte"
+
+#: core/Core.class.php:737
+msgid "The database table was successfully reset!"
+msgstr "¡La tabla de la base de datos se ha restablecido correctamente!"
+
+#: core/Core.class.php:509
+msgctxt "helpful credits"
+msgid "Powered by %s"
+msgstr "Desarrollado por %s"
+
+#: core/Core.class.php:255 core/tabs/system.php:15
+msgctxt "tab name"
+msgid "System"
+msgstr "Sistema"
+
+#: core/Core.class.php:238 core/tabs/general.php:18
+msgctxt "tab name"
+msgid "General"
+msgstr "General"
+
+#: core/Core.class.php:187 core/Core.class.php:879
+msgctxt "column name"
+msgid "Contra"
+msgstr "En contra"
+
+#: core/Core.class.php:182 core/Core.class.php:878
+msgctxt "column name"
+msgid "Pro"
+msgstr "A favor"
+
+#: core/Core.class.php:177
+msgctxt "text contra button"
+msgid "No"
+msgstr "No"
+
+#: core/Core.class.php:172
+msgctxt "text pro button"
+msgid "Yes"
+msgstr "Sí"
+
+#: core/Core.class.php:167
+msgctxt "error after voting"
+msgid "Sorry, an error has occurred."
+msgstr "Lo siento, ha ocurrido un error."
+
+#: core/Core.class.php:162
+msgctxt "text after voting"
+msgid "Thank you for voting."
+msgstr "Gracias por votar."
+
+#: core/Core.class.php:157
+msgctxt "already voted"
+msgid "You have already voted for this post."
+msgstr "Ya has votado en esta publicación."
+
+#: core/Core.class.php:152
+msgctxt "default description"
+msgid "Let us know, if you liked the post. Only in this way, we can improve us."
+msgstr "Haznos saber si te ha gustado esta publicación. Solo de esta manera podemos mejorar."
+
+#: core/Core.class.php:147
+msgctxt "default headline"
+msgid "Was this post helpful?"
+msgstr "¿Ha sido útil esta publicación?"
+
+#: core/tabs/general.php:41
+msgctxt "option info"
+msgid "Here you can define your own content."
+msgstr "Aquí puedes definir tu propio contenido."
+
+#: core/tabs/general.php:34
+msgctxt "option info"
+msgid "Here you can define your own headline."
+msgstr "Aquí puede escribir tu título."
+
+#: core/tabs/general.php:20
+msgctxt "tab description"
+msgid "In this area, you can change general settings. You can use <code>{pro}</code> for outputting positive and <code>{contra}</code> for negative votes."
+msgstr "En este área, puedes cambiar los ajustes generales. Puedes utilizar los códigos <code>{pro}</code> para mostrar los votos positivos y <code>{contra}</code> para mostrar los negativos."
+
+#. Author URI of the plugin/theme
+msgid "https://devhats.de"
+msgstr "https://devhats.de"
+
+#. Author of the plugin/theme
+msgid "Devhats"
+msgstr "Devhats"
+
+#. Description of the plugin/theme
+msgid "Add a fancy feedback form under your posts or post-types and ask your visitors a question. Give them the abbility to vote with yes or no."
+msgstr "Añade un bonito formulario bajo tus entradas o tipos de entradas y hazle una pregunta a tus visitantes. Dales la posibilidad de votar con sí o no."
+
+#. #-#-#-#-#  helpful-code.pot (Helpful 2.3.2)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: core/Core.class.php:103 core/Core.class.php:104 templates/backend.php:12
+msgid "Helpful"
+msgstr "Helpful"

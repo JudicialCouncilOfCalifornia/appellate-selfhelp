@@ -1,0 +1,9 @@
+<?php
+
+$static_dir = dirname(__FILE__);
+$root = dirname($static_dir);
+$plugin_root = $root . '/wp-content/plugins/pagespeedninja';
+
+define('RESSIO_STATICDIR', $static_dir);
+
+require $plugin_root . '/ress/fetch.php';

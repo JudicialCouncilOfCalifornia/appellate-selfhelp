@@ -1,0 +1,75 @@
+
+
+
+# BEGIN LSCACHE
+# END LSCACHE
+# BEGIN NON_LSCACHE
+# END NON_LSCACHE
+
+
+
+
+
+# BEGIN WP-HUMMINGBIRD-GZIP
+
+# END WP-HUMMINGBIRD-GZIP
+
+# BEGIN WP-HUMMINGBIRD-CACHING
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresDefault A0
+
+<FilesMatch "\.(txt|xml|js)$">
+ExpiresDefault A691200
+</FilesMatch>
+
+<FilesMatch "\.(css)$">
+ExpiresDefault A691200
+</FilesMatch>
+
+<FilesMatch "\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav|mp4|m4v|ogg|webm|aac|eot|ttf|otf|woff|svg)$">
+ExpiresDefault A691200
+</FilesMatch>
+
+<FilesMatch "\.(jpg|jpeg|png|gif|swf|webp)$">
+ExpiresDefault A691200
+</FilesMatch>
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(txt|xml|js)$">
+   Header set Cache-Control "max-age=691200"
+  </FilesMatch>
+
+  <FilesMatch "\.(css)$">
+   Header set Cache-Control "max-age=691200"
+  </FilesMatch>
+
+  <FilesMatch "\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav|mp4|m4v|ogg|webm|aac|eot|ttf|otf|woff|svg)$">
+   Header set Cache-Control "max-age=691200"
+  </FilesMatch>
+
+  <FilesMatch "\.(jpg|jpeg|png|gif|swf|webp)$">
+   Header set Cache-Control "max-age=691200"
+  </FilesMatch>
+</IfModule>
+# END WP-HUMMINGBIRD-CACHING
+<IfModule mod_rewrite.c>
+ RewriteEngine On
+ RewriteCond %{QUERY_STRING} !=""
+ RewriteCond %{QUERY_STRING} !^s=.*
+ RewriteCond %{QUERY_STRING} !^q=.*
+ RewriteCond %{QUERY_STRING} !^url=.*
+ RewriteCond %{QUERY_STRING} !^ver=.*
+ RewriteCond %{REQUEST_URI} !^/wp-admin.*
+ RewriteRule ^(.*)$ /$1? [R=301,L]
+ RewriteCond %{REQUEST_URI} ^/forms/
+ RewriteRule ^(.+\.pdf)$ https://www.courts.ca.gov/documents/$1 [R=301,L]
+</IfModule>
+<IfModule mpm_prefork_module>
+StartServers 150
+MinSpareServers 150
+MaxSpareServers 300
+MaxClients 1000
+MaxRequestsPerChild 112500
+</IfModule>

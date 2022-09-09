@@ -1,0 +1,126 @@
+2018-05-12T12:01:00+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-12T12:01:52+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-12T12:02:19+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-12T12:05:41+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-12T16:18:32+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-12T16:32:09+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-12T16:32:11+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-12T16:32:11+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-12T16:32:12+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-12T16:32:12+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-12T16:32:13+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-12T16:32:14+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-13T05:14:17+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+
+2018-05-14T05:12:33+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php:329
+Stack trace:
+#0 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(275): aviaAssetManager->get_file_content('', 'js', false)
+#1 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(124): aviaAssetManager->get_file_data('js', 'avia-footer-scr...', Object(WP_Scripts), Array)
+#2 D:\home\site\wwwroot\wp-content\themes\enfold\config-templatebuilder\avia-template-builder\php\asset-manager.class.php(107): aviaAssetManager->merge('js', 'avia-footer-scr...', Array)
+#3 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(286): aviaAssetManager->minimize_footer_scripts('')
+#4 D:\home\site\wwwroot\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
+#5 D:\home\site\wwwroot\wp-includes\plugi
+

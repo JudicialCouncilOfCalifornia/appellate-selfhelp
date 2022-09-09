@@ -1,0 +1,82 @@
+<IfModule mod_mime.c>
+	AddType font/truetype .ttf
+	AddType font/opentype .otf
+	AddType application/font-woff .woff
+	AddType application/vnd.ms-fontobject .eot
+	AddType image/svg+xml .svg
+	AddType image/svg+xml .svgz
+	AddEncoding gzip .svgz
+	<IfModule mod_rewrite.c>
+		RewriteEngine On
+		RewriteCond %{HTTP:Accept-Encoding} gzip
+		RewriteCond %{REQUEST_FILENAME} ^(.*)\.svg$
+		RewriteCond %1.svgz -f
+		RewriteRule ^(.*)\.svg$ $1.svgz [L,E=no-gzip:1]
+		<IfModule mod_headers.c>
+			AddEncoding gzip .gz
+			Header append Vary "Accept-Encoding"
+			RewriteEngine On
+			RewriteCond %{HTTP:Accept-Encoding} gzip
+			RewriteCond %{REQUEST_FILENAME}.gz -f
+			RewriteRule ^.*\.(css|js|svg)$ $0.gz [L,E=no-gzip:1]
+			<Files *.css.gz>
+				ForceType text/css
+			</Files>
+			<Files *.js.gz>
+				ForceType text/javascript
+			</Files>
+			<Files *.svg.gz>
+				ForceType image/svg+xml
+			</Files>
+		</IfModule>
+	</IfModule>
+</IfModule>
+<IfModule mod_deflate.c>
+	<IfModule filter_module>
+		<IfModule mod_version.c>
+			<IfVersion < 2.4.4>
+				FilterDeclare  COMPRESS
+				FilterProvider COMPRESS DEFLATE resp=Content-Type $text/css
+				FilterProvider COMPRESS DEFLATE resp=Content-Type $application/javascript
+				FilterProvider COMPRESS DEFLATE resp=Content-Type $application/x-javascript
+				FilterProvider COMPRESS DEFLATE resp=Content-Type $text/javascript
+				FilterProvider COMPRESS DEFLATE resp=Content-Type $image/vnd.microsoft.icon
+				FilterProvider COMPRESS DEFLATE resp=Content-Type $image/x-icon
+				FilterProvider COMPRESS DEFLATE resp=Content-Type $image/svg+xml
+				FilterProvider COMPRESS DEFLATE resp=Content-Type $application/x-font-ttf
+				FilterProvider COMPRESS DEFLATE resp=Content-Type $application/font-woff
+				FilterProvider COMPRESS DEFLATE resp=Content-Type $application/vnd.ms-fontobject
+				FilterProvider COMPRESS DEFLATE resp=Content-Type $font/opentype
+				FilterProvider COMPRESS DEFLATE resp=Content-Type $font/truetype
+				FilterChain    COMPRESS
+				FilterProtocol COMPRESS DEFLATE change=yes;byteranges=no
+			</IfVersion>
+			<IfVersion >= 2.4.4>
+				FilterDeclare  COMPRESS
+				FilterProvider COMPRESS DEFLATE "%{Content_Type} = 'text/css'"
+				FilterProvider COMPRESS DEFLATE "%{Content_Type} = 'application/javascript'"
+				FilterProvider COMPRESS DEFLATE "%{Content_Type} = 'application/x-javascript'"
+				FilterProvider COMPRESS DEFLATE "%{Content_Type} = 'text/javascript'"
+				FilterProvider COMPRESS DEFLATE "%{Content_Type} = 'image/vnd.microsoft.icon'"
+				FilterProvider COMPRESS DEFLATE "%{Content_Type} = 'image/x-icon'"
+				FilterProvider COMPRESS DEFLATE "%{Content_Type} = 'image/svg+xml'"
+				FilterProvider COMPRESS DEFLATE "%{Content_Type} = 'application/x-font-ttf'"
+				FilterProvider COMPRESS DEFLATE "%{Content_Type} = 'application/font-woff'"
+				FilterProvider COMPRESS DEFLATE "%{Content_Type} = 'application/vnd.ms-fontobject'"
+				FilterProvider COMPRESS DEFLATE "%{Content_Type} = 'font/opentype'"
+				FilterProvider COMPRESS DEFLATE "%{Content_Type} = 'font/truetype'"
+				FilterChain    COMPRESS
+				FilterProtocol COMPRESS DEFLATE change=yes;byteranges=no
+		    </IfVersion>
+		</IfModule>
+	</IfModule>
+	<IfModule !filter_module>
+		<IfModule mod_filter.c>
+			AddOutputFilterByType DEFLATE text/css
+			AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
+			AddOutputFilterByType DEFLATE image/vnd.microsoft.icon image/x-icon image/svg+xml
+			AddOutputFilterByType DEFLATE application/x-font-ttf application/font-woff application/vnd.ms-fontobject
+			AddOutputFilterByType DEFLATE font/opentype font/truetype
+		</IfModule>
+	</IfModule>
+</IfModule>
