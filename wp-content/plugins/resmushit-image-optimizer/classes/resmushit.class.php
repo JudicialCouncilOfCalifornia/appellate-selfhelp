@@ -51,7 +51,10 @@ Class reSmushit {
 	 */
 	public static function optimize($file_path = NULL, $is_original = TRUE) {
 		global $wp_version;
-
+		if(!file_exists($file_path) OR !is_file($file_path)) {
+			rlog('Error! Picture ' . str_replace(ABSPATH, '/', $file_path) . ' cannot be optimized, file is not found on disk.', 'WARNING');
+			return false;
+		}
 		if(filesize($file_path) > self::MAX_FILESIZE){
 			rlog('Error! Picture ' . str_replace(ABSPATH, '/', $file_path) . ' cannot be optimized, file size is above 5MB ('. reSmushitUI::sizeFormat(filesize($file_path)) .')', 'WARNING');
 			return false;
@@ -62,6 +65,8 @@ Class reSmushit {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, RESMUSHIT_TIMEOUT);
 		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($ch, CURLOPT_USERAGENT, "Wordpress $wp_version/Resmush.it " . RESMUSHIT_VERSION . ' - ' . get_bloginfo('wpurl') );
 
 		if (!class_exists('CURLFile')) {
@@ -86,11 +91,14 @@ Class reSmushit {
 		if($json){
 			if (!isset($json->error)) {
 				if (ini_get('allow_url_fopen')) {
-					$data = file_get_contents($json->dest);
+					$arrContextOptions= array("ssl" => array("verify_peer" => false,"verify_peer_name" => false));
+					$data = file_get_contents( $json->dest, false, stream_context_create($arrContextOptions) );
 				} else {
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $json->dest);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 					$data = curl_exec($ch);
 					curl_close($ch);
 				}
@@ -123,7 +131,7 @@ Class reSmushit {
 	 * @param  int 		$attachment_id 	ID of the attachment to revert
 	 * @return none
 	 */
-	public static function revert($id) {
+	public static function revert($id, $generateThumbnails = true) {
 		global $wp_version;
 		global $attachment_id;
 		$attachment_id = $id;
@@ -138,12 +146,15 @@ Class reSmushit {
 		$originalFile = $basepath . $fileInfo['filename'] . '-unsmushed.' . $fileInfo['extension'];
 		rlog('Revert original image for : ' . str_replace(ABSPATH, '/', get_attached_file( $attachment_id )));
 	
-		if(file_exists($originalFile))
+		if(file_exists($originalFile)) {
 			copy($originalFile, get_attached_file( $attachment_id ));
+		}
 
 		//Regenerate thumbnails
-		wp_generate_attachment_metadata($attachment_id, get_attached_file( $attachment_id ));
-		
+		if($generateThumbnails) {
+			wp_generate_attachment_metadata($attachment_id, get_attached_file( $attachment_id ));
+		}
+
 		return self::wasSuccessfullyUpdated( $attachment_id );
 	}
 
@@ -196,7 +207,7 @@ Class reSmushit {
 		$output = array();
 		$extraSQL = null;
 		if($attachment_id)
-			$extraSQL = "where $wpdb->postmeta.post_id = ". $attachment_id;
+			$extraSQL = "where $wpdb->postmeta.post_id = ". (int)($attachment_id);
 
 		$query = $wpdb->prepare( 
 			"select
@@ -332,8 +343,8 @@ Class reSmushit {
 		foreach($all_images as $image){
 			$tmp = array();
 			$tmp['ID'] = $image->ID;
-			$tmp['attachment_metadata'] = unserialize($image->file_meta);
-
+			$tmp['attachment_metadata'] = isset($image->file_meta) ? unserialize($image->file_meta) : array();
+			
 			if( !file_exists(get_attached_file( $image->ID )) ) {
 				$files_not_found[] = $tmp;
 				continue;
@@ -430,7 +441,10 @@ Class reSmushit {
 	public static function wasSuccessfullyUpdated($attachment_id){
 		if( self::getDisabledState( $attachment_id ))
 			return 'disabled';
-
+		if (!file_exists(get_attached_file( $attachment_id ))) {
+			rlog("Error! File " . get_attached_file( $attachment_id ) . " not found on disk.", 'WARNING');
+			return 'file_not_found';
+		}
 		if( filesize(get_attached_file( $attachment_id )) > self::MAX_FILESIZE){
 			return 'file_too_big';
 		}

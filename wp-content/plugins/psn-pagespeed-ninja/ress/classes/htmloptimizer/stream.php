@@ -802,7 +802,7 @@ class Ressio_HtmlOptimizer_Stream extends Ressio_HtmlOptimizer_Base
 
             // minify uri in attributes
             if ($this->config->html->urlminify && isset($this->uriAttrs[$tagName]) &&
-                !($node->tag === 'link' && isset($node->attributes['rel']) && $node->attributes['rel'] !== 'stylesheet')
+                !($tagName === 'link' && isset($node->attributes['rel']) && $node->attributes['rel'] !== 'stylesheet')
             ) {
                 foreach ($this->uriAttrs[$tagName] as $attrName) {
                     if (isset($node->attributes[$attrName])) {

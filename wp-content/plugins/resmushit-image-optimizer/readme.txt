@@ -1,13 +1,13 @@
-=== reSmush.it Image Optimizer  ===
+=== reSmush.it : the only free Image Optimizer & compress plugin  ===
 Contributors: resmushit
 Tags: image, optimizer, image optimization, resmush.it, smush, jpg, png, gif, optimization, compression, Compress, Images, Pictures, Reduce Image Size, Smush, Smush.it
 Requires at least: 4.0.0
-Tested up to: 5.4.0
-Stable tag: 0.3.2
+Tested up to: 6.0.1
+Stable tag: 0.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Use reSmush.it Image Optimizer for FREE to optimize your pictures file sizes. Improve your performances by using reSmush.it, the 7 billion images API optimizer.
+The FREE Image Optimizer which will compress your pictures and improve your SEO & performances by using reSmush.it, the 10+ billion images API optimizer.
 
 == Description ==
 
@@ -20,7 +20,7 @@ The plugin includes an option to exclude some pictures of the optimizer.
 
 Since Aug. 2016, reSmush.it allows to optimize pictures up to 5MB, for free !
 
-This plugin has initially been developped by [Maecia Agency](http://www.maecia.com/ "Maecia Drupal & Wordpress Agency"), Paris.
+[](http://coderisk.com/wp/plugin/resmushit-image-optimizer/RIPS-Af6lJWjjj5)
 
 == Installation ==
 
@@ -34,7 +34,11 @@ This plugin has initially been developped by [Maecia Agency](http://www.maecia.c
 
 = How great is reSmush.it ? =
 
-Since we've optimized more than 7,000,000,000 pictures, we've risen new skills. Our service is still in development to bring you new crazy functionalities.
+Since we've optimized more than 15,000,000,000 pictures, we've risen new skills. Our service is still in development to bring you new crazy functionalities.
+
+= What about WebP and next generation image formats ? =
+
+We're working on a new offer to bring you the best of these new features. Please be patient, it will come soon :)
 
 = Is there an "Optimize on upload" feature ? =
 
@@ -69,6 +73,64 @@ Yes ! Absolutely free, the only restriction is to send images below 5MB.
 1. The simple interface
 
 == Changelog ==
+
+= 0.4.4 =
+* Avoid SSL verifications if certificate of remote endpoints fails.
+* Security fixes : escape POST, and admin user check for AJAX requests
+
+= 0.4.3 =
+* Compatibility with WP 6.0.1
+* Security fix issues (https://www.pluginvulnerabilities.com/2022/02/01/wordpress-plugin-security-review-resmush-it-image-optimizer/)
+	* force int to ID in some SQL requests
+	* check that user is connected as admin/contributor for AJAX actions
+	* Message to indicate that there's no collection of data in contacting remote feed service
+
+= 0.4.2 =
+* Compatibility with PHP8+WP 5.8.2
+
+= 0.4.1 =
+* Official support of WP-CLI
+* Fix cron context optimization
+
+= 0.4.0 =
+* New option to restore all original pictures
+
+= 0.3.12 =
+* Fix : Default value assignment
+* Test on WP 5.7.1
+
+= 0.3.11 =
+* Fix : Optimize button not working when creating a new post
+* Fix : Default value of variables incorrectly initialized
+* Test on WP 5.5.1
+
+= 0.3.10 =
+* hotfix : deprecated function used
+
+= 0.3.9 =
+* Fix : OWASP & Security fix
+
+= 0.3.8 =
+* Fix : Fix warning in variable not set (metadata)
+* Fix : Add an extension uppercase check
+
+= 0.3.7 =
+* Fix : CSS+JS load on every admin page, now restricted to reSmush.it pages & medias
+* Fix : Links verification format for admin menu
+
+= 0.3.6 =
+* Fix : cron multiple run issue. 
+
+= 0.3.5 =
+* New header image, new WP description for plugin page.
+
+= 0.3.4 =
+* Issue in version number
+
+= 0.3.3 =
+* Fix double cron launch. Timeout added
+* Fix "Reduce by 0 (0 saved)" message if statistics are disabled
+* Return error if attachment file not found on disk
 
 = 0.3.2 =
 * Fix variable check (generate notice)

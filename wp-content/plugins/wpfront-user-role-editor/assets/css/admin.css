@@ -1,0 +1,19 @@
+#adminmenu ul.wp-submenu li a span.wpfront-go-pro {
+    color: #F18500;
+}
+
+/* user profile start */
+tr.user-secondary-role-wrap div.role-container, /* user profile */
+div#wpbody div.wrap form[action='options.php'] div.role-container { /* settings general */
+    min-width:200px;
+    width:25%;
+    float:left;
+}
+/* user profile end */
+
+/* user list start */
+table.wp-list-table.users .column-user_role {
+    width: 15%;
+}
+/* user list end */
+

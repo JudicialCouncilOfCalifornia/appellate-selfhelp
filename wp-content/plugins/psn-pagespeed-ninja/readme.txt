@@ -3,8 +3,8 @@
 Contributors: pagespeed
 Tags: page speed, optimizer, minification, gzip, render blocking css
 Requires at least: 4.0.1
-Tested up to: 5.3
-Stable tag: 0.9.40
+Tested up to: 5.5
+Stable tag: 0.9.43
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -80,6 +80,17 @@ None
 
 
 == Changelog ==
+
+= 0.9.43 Beta Release [29 August 2020]
+- Fixed possible error during deactivation
+
+= 0.9.42 Beta Release [29 August 2020]
+- Fixed conflict with AMP plugin
+- Fixed issue with infinite loading animation for local websites
+
+= 0.9.41 Beta Release [6 July 2020]
+- Fixed loading of PageSpeed Insights scores via API v5 (usability score is set to 100)
+- Changed Google Fonts loading for "Flash of unstyled text" mode via display=swap
 
 = 0.9.40 Beta Release [1 December 2019]
 - Fixed compatibility with PHP 7.4 in CSSTidy minifier

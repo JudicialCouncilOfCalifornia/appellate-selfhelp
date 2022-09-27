@@ -37,6 +37,9 @@
   .rsmt-panels .brdr-grey{ 
     border-left: 4px solid #a2a2a2
   }  
+  .rsmt-panels .brdr-black{ 
+    border-left: 4px solid #222222
+  }  
   .rsmt-panels h2{ 
     text-transform: uppercase;
     font-family: 'Roboto Slab', serif;
@@ -233,6 +236,10 @@
   }  
   .rsmt-news h3 a{
     text-decoration: none;
+  }
+  .rsmt-news .social .datainformation{
+    color: #ccc;
+    font-style: italic;
   }
   .rsmt-news .social{
     text-align: right;

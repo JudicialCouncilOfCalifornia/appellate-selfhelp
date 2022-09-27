@@ -1,0 +1,670 @@
+/*
+  WPFront User Role Editor Plugin
+  Copyright (C) 2014, WPFront.com
+  Website: wpfront.com
+  Contact: syam@wpfront.com
+
+  WPFront User Role Editor Plugin is distributed under the GNU General Public License, Version 3,
+  June 2007. Copyright (C) 2007 Free Software Foundation, Inc., 51 Franklin
+  St, Fifth Floor, Boston, MA 02110, USA
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+  ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+  ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+/* go pro admin menu link */
+#adminmenu ul.wp-submenu li.current a.current span.wpfront-go-pro {
+    color: inherit;
+}
+/* go pro admin menu link */
+
+/* list roles start */
+div.list-roles table div.row-actions {
+    /*white-space: nowrap;*/
+}
+
+@media screen and (max-width:782px) {
+    div.list-roles table .column-roletype,
+    div.list-roles table .column-userdefault,
+    div.list-roles table .column-usercount,
+    div.list-roles table .column-capscount,
+    div.list-roles table .column-edited_menu_column_key {
+        display: none;
+    }
+}
+/* list roles end */
+
+/* add edit roles start */
+div.role-add-new form#createuser table.sub-head {
+    width: 100%;
+}
+
+div.role-add-new form#createuser table.sub-head th.sub-head {
+    text-align: left;
+    padding: 0px;
+}
+
+div.role-add-new form#createuser table.sub-head th.sub-head h3 {
+}
+
+div.role-add-new form#createuser table.sub-head td.sub-head-controls {
+    text-align: right;
+    padding: 0px;
+}
+
+div.role-add-new form#createuser table.sub-head td.sub-head-controls div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.role-add-new form#createuser table.sub-head td.sub-head-controls div.spacer {
+    width: 10px;
+    height: 0px;
+}
+
+div.role-add-new form#createuser table.sub-head td.sub-head-controls input.select-all, div.role-add-new form#createuser table.sub-head td.sub-head-controls input.select-none {
+    width: 100px;
+}
+
+#wpbody-content div.role-add-new div.metabox-holder {
+    padding-top: 0px;
+}
+
+div.role-add-new div.metabox-holder div.postbox {
+    margin-bottom: 8px;
+}
+
+div.role-add-new div.metabox-holder .deprecated {
+    filter: alpha(opacity=80);
+    opacity: 0.8;
+}
+
+div.role-add-new div.metabox-holder div.postbox h3.hndle {
+
+}
+
+div.role-add-new div.metabox-holder div.postbox div.inside div.main div {
+    padding: 2px 0px;
+    display: inline-block;
+    width: 250px;
+    white-space: nowrap;
+}
+
+div.role-add-new div.metabox-holder div.postbox div.inside div.main div.no-capability {
+    width: auto;
+}
+
+div.role-add-new div.metabox-holder div.postbox label {
+    vertical-align: top;
+    max-width: 500px;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+div.role-add-new div.metabox-holder div.postbox label.denied {
+    text-decoration: line-through;
+}
+
+div.role-add-new div.metabox-holder div.postbox label.disabled {
+    color: #f77;
+}
+
+div.role-add-new div.metabox-holder div.postbox input.hidden {
+    display: none;
+}
+
+div.role-add-new div.metabox-holder div.postbox h3.hndle label {
+    max-width: 85%;
+}
+
+div.role-add-new div.metabox-holder div.postbox div.main i.fa-question-circle-o {
+    opacity: 0.8;
+    color: grey;
+    font-size: 0.8em;
+}
+
+div.role-add-new div.metabox-holder div.postbox div.main label {
+    max-width: 205px;
+}
+
+div.role-add-new div.footer {
+    text-align: center;
+}
+
+/* add edit roles end */
+
+/* restore roles start */
+div.role-restore table.form-table td div.restore-role-button-container, 
+div.role-restore table.form-table td div.restore-role-loader,
+div.role-restore table.form-table td div.restore-role-success {
+    display: none;
+}
+/* restore roles end */
+
+/* login redirect start */
+div.wrap.login-redirect table.wp-list-table .column-priority,
+div.wrap.login-redirect table.wp-list-table .column-deny_wpadmin,
+div.wrap.login-redirect table.wp-list-table .column-disable_toolbar {
+    width: 10%;
+    text-align: center;
+}
+
+div.wrap.login-redirect table.wp-list-table .column-url,
+div.wrap.login-redirect table.wp-list-table .column-logout_url{
+    width: 50%;
+}
+/* login redirect end */
+
+/* settings start */
+#wpfront-user-role-editor-options table div.options-list {
+    float: left;
+    width: 200px;
+}
+/* settings end */
+
+/* go pro start */
+div.wrap.go-pro div.container:before,
+div.wrap.go-pro div.container:after {
+    content:"";
+    display:table;
+}
+div.wrap.go-pro div.container:after {
+    clear:both;
+}
+div.wrap.go-pro div.container {
+    zoom:1; /* For IE 6/7 (trigger hasLayout) */
+    margin-top: 1em;
+}
+
+div.wrap.go-pro {
+    /*            text-align: center;*/
+    /*            background: #FFF;*/
+    /*            padding-top: 1%;
+        padding-bottom: 1%;*/
+}
+
+div.wrap.go-pro div.container {
+    text-align: center;
+    /*          display: inline-block; */
+}
+
+div.wrap.go-pro div.container div.col {
+    float: left;
+    width: 200px;
+    background-color: #FFF;
+    /*            box-shadow: 1px 1px 15px 0px rgba(50, 50, 50, 0.75);*/
+    margin-right: 1px;
+}
+
+div.wrap.go-pro div.container div.cell {
+    height: 40px;
+    padding: 10px 10px 0px 10px;
+    text-align: center;
+    border: 1px solid #fafafa;
+}
+
+div.wrap.go-pro div.container div.header.cell {
+    background-color: #2ea2cc;
+    height: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 3px 3px 0px 0px;
+    border: 0px;
+}
+
+div.wrap.go-pro div.container div.header.cell h3 {
+    color: #FFF;
+}
+
+div.wrap.go-pro div.license-container {
+    margin-bottom: 25px;
+}
+
+div.wrap.go-pro div.license-container table.form-table td.invalid,
+div.wrap.go-pro div.license-container table.form-table td.expired {
+    color: red;
+}
+/* go pro end */
+
+/* assign roles start */
+div.wrap.assign-roles div.role-list div.role-list-item,
+div.wrap.migrate-users div.role-list div.role-list-item {
+    padding-bottom: 5px;
+}
+
+div.wrap.assign-roles input[name="assign-user"], 
+div.wrap.assign-roles select.primary-role,
+div.wrap.migrate-users select.primary-role,
+div.wrap.migrate-users select#migrate_from_role  {
+    width: 100%;
+    max-width: 25em;
+}
+
+/* assign roles end */
+
+/* import roles start */
+div.wrap.import-roles table label.override, div.wrap.import-roles p.override {
+    color: red;
+}
+
+div.wrap.import-roles table label sup {
+    display: none;
+}
+
+div.wrap.import-roles table label.override sup {
+    display: inline-block;
+}
+/* import roles end */
+
+/* admin menu editor start */
+div.wrap.menu-editor div.spacer {
+    display: inline-block;
+    width: 10px;
+}
+
+div.wrap.menu-editor input.button.select-all,
+div.wrap.menu-editor input.button.select-none {
+    width: 100px;
+}
+
+div.wrap.menu-editor div.left-parent-menus,
+div.wrap.menu-editor div.right-sub-menus {
+    position: relative;
+    float: left;
+    min-width: 160px;
+    width: 50%;
+    max-width: 250px;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item,
+div.wrap.menu-editor div.right-sub-menus div.menu-item {
+    position: relative;
+    height: 34px;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0px;
+    border: 1px solid #888888;
+    border-bottom: 0;
+    margin: 0;
+    padding: 0;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item.last,
+div.wrap.menu-editor div.right-sub-menus div.menu-item.last {
+    border-bottom: 1px solid #888888;
+}
+
+div.wrap.menu-editor div.right-sub-menus div.menu-item {
+    border-left: 0;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item,
+div.wrap.menu-editor div.right-sub-menus div.menu-item {
+    cursor: pointer;
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item.selected {
+    background: rgb(238,238,238); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+}
+
+div.wrap.menu-editor div.right-sub-menus div.submenu-container {
+    position: absolute;
+    width: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+}
+
+div.wrap.menu-editor div.right-sub-menus div.submenu-container.selected {
+    visibility: visible;
+}
+
+div.wrap.menu-editor div.right-sub-menus div.menu-item {
+    cursor: default;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item div.current-menu-indicator,
+div.wrap.menu-editor div.menu-item div.menu-info {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 7px;
+    display: none;
+}
+
+div.wrap.menu-editor div.menu-item div.menu-info {
+    display: inline-block;
+}
+
+div.wrap.menu-editor div.menu-item div.menu-info i {
+    cursor: pointer;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item div.menu-info {
+    right: 15px;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item.selected div.current-menu-indicator {
+    display: inline-block;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item input.select,
+div.wrap.menu-editor div.right-sub-menus div.menu-item input.select {
+    float: left;
+    margin: 9px;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item input.select {
+    margin-right: 0px;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item div.menu-image {
+    float: left;
+    width: 36px;
+    height: 34px;
+    margin: 0;
+    text-align: center;
+    opacity: 0.8;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item div.menu-image img {
+    padding: 9px 0 0;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item div.menu-image::before {
+    color: inherit;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item div.menu-name,
+div.wrap.menu-editor div.right-sub-menus div.menu-item div.menu-name {
+    padding: 7px 0;
+    font-weight: 600;
+}
+
+div.wrap.menu-editor div.right-sub-menus div.menu-item div.menu-name {
+    font-weight: 500;
+}
+
+div.wrap.menu-editor div.left-parent-menus div.menu-item div.menu-name span.count-0 {
+    display: none;
+}
+
+div.wrap.menu-editor div.submit-botton {
+    clear: both;
+    padding-top: 1px;
+}
+
+/* admin menu editor end */
+
+
+/* extended permissions start */
+
+div.wpfront-user-role-editor-post-type-extended-permission {
+    display: flex;
+    margin-top: 8px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+div.wpfront-user-role-editor-post-type-extended-permission table {
+    width: 100%;
+}
+
+div.wpfront-user-role-editor-post-type-extended-permission table th,
+div.wpfront-user-role-editor-post-type-extended-permission table td {
+    text-align: center;
+    font-weight: normal;
+}
+
+div.wpfront-user-role-editor-post-type-extended-permission table thead th,
+div.wpfront-user-role-editor-post-type-extended-permission table tbody th {
+    font-weight: bold;
+}
+
+div.wpfront-user-role-editor-post-type-extended-permission table th.role {
+    text-align: left;
+    width: 15%;
+}
+
+div.wpfront-user-role-editor-post-type-extended-permission table th.view,
+div.wpfront-user-role-editor-post-type-extended-permission table th.edit,
+div.wpfront-user-role-editor-post-type-extended-permission table th.delete {
+    width: 3%;
+}
+
+div.wpfront-user-role-editor-post-type-extended-permission table th.view-deny-action {
+    text-align: left;
+    padding-left: 1%;
+}
+
+div.wpfront-user-role-editor-post-type-extended-permission table td.view-deny-action.four-O-four {
+    text-align: left;
+    width: 7%;
+    padding-left: 1%;
+}
+
+div.wpfront-user-role-editor-post-type-extended-permission table th.redirect,
+div.wpfront-user-role-editor-post-type-extended-permission table td.redirect {
+    text-align: left;
+    width: 50%;
+}
+
+div.wpfront-user-role-editor-post-type-extended-permission table td.redirect input.url {
+    width: 70%;
+    max-width: 30em;
+}
+
+#wpfront-user-role-editor-role-permissions-state td,
+#wpfront-user-role-editor-role-permissions-requires-login td {
+    padding-left: 30px;
+}
+
+#wpfront-user-role-editor-role-permissions-requires-login th {
+    text-align: left;
+}
+div.wpfront-user-role-editor-post-type-extended-permission table colgroup.view,
+div.wpfront-user-role-editor-post-type-extended-permission table colgroup.edit,
+div.wpfront-user-role-editor-post-type-extended-permission table colgroup.delete,
+div.wpfront-user-role-editor-post-type-extended-permission table colgroup.view-deny-action {
+    border-left: 1px solid #ededed;
+}
+div.wpfront-user-role-editor-post-type-extended-permission table colgroup.view,
+div.wpfront-user-role-editor-post-type-extended-permission table colgroup.delete {
+    background-color: #fbfbfb;
+}
+div.wpfront-user-role-editor-post-type-extended-permission table {
+    border-collapse: collapse;
+}
+
+div.wpfront-user-role-editor-post-type-extended-permission-legend {
+    font-style: italic;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+
+/* extended permissions end */
+
+
+/* bulk edit start */
+
+div.wrap.bulk-edit div.options p {
+    font-weight: bold;
+}
+
+/* bulk edit end */
+
+/* bulk edit extended permissions start */
+
+div.wrap.bulk-edit-extended-permissions p.loading-image {
+    text-align: center;
+}
+
+div.wrap.bulk-edit-extended-permissions div.bulkactions,
+div.wrap.bulk-edit-extended-permissions div.row-actions {
+    display: none;
+}
+
+div.wrap.bulk-edit-extended-permissions div#poststuff {
+    max-width:1200px;
+}
+
+div.wrap.bulk-edit-container div.update-info-line span {
+    margin-left: 10px;
+}
+
+div.wrap.bulk-edit-container div.update-info-line i {
+    width: 13px;
+}
+
+div.wrap.bulk-edit-extended-permissions div#single-role table tbody td,
+div.wrap.bulk-edit-extended-permissions div#single-role table tbody th{
+    text-align: center;
+    padding: 3px 20px 3px 0px;
+}
+
+div.wrap.bulk-edit-extended-permissions div#single-role table tbody td.redirect
+{
+    text-align: left;
+    width: 69.5%; 
+}
+
+div.wrap.bulk-edit-extended-permissions div#single-role table tbody td.four-o-four
+{
+    text-align: left;
+    width:10%;
+}
+
+div.wrap.bulk-edit-extended-permissions div#single-role table tbody th.view-deny-action
+{
+    text-align: left;
+
+}
+
+div.wrap.bulk-edit-extended-permissions div#single-role table tbody td input.url
+{
+    width: 25em;
+}
+/* bulk edit extended permissions end */
+
+/* bulk edit user post permissions start */
+
+div.wrap.bulk-edit-user-post-permissions p.loading-image {
+    text-align: center;
+}
+
+/* bulk edit user post permissions end */
+
+/* bulk edit extended permissions to user post permissions start */
+
+div.wrap.bulk-edit-extended-permissions-to-user-post-permissions p.loading-image {
+    text-align: center;
+}
+
+/* bulk edit extended permissions to user post permissions end */
+
+/* multisite sync start */
+
+div.wrap.ms-sync table.sites th.column-id,
+div.wrap.ms-sync table.sites td.column-id {
+    display: none;
+}
+
+div.wrap.ms-sync table.sites tr.selected {
+    background-color: #ffd;
+}
+
+div.wrap.ms-sync div#sync-container div.sync-info-line {
+    padding: 3px 5px;
+}
+
+div.wrap.ms-sync div#sync-container div.sync-info-line span,
+div.wrap.ms-sync div#sync-container div.sync-info-line a {
+    margin-left: 10px;
+}
+
+/* multisite sync end */
+
+/* post type screen start */
+
+div.wrap.post-type table.wp-list-table.post-type .column-edited,
+div.wrap.post-type table.wp-list-table.post-type .column-status {
+    text-align: center;
+}
+
+div.wrap.post-type-add-edit ul.chosen-choices {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* post type screen end */
+
+/* taxonomies screen start */
+
+div.wrap.taxonomy table.wp-list-table.taxonomies .column-edited,
+div.wrap.taxonomy table.wp-list-table.taxonomies .column-status {
+    text-align: center;
+}
+
+div.wrap.taxonomy-add-edit ul.chosen-choices {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* taxonomies screen end */
+
+.ui-tooltip {
+    background: #ffffff;
+    border: 1px solid #888;
+}
+.ui-tooltip {
+    padding: 10px 20px;
+    color: black;
+    border-radius: 5px;
+    box-shadow: 0 0 7px #888888;
+    max-width:350px;
+}
+
+div.thickbox p.error {
+    color: red;
+}
+
+/* autocomplete start */
+
+.ui-autocomplete .ui-menu-item {
+    padding: 0;
+    font-size: 15px;
+    line-height:1.5;
+    width: 100%;
+}
+
+.ui-autocomplete .ui-state-hover,  .ui-autocomplete .ui-state-active {
+    color: #ffffff;
+    background-color:  #3399ff;
+    font-weight: normal;
+}
+
+/* autocomplete end */
+
+

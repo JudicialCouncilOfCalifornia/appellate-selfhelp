@@ -17,7 +17,6 @@ ModuleCheckerUrlPattern: @^https?://(?:([\w\d]+\.)*youtube\.[^/]+/watch\?.*v=[^/
 */
 
 class blcYouTubeChecker extends blcChecker {
-	var $youtube_developer_key = 'AIzaSyCE2HKP0BneF8YdVT45UpadENdBeYCzFrE';
 	var $api_grace_period      = 0.3; //How long to wait between YouTube API requests.
 	var $last_api_request      = 0;   //Timestamp of the last request.
 
@@ -98,6 +97,7 @@ class blcYouTubeChecker extends blcChecker {
 			}
 		}
 
+
 		//The hash should contain info about all pieces of data that pertain to determining if the
 		//link is working.
 		$result['result_hash'] = implode(
@@ -129,9 +129,8 @@ class blcYouTubeChecker extends blcChecker {
 		if ( isset( $api['error'] ) && ( 404 !== $result['http_code'] ) ) { //404's are handled later.
 			$result['status_code'] = BLC_LINK_STATUS_WARNING;
 			$result['warning']     = true;
-
-			if ( isset( $api['error']['message'] ) ) {
-				$result['status_text'] = $api['error']['message'];
+			if ( isset( $api['error']['errors'] ) ) {
+				$result['status_text'] = $api['error']['errors'][0]['reason'];
 			} else {
 				$result['status_text'] = __( 'Unknown Error', 'broken-link-checker' );
 			}
@@ -285,7 +284,11 @@ class blcYouTubeChecker extends blcChecker {
 	}
 
 	public function get_youtube_api_key() {
-		return apply_filters( 'blc_youtube_api_key', $this->youtube_developer_key );
+		$conf = blc_get_configuration();
+
+		$api_key = ! empty( $conf->options['youtube_api_key'] ) ? $conf->options['youtube_api_key'] : '';
+
+		return apply_filters( 'blc_youtube_api_key', $conf->options['youtube_api_key'] );
 	}
 
 }

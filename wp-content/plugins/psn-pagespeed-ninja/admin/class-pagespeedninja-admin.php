@@ -833,6 +833,11 @@ class PagespeedNinja_Admin
             'wp-content',
             'uploads'
         );
+        if (!isset($GLOBALS['wp_locale_switcher'])) {
+            // a fix for insert_with_markers to work during deactivation stage
+            $GLOBALS['wp_locale_switcher'] = new WP_Locale_Switcher();
+            $GLOBALS['wp_locale_switcher']->init();
+        }
         foreach ($dirs as $dir) {
             // @todo remove "empty" (i.e. marker-only) .htaccess files
             if (is_dir($homeDir . '/' . $dir)) {

@@ -4,14 +4,14 @@
  * @author    Charles Bourgeaux <hello@resmush.it>
  * @license   GPL-2.0+
  * @link      http://www.resmush.it
- * @copyright 2020 Resmush.it
+ * @copyright 2022 Resmush.it
  *
  * @wordpress-plugin
  * Plugin Name:       reSmush.it Image Optimizer
  * Plugin URI:        https://wordpress.org/plugins/resmushit-image-optimizer/
  * Description:       Image Optimization API. Provides image size optimization
- * Version:           0.3.2
- * Timestamp:         2020.03.11
+ * Version:           0.4.4
+ * Timestamp:         2022.08.10
  * Author:            reSmush.it
  * Author URI:        https://resmush.it
  * Author:            Charles Bourgeaux
@@ -49,25 +49,27 @@ add_action( 'plugins_loaded', 'resmushit_load_plugin_textdomain' );
 */
 function resmushit_activate() {
 	if ( is_super_admin() ) {
-		if(get_option('resmushit_qlty') === null)
+		if(get_option('resmushit_qlty') === false)
 			update_option( 'resmushit_qlty', RESMUSHIT_DEFAULT_QLTY );
-		if(get_option('resmushit_on_upload') === null)
+		if(get_option('resmushit_on_upload') === false)
 			update_option( 'resmushit_on_upload', '1' );
-		if(get_option('resmushit_statistics') === null)
+		if(get_option('resmushit_statistics') === false)
 			update_option( 'resmushit_statistics', '1' );
-		if(get_option('resmushit_total_optimized') === null)
+		if(get_option('resmushit_total_optimized') === false || get_option('resmushit_total_optimized') == "")
 			update_option( 'resmushit_total_optimized', '0' );
-		if(get_option('resmushit_cron') === null)
+		if(get_option('resmushit_cron') === false || get_option('resmushit_cron') == "")
 			update_option( 'resmushit_cron', 0 );
-		if(get_option('resmushit_cron_lastrun') === null)
+		if(get_option('resmushit_cron_lastaction') === false  || get_option('resmushit_cron_lastaction') == "")
+			update_option( 'resmushit_cron_lastaction', 0 );
+		if(get_option('resmushit_cron_lastrun') === false || get_option('resmushit_cron_lastrun') == "")
 			update_option( 'resmushit_cron_lastrun', 0 );
-		if(get_option('resmushit_cron_firstactivation') === null)
+		if(get_option('resmushit_cron_firstactivation') === false || get_option('resmushit_cron_firstactivation') == "")
 			update_option( 'resmushit_cron_firstactivation', 0 );
-		if(!get_option('resmushit_preserve_exif'))
+		if(get_option('resmushit_preserve_exif') === false || get_option('resmushit_preserve_exif') == "")
 			update_option( 'resmushit_preserve_exif', 0 );
-		if(!get_option('resmushit_remove_unsmushed'))
+		if(get_option('resmushit_remove_unsmushed') === false || get_option('resmushit_remove_unsmushed') == "")
 			update_option( 'resmushit_remove_unsmushed', 0 );
-		if(!get_option('resmushit_has_no_backup_files'))
+		if(get_option('resmushit_has_no_backup_files') === false || get_option('resmushit_has_no_backup_files') == "")
 			update_option( 'resmushit_has_no_backup_files', 0 );
 	}
 }
@@ -101,13 +103,18 @@ function resmushit_process_images($attachments, $force_keep_original = TRUE) {
 	if(reSmushit::getDisabledState($attachment_id))
 		return $attachments;
 
+	if(empty($attachments)) {
+		rlog("Error! Attachment #$attachment_id has no corresponding file on disk.", 'WARNING');
+		return $attachments;
+	}
+
 	$fileInfo = pathinfo(get_attached_file( $attachment_id ));
 	$basepath = $fileInfo['dirname'] . '/';
 	$extension = isset($fileInfo['extension']) ? $fileInfo['extension'] : NULL;
 	$basefile = basename($attachments[ 'file' ]);
 
 	// Optimize only pictures/files accepted by the API
-	if( !in_array($extension, resmushit::authorizedExtensions()) ) {
+	if( !in_array(strtolower($extension), resmushit::authorizedExtensions()) ) {
 		return $attachments;	
 	}
 
@@ -128,17 +135,14 @@ function resmushit_process_images($attachments, $force_keep_original = TRUE) {
 	if(!$error) {
 		$optimizations_successful_count = get_option('resmushit_total_optimized');
 		update_option( 'resmushit_total_optimized', $optimizations_successful_count + $count );
-
-		update_post_meta($attachment_id,'resmushed_quality', resmushit::getPictureQualitySetting());
-		if(get_option('resmushit_statistics')){
-			update_post_meta($attachment_id,'resmushed_cumulated_original_sizes', $cumulated_original_sizes);
-			update_post_meta($attachment_id,'resmushed_cumulated_optimized_sizes', $cumulated_optimized_sizes);
-		}
+		update_post_meta($attachment_id,'resmushed_quality', resmushit::getPictureQualitySetting());		
+		update_post_meta($attachment_id,'resmushed_cumulated_original_sizes', $cumulated_original_sizes);
+		update_post_meta($attachment_id,'resmushed_cumulated_optimized_sizes', $cumulated_optimized_sizes);
 	}
 	return $attachments;
 }
 //Automatically optimize images if option is checked
-if(get_option('resmushit_on_upload') OR ( isset($_POST['action']) AND ($_POST['action'] === "resmushit_bulk_process_image" OR $_POST['action'] === "resmushit_optimize_single_attachment" )))
+if(get_option('resmushit_on_upload') OR ( isset($_POST['action']) AND ($_POST['action'] === "resmushit_bulk_process_image" OR $_POST['action'] === "resmushit_optimize_single_attachment" )) OR (defined( 'WP_CLI' ) && WP_CLI ) OR ($is_cron) )
 	add_filter('wp_generate_attachment_metadata', 'resmushit_process_images');   
  
 
@@ -189,6 +193,10 @@ if(get_option('resmushit_on_upload'))
 * @return json object
 */
 function resmushit_bulk_get_images() {
+	if(!is_super_admin() && !current_user_can('administrator')) {
+		return(json_encode(array('error' => 'User must be at least administrator to retrieve these data')));
+		die();
+	}
 	echo reSmushit::getNonOptimizedPictures();
 	die();
 }	
@@ -205,8 +213,12 @@ add_action( 'wp_ajax_resmushit_bulk_get_images', 'resmushit_bulk_get_images' );
 * @return json object
 */
 function resmushit_update_disabled_state() {
+	if(!is_super_admin() && !current_user_can('administrator')) {
+		return(json_encode(array('error' => 'User must be at least administrator to retrieve these data')));
+		die();
+	}
 	if(isset($_POST['data']['id']) && $_POST['data']['id'] != null && isset($_POST['data']['disabled'])){
-		echo reSmushit::updateDisabledState(sanitize_text_field($_POST['data']['id']), sanitize_text_field($_POST['data']['disabled']));
+		echo reSmushit::updateDisabledState(sanitize_text_field((int)$_POST['data']['id']), sanitize_text_field($_POST['data']['disabled']));
 	}	
 	die();
 }	
@@ -224,9 +236,13 @@ add_action( 'wp_ajax_resmushit_update_disabled_state', 'resmushit_update_disable
 * @return json object
 */
 function resmushit_optimize_single_attachment() {
+	if(!is_super_admin() && !current_user_can('administrator')) {
+		return(json_encode(array('error' => 'User must be at least administrator to retrieve these data')));
+		die();
+	}
 	if(isset($_POST['data']['id']) && $_POST['data']['id'] != null){
-		reSmushit::revert(sanitize_text_field($_POST['data']['id']));
-		echo json_encode(reSmushit::getStatistics($_POST['data']['id']));
+		reSmushit::revert(sanitize_text_field((int)$_POST['data']['id']));
+		echo json_encode(reSmushit::getStatistics(sanitize_text_field((int)$_POST['data']['id'])));
 	}	
 	die();
 }	
@@ -244,8 +260,12 @@ add_action( 'wp_ajax_resmushit_optimize_single_attachment', 'resmushit_optimize_
 * @return boolean
 */	
 function resmushit_bulk_process_image() {
-	rlog('Bulk optimization launched for file : ' . get_attached_file( sanitize_text_field($_POST['data']['ID']) ));
-	echo reSmushit::revert(sanitize_text_field($_POST['data']['ID']));
+	if(!is_super_admin() && !current_user_can('administrator')) {
+		return(json_encode(array('error' => 'User must be at least administrator to retrieve these data')));
+		die();
+	}
+	rlog('Bulk optimization launched for file : ' . get_attached_file( sanitize_text_field((int)$_POST['data']['ID']) ));
+	echo reSmushit::revert(sanitize_text_field((int)$_POST['data']['ID']));
 	die();
 }
 add_action( 'wp_ajax_resmushit_bulk_process_image', 'resmushit_bulk_process_image' );
@@ -262,6 +282,10 @@ add_action( 'wp_ajax_resmushit_bulk_process_image', 'resmushit_bulk_process_imag
 * @return json object
 */
 function resmushit_update_statistics() {
+	if(!is_super_admin() && !current_user_can('administrator')) {
+		return(json_encode(array('error' => 'User must be at least administrator to retrieve these data')));
+		die();
+	}
 	$output = reSmushit::getStatistics();
 	$output['total_saved_size_formatted'] = reSmushitUI::sizeFormat($output['total_saved_size']);
 	echo json_encode($output);
@@ -279,6 +303,11 @@ add_action( 'wp_ajax_resmushit_update_statistics', 'resmushit_update_statistics'
  * @return string
  */
 function resmushit_add_plugin_page_settings_link($links) {
+	if(is_string($links)) {
+		$oneLink = $links;
+		$links = array();
+		$links[] = $oneLink; 
+	}
 	$links[] = '<a href="' . admin_url( 'upload.php?page=resmushit_options' ) . '">' . __('Settings', "resmushit-image-optimizer") . '</a>';
 	return $links;
 }
@@ -333,22 +362,30 @@ if(!get_option('resmushit_cron') || get_option('resmushit_cron') === 0) {
 function resmushit_cron_process() {
 	global $is_cron;
 	$is_cron = TRUE;
+
+	if((time() - get_option('resmushit_cron_lastaction')) < RESMUSHIT_CRON_TIMEOUT) {
+		rlog('Another CRON process is running, process aborted.', 'WARNING');
+		return FALSE;
+	}
 	update_option( 'resmushit_cron_lastrun', time() );
-	
+	update_option( 'resmushit_cron_lastaction', time() );
+
 	// required if launch through wp-cron.php
 	include_once( ABSPATH . 'wp-admin/includes/image.php' );
 
-	add_filter('wp_generate_attachment_metadata', 'resmushit_process_images'); 
+	add_filter('wp_generate_attachment_metadata', 'resmushit_process_images');
 	rlog('Gathering unoptimized pictures from CRON');
 	$unoptimized_pictures = json_decode(reSmushit::getNonOptimizedPictures(TRUE));
 	rlog('Found ' . count($unoptimized_pictures->nonoptimized) . ' attachments');
+
 	foreach($unoptimized_pictures->nonoptimized as $el) {
 		if (wp_next_scheduled ( 'resmushit_optimize' )) { 
 			//avoid to collapse two crons
 			wp_unschedule_event(wp_next_scheduled('resmushit_optimize'), 'resmushit_optimize');
 		}
 		rlog('CRON Processing attachments #' . $el->ID);
-		reSmushit::revert($el->ID);
+		update_option( 'resmushit_cron_lastaction', time() );
+		reSmushit::revert((int)$el->ID);
 	}
 }
 add_action('resmushit_optimize', 'resmushit_cron_process');
@@ -414,8 +451,13 @@ add_action('update_option_resmushit_remove_unsmushed', 'resmushit_on_remove_unsm
 * @return json object
 */
 function resmushit_remove_backup_files() {
-	$files=detect_unsmushed_files();
 	$return = array('success' => 0);
+	if(!is_super_admin() && !current_user_can('administrator')) {
+		return(json_encode(array('error' => 'User must be at least administrator to retrieve these data')));
+		die();
+	}
+
+	$files=detect_unsmushed_files();
 	
 	foreach($files as $f) {
 		if(unlink($f)) {
@@ -428,3 +470,61 @@ function resmushit_remove_backup_files() {
 	die();
 }	
 add_action( 'wp_ajax_resmushit_remove_backup_files', 'resmushit_remove_backup_files' );	
+
+
+/**
+* 
+* retrieve Attachment ID from Path
+* from : https://pippinsplugins.com/retrieve-attachment-id-from-image-url/
+*
+* @param imageURL
+* @return json object
+*/
+function resmushit_get_image_id($image_url) {
+	global $wpdb;
+	$attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url )); 
+        return $attachment[0]; 
+}
+
+/**
+* 
+* add Ajax action to restore backups (-unsmushed) from the filesystem
+*
+* @param none
+* @return json object
+*/
+function resmushit_restore_backup_files() {
+	if(!is_super_admin() && !current_user_can('administrator')) {
+		return(json_encode(array('error' => 'User must be at least administrator to retrieve these data')));
+		die();
+	}
+	$files=detect_unsmushed_files();
+	$return = array('success' => 0);
+	$wp_upload_dir=wp_upload_dir();
+
+	foreach($files as $f) {
+		$dest = str_replace('-unsmushed', '', $f);
+		$pictureURL = str_replace($wp_upload_dir['basedir'], $wp_upload_dir['baseurl'], $dest);
+		$attachementID = resmushit_get_image_id($pictureURL);
+
+		if(reSmushit::revert($attachementID, true)) {
+			if(unlink($f)) {
+				$return['success']++;
+			}
+		}
+	}
+	echo json_encode($return);
+	die();
+}	
+add_action( 'wp_ajax_resmushit_restore_backup_files', 'resmushit_restore_backup_files' );	
+
+
+
+/**
+* 
+* Declares WPCLI extension if in WP_CLI context
+*
+*/
+if( defined( 'WP_CLI' ) && WP_CLI ) {
+	WP_CLI::add_command( 'resmushit', 'reSmushitWPCLI' );
+}

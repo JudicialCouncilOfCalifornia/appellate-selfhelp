@@ -22,7 +22,7 @@
     }
   };
 
-  $('#bulk_edit').live( 'click', function() {
+  $('body').on( 'click', '#bulk_edit', function() {
     // define the bulk edit row
     var $bulk_row = $( '#bulk-edit' );
 

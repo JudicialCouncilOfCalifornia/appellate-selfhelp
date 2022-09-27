@@ -1,7 +1,7 @@
 'use strict';
 (function () {
 
-    var pagespeed_api = 'https://www.googleapis.com/pagespeedonline/v2/runPagespeed';
+    var pagespeed_api = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed';
 
     var tab_name,
         newUrl = null,
@@ -123,13 +123,13 @@
 
         if (cached_scores !== null) {
             if ('desktop' in cached_scores) {
-                rearrangeItems(cached_scores['desktop'], 'desktop', 'SPEED');
+                //rearrangeItems(cached_scores['desktop'], 'desktop', 'SPEED');
             } else {
                 result = false;
             }
             if ('mobile' in cached_scores) {
-                rearrangeItems(cached_scores['mobile'], 'mobile', 'SPEED');
-                rearrangeItems(cached_scores['mobile'], 'usability', 'USABILITY');
+                //rearrangeItems(cached_scores['mobile'], 'mobile', 'SPEED');
+                //rearrangeItems(cached_scores['mobile'], 'usability', 'USABILITY');
             } else {
                 result = false;
             }
@@ -168,23 +168,25 @@
             jQuery.get(pagespeed_api, {strategy: 'desktop', url: url_orig}).done(function (response) {
                 var score = '';
                 try {
-                    score = response.ruleGroups.SPEED.score;
-                    origScore['desktop'] = response.formattedResults.ruleResults;
+                    score = Math.round(100*response.lighthouseResult.categories.performance.score);
+                    origScore['desktop'] = null;
                 } catch (e) {
                     console.log(e);
                     origScore['desktop'] = null;
                 }
                 updatePSIScore(score, document.getElementById('pagespeed_desktop_orig'));
+            }).fail(function () {
+                updatePSIScore('', document.getElementById('pagespeed_desktop_orig'));
             }),
 
             jQuery.get(pagespeed_api, {strategy: 'mobile', url: url_orig}).done(function (response) {
                 var score1 = '',
                     score2 = '';
                 try {
-                    score1 = response.ruleGroups.SPEED.score;
-                    score2 = response.ruleGroups.USABILITY.score;
-                    origScore['mobile'] = response.formattedResults.ruleResults;
-                    origScore['usability'] = response.formattedResults.ruleResults;
+                    score1 = Math.round(100*response.lighthouseResult.categories.performance.score);
+                    score2 = 100;
+                    origScore['mobile'] = null;
+                    origScore['usability'] = null;
                 } catch (e) {
                     console.log(e);
                     origScore['mobile'] = null;
@@ -192,6 +194,9 @@
                 }
                 updatePSIScore(score1, document.getElementById('pagespeed_mobile_orig'));
                 updatePSIScore(score2, document.getElementById('pagespeed_usability_orig'));
+            }).fail(function () {
+                updatePSIScore('', document.getElementById('pagespeed_mobile_orig'));
+                updatePSIScore('', document.getElementById('pagespeed_usability_orig'));
             }),
 
             // generate optimized assets
@@ -203,29 +208,34 @@
             jQuery.get(pagespeed_api, {strategy: 'desktop', url: url_random}).done(function (response) {
                 var score = '';
                 try {
-                    score = response.ruleGroups.SPEED.score;
-                    psnScore['desktop'] = response.formattedResults.ruleResults;
-                    rearrangeItems(response.formattedResults.ruleResults, 'desktop', 'SPEED');
+                    score = Math.round(100*response.lighthouseResult.categories.performance.score);
+                    psnScore['desktop'] = null;
+                    //rearrangeItems(response.formattedResults.ruleResults, 'desktop', 'SPEED');
                 } catch (e) {
                     console.log(e);
                 }
                 updatePSIScore(score, document.getElementById('pagespeed_desktop'));
+            }).fail(function () {
+                updatePSIScore('', document.getElementById('pagespeed_desktop'));
             }).always(function () {
 
                 jQuery.get(pagespeed_api, {strategy: 'mobile', url: url_random}).done(function (response) {
                     var score1 = '',
                         score2 = '';
                     try {
-                        score1 = response.ruleGroups.SPEED.score;
-                        score2 = response.ruleGroups.USABILITY.score;
-                        psnScore['mobile'] = response.formattedResults.ruleResults;
-                        rearrangeItems(response.formattedResults.ruleResults, 'mobile', 'SPEED');
-                        rearrangeItems(response.formattedResults.ruleResults, 'usability', 'USABILITY');
+                        score1 = Math.round(100*response.lighthouseResult.categories.performance.score);
+                        score2 = 100;
+                        psnScore['mobile'] = null;
+                        //rearrangeItems(response.formattedResults.ruleResults, 'mobile', 'SPEED');
+                        //rearrangeItems(response.formattedResults.ruleResults, 'usability', 'USABILITY');
                     } catch (e) {
                         console.log(e);
                     }
                     updatePSIScore(score1, document.getElementById('pagespeed_mobile'));
                     updatePSIScore(score2, document.getElementById('pagespeed_usability'));
+                }).fail(function () {
+                    updatePSIScore('', document.getElementById('pagespeed_mobile'));
+                    updatePSIScore('', document.getElementById('pagespeed_usability'));
                 }).always(function () {
                     savePageSpeedCached();
                 });
@@ -475,7 +485,8 @@
                         return;
                     }
                     try {
-                        updatePSIScore(response.ruleGroups.SPEED.score, document.getElementById('pagespeed_desktop_new'));
+                        var score = Math.round(100*response.lighthouseResult.categories.performance.score);
+                        updatePSIScore(score, document.getElementById('pagespeed_desktop_new'));
                     } catch (e) {
                         console.log(e);
                     }
@@ -486,8 +497,10 @@
                         return;
                     }
                     try {
-                        updatePSIScore(response.ruleGroups.SPEED.score, document.getElementById('pagespeed_mobile_new'));
-                        updatePSIScore(response.ruleGroups.USABILITY.score, document.getElementById('pagespeed_usability_new'));
+                        var score1 = Math.round(100*response.lighthouseResult.categories.performance.score);
+                        var score2 = 100;
+                        updatePSIScore(score1, document.getElementById('pagespeed_mobile_new'));
+                        updatePSIScore(score2, document.getElementById('pagespeed_usability_new'));
                     } catch (e) {
                         console.log(e);
                     }

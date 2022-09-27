@@ -2,14 +2,14 @@
 /*
 Plugin Name: Search Exclude
 Description: Hide any page or post from the WordPress search results by checking off the checkbox.
-Version: 1.2.5
+Version: 1.2.7
 Author: Roman Pronskiy
 Author URI: http://pronskiy.com
 Plugin URI: http://wordpress.org/plugins/search-exclude/
 */
 
 /*
-Copyright (c) 2012-2019 Roman Pronskiy
+Copyright (c) 2012-2022 Roman Pronskiy
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

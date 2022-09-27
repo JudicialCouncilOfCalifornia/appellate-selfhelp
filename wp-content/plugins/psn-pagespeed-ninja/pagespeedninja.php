@@ -7,7 +7,7 @@
  * Plugin Name:       PageSpeed Ninja
  * Plugin URI:        http://pagespeed.ninja
  * Description:       The quickest and most advanced performance plugin. Make your site super fast and fix PageSpeed issues with one click! Try different settings to find the best set of options for your site.
- * Version:           0.9.40
+ * Version:           0.9.43
  * Author:            PageSpeed Ninja
  * Author URI:        https://wordpress.org/support/users/pagespeed/
  * License:           GPL-2.0+

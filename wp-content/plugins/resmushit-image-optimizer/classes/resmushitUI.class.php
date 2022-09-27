@@ -71,7 +71,7 @@ Class reSmushitUI {
 	 * @return none
 	 */
 	public static function headerPanel() {
-		$html = "<img src='". RESMUSHIT_BASE_URL . "images/header.jpg' />";
+		$html = "<img src='". RESMUSHIT_BASE_URL . "images/header.png' />";
 		self::fullWidthPanel($html);
 	}
 
@@ -265,6 +265,29 @@ Class reSmushitUI {
 	}
 
 
+/**
+	 *
+	 * Generate Statistics panel
+	 *
+	 * @param  none
+	 * @return none
+	 */
+	public static function restorePanel() {
+		if(get_option('resmushit_remove_unsmushed') == 1 ){
+			return FALSE;
+		}
+		self::fullWidthPanelWrapper(__('Restore Media Library', 'resmushit-image-optimizer'), null, 'black');
+
+		echo "<div class='rsmt-restore'>";
+
+		echo 
+			'<p><strong>'
+			. __('Warning! By clicking the button below, you will restore all the original pictures, as before reSmush.it Image Optimizer installation. You will not have your pictures optimized! We strongly advice to be sure to have a complete backup of your website before performing this action', 'resmushit-image-optimizer')
+			. '</strong></p><p>'
+			. '<input type="button" value="'. __('Restore ALL my original pictures', 'resmushit-image-optimizer') .'" class="rsmt-trigger--restore-backup-files button media-button  select-mode-toggle-button" name="resmushit" class="button wp-smush-send" />';
+		echo "</div>";
+		self::fullWidthPanelEndWrapper(); 		
+	}
 
 	/**
 	 *
@@ -283,6 +306,8 @@ Class reSmushitUI {
 		curl_setopt($ch, CURLOPT_URL, RESMUSHIT_NEWSFEED);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		$data_raw = curl_exec($ch);
 		curl_close($ch);
 		$data = json_decode($data_raw);
@@ -314,11 +339,9 @@ Class reSmushitUI {
 		}
 
 		echo "<div class='social'>"
-				. "<a class='social-maecia' title='"
-				. __('Maecia Agency - Paris France', 'resmushit-image-optimizer')
-				. "' href='https://www.maecia.com' target='_blank'>"
-				. "<img src='"
-				. RESMUSHIT_BASE_URL . "images/maecia.png' /></a>"
+				. "<p class='datainformation'>"
+				. __('No user data nor any information is collected while requesting this news feed.', 'resmushit-image-optimizer')
+				. "<p>"
 				. "<a class='social-resmushit' title='"
 				. __('Visit resmush.it for more informations', 'resmushit-image-optimizer')
 				. "' href='https://resmush.it' target='_blank'>"
@@ -427,6 +450,8 @@ Class reSmushitUI {
 				$additionnal = null;
 				if ( 1 == get_option( $machine_name ) ) $additionnal = 'checked="checked"'; 
 				$output .= "<input type='checkbox' name='$machine_name' id='$machine_name' value='1' ".  $additionnal ."/>";
+				break;
+			default:
 				break;
 		}
 		$output .= '</div>';

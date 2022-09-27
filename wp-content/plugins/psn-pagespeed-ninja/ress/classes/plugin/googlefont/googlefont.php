@@ -4,7 +4,7 @@
  * RESSIO Responsive Server Side Optimizer
  * https://github.com/ressio/
  *
- * @copyright   Copyright (C) 2013-2019 Kuneri, Ltd. All rights reserved.
+ * @copyright   Copyright (C) 2013-2020 Kuneri, Ltd. All rights reserved.
  * @license     GNU General Public License version 2
  */
 
@@ -79,7 +79,7 @@ class Ressio_Plugin_Googlefont extends Ressio_Plugin
                 }
                 break;
 
-            case 'fout':
+            case 'fout-legacy':
                 $orig = '<link rel="stylesheet" href="' . $url . '"' . ($isHtml5 ? '' : ' type="text/css"/') . '>';
 
                 $script = file_get_contents(RESSIO_PATH . '/classes/plugin/googlefont/js/loadfont.min.js');
@@ -95,6 +95,10 @@ class Ressio_Plugin_Googlefont extends Ressio_Plugin
                 );
 
                 break;
+
+            case 'fout':
+                $url .= '&display=swap';
+                /** @fallthrough */
 
             case 'first':
             case 'foit':

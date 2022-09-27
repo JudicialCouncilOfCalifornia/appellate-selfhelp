@@ -1,0 +1,292 @@
+.tooltips-pro-how-to-each-bar{cursor:pointer}
+.postbox.tooltips-pro-how-to-each-bar{margin-bottom:0!important}
+.tooltips-pro-how-to-each-bar span
+{
+font-size:32px;color:#056;display:inline-block;position:relative;left:0;top:2px;margin-right:12px;margin-left:8px;float:left
+}
+.tooltips-pro-how-to-each-bar .hndle,
+.tooltips-pro-how-to-each-bar .hndle
+{border-bottom:0 solid #eee!important}
+
+/* !!!start */
+span.questionlanguagecustomizationaddon, span.questionlanguageforglossary, span.questiontooltipsPopupCreditLinkInPopupWindow
+, span.questionoceanwp, span.removenavbaringlossarypage, span.questiondisabletooltipentiresite, span.questiondisabletooltipsforglossary
+, span.questiondisabletooltipmobile, span.spanquestionglossarysearchable, span.spanquestioncategorytitle
+, span.questionglossarynumbersornot, span.questiondisabletooltipforclassandids, span.questionfontsize, span.questionmovejstofooter
+, span.questionEnableJqueryMigrate, span.questionglossaryfontsize, span.spanhidecountnumberitemforglossary
+{
+  cursor: pointer;
+  display: inline-block;
+  line-height: 16px;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  -webkit-border-radius:7px;
+  -moz-border-radius:7px;
+  background: #5893ae;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+span.questionlanguagecustomizationaddon:hover, span.questionlanguageforglossary:hover, span.questiontooltipsPopupCreditLinkInPopupWindow:hover
+, span.questionoceanwp:hover, span.removenavbaringlossarypage:hover, span.questiondisabletooltipentiresite:hover
+, span.questiondisabletooltipsforglossary:hover, , span.questiondisabletooltipmobile:hover, span.spanquestionglossarysearchable:hover
+, span.spanquestioncategorytitle:hover, span.questionglossarynumbersornot:hover, span.questiondisabletooltipforclassandids:hover
+, span.questionfontsize:hover, span.questionmovejstofooter:hover,  span.questionEnableJqueryMigrate:hover, span.questionglossaryfontsize:hover
+, span.spanhidecountnumberitemforglossary:hover
+{
+	background-color: #21759b; 
+}
+
+div.tooltiplanguagecustomizationaddon, div.tooltipforoceanwp, div.glossaryremovenavbaringlossarypage, div.divclasstooltipentiresite
+, div.tooltipdisabletooltipmobile, div.glossarysearchablediv, div.divtooltipforcategorytitle, div.tooltip28, div.tooltipmovejstofooter
+, div.divEnableJqueryMigrate, div.divquestionglossaryfontsize, div.divhidecountnumberitemforglossary
+{
+  text-align: left;
+  left: 25px;
+  background: #21759b;
+  color: #fff;
+  position: absolute;
+  z-index: 1000000;
+  width: 550px;
+  border-radius: 5px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+top: -20px;
+}
+.tooltiplanguagecustomizationaddon:before, .tooltipforoceanwp:before , .divclasstooltipentiresite:before, .divtooltipforcategorytitle:before
+, .tooltipdisabletooltipmobile:before, .divtooltipforcategorytitle:before, .tooltip28:before, .tooltipmovejstofooter:before
+, .divEnableJqueryMigrate:before, .divquestionglossaryfontsize:before, div.divhidecountnumberitemforglossary:before
+{
+  border-color: transparent #21759b transparent transparent;
+  border-right: 6px solid #21759b;
+  border-style: solid;
+  border-width: 6px 6px 6px 0px;
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  position: absolute;
+  top: 40%;
+  left: -6px;
+}
+
+.tooltiplanguagecustomizationaddon p,  .tooltipforoceanwp p , .divclasstooltipentiresite p, .tooltipdisabletooltipmobile p
+, .divtooltipforcategorytitle p, .tooltip28 p, .tooltipmovejstofooter p, .divEnableJqueryMigrate p
+, .divEnableJqueryMigrate p, .divquestionglossaryfontsize p, div.divhidecountnumberitemforglossary p
+{
+  margin: 10px;
+ line-height:16px;
+ font-size:11px;
+ color:#eee; 
+}
+
+.glossaryremovenavbaringlossarypage:before, .glossarysearchablediv:before
+{
+  border-color: transparent #21759b transparent transparent;
+  border-right: 6px solid #21759b;
+  border-style: solid;
+  border-width: 6px 6px 6px 0px;
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  position: absolute;
+  top: 40%;
+  left: -6px;
+}	
+
+.glossaryremovenavbaringlossarypage p, .glossarysearchablediv p
+{
+  margin: 10px;
+ line-height:16px;
+ font-size:11px;
+ color:#eee;	
+}
+
+div.glossarydisabletooltipsforglossarydiv
+{
+  text-align: left;
+  left: 25px;
+  background: #21759b;
+  color: #fff;
+  position: absolute;
+  z-index: 1000000;
+  width: 450px;
+  border-radius: 5px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+top: -20px;	
+}
+
+.glossarydisabletooltipsforglossarydiv:before
+{
+  border-color: transparent #21759b transparent transparent;
+  border-right: 6px solid #21759b;
+  border-style: solid;
+  border-width: 6px 6px 6px 0px;
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  position: absolute;
+  top: 40%;
+  left: -6px;
+}
+
+.glossarydisabletooltipsforglossarydiv p
+{
+  margin: 10px;
+ line-height:16px;
+ font-size:11px;
+ color:#eee; 
+}
+
+/* !!!end */
+
+
+/*  7.2.3 moved from tooltips.php inline codes to css to speed up page load speed */
+span.question, span.questionimage, span.questionexcerpt, span.questiontags,
+span.questionsinglecat, span.hiddenimageinglossary, span.questiontooltippopupanimation,span.questionstyle
+, span.questionshowtooltipclosebutton, span.questionzindex , span.questionremoveontag
+, span.questionindexforglossary, span.questionglossaryindexpageselect,span.questionglossaryexcerptorcontent
+, span.questionbulkremovetermfromglossarylist
+{
+	cursor: pointer;
+	display: inline-block;
+	line-height: 14px;
+	width: 14px;
+	height: 14px;
+	border-radius: 7px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	background: #5893ae;
+	color: #fff;
+	text-align: center;
+	position: relative;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+span.question:hover,span.questionimage:hover, span.questiontags:hover,span.questionsinglecat:hover,span.hiddenimageinglossary:hover, span.questiontooltippopupanimation:hover,span.questionstyle:hover
+, span.questionshowtooltipclosebutton:hover, span.questionzindex:hover, span.questionremoveontag:hover, span.questionindexforglossary:hover 
+,span.questionglossaryindexpageselect:hover, span.questionglossaryexcerptorcontent:hover, span.questionbulkremovetermfromglossarylist:hover
+{
+	background-color: #21759b;
+}
+
+
+div.tooltip
+{
+	text-align: left;
+	left: 25px;
+	background: #21759b;
+	color: #fff;
+	position: absolute;
+	z-index: 1000000;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	width: 600px;
+	top: -30px;	
+}
+
+div.tooltip:before
+{
+	border-color: transparent #21759b transparent transparent;
+	border-right: 6px solid #21759b;
+	border-style: solid;
+	border-width: 6px 6px 6px 0px;
+	content: "";
+	display: block;
+	height: 0;
+	width: 0;
+	line-height: 0;
+	position: absolute;
+	top: 40%;
+	left: -6px;
+}
+
+div.tooltip p 
+{
+	margin: 10px;
+	line-height: 13px;
+	font-size: 11px;
+	color: #eee;
+}
+/** glossary */
+div.glossary7 {
+  text-align: left;
+  left: 25px;
+  background: #21759b;
+  color: #fff;
+  position: absolute;
+  z-index: 1000000;
+  width: 400px;
+  border-radius: 5px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+top: -50px;
+}
+
+
+div.glossary4, div.glossary5, div.glossary6, div.glossary8, div.glossary9, div.glossary10 , div.glossary11 , div.glossary12 , div.glossary13
+ , div.glossary14 , div.glossary15, div.glossary16, div.glossary17, div.glossary18, div.glossary19, div.glossary20, div.glossary21, div.glossary22
+ , div.glossary23, div.glossary24, div.glossary25, div.glossary26, div.glossary27, div.glossary28, div.glossary29
+ , div.glossarydisabletooltipsforglossary, div.questionglossarysearchable, div.glossary23, div.glossaryexcerptorcontent
+ , div.glossarybulkremovetermfromglossarylist
+{
+  text-align: left;
+  left: 25px;
+  background: #21759b;
+  color: #fff;
+  position: absolute;
+  z-index: 1000000;
+  width: 400px;
+  border-radius: 5px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+top: -20px;
+}
+
+div.glossary:before, .glossary1:before, .glossary3:before, .glossary4:before,.glossary5:before,.glossary6:before,.glossary7:before,.glossary8:before 
+,.glossary9:before,.glossary10:before,.glossary11:before,.glossary12:before,.glossary13:before,.glossary14:before,.glossary15:before
+,.glossary16:before ,.glossary17:before ,.glossary18:before ,.glossary19:before ,.glossary20:before ,.glossary21:before,.glossary22:before
+,.glossary23:before ,.glossary24:before ,.glossary25:before ,.glossary26:before, .glossary27:before, .glossary28:before
+, .glossary29:before, .glossarydisabletooltipsforglossary:before,.glossary23:before, .glossaryexcerptorcontent:before
+, .glossarybulkremovetermfromglossarylist:before
+{
+  border-color: transparent #21759b transparent transparent;
+  border-right: 6px solid #21759b;
+  border-style: solid;
+  border-width: 6px 6px 6px 0px;
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  position: absolute;
+  top: 40%;
+  left: -6px;
+}
+
+
+div.glossary p, .glossary1 p, .glossary3 p, .glossary4 p,.glossary5 p,.glossary6 p,.glossary7 p,.glossary8 p,.glossary9 p
+,.glossary10 p,.glossary11 p,.glossary12 p,.glossary13 p,.glossary14 p,.glossary15 p ,.glossary16 p ,.glossary17 p 
+,.glossary18 p  ,.glossary19 p ,.glossary20 p  ,.glossary21 p ,.glossary22 p ,.glossary23 p ,.glossary24 p ,.glossary25 p
+,.glossary26 p,.glossary27 p,.glossary28 p,.glossary29 p, .glossarydisabletooltipsforglossary p, .questionglossarysearchable p
+,.glossary23 p, .glossaryexcerptorcontent p, .glossarybulkremovetermfromglossarylist p
+{
+  margin: 10px;
+ line-height:16px;
+ font-size:11px;
+ color:#eee; 
+}
+/*  end 7.2.3 */
+
