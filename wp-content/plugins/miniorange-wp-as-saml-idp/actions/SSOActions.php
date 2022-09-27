@@ -21,11 +21,11 @@ class SSOActions
 {
     use Instance;
 
-    
+    /** @var ReadRequestHandler $readRequestHandler  */
     private $readRequestHandler;
-    
+    /** @var SendResponseHandler $sendResponseHandler */
     private $sendResponseHandler;
-    
+    /** @var ProcessRequestHandler $requestProcessHandler*/
     private $requestProcessHandler;
 
     private function __construct()
@@ -41,11 +41,13 @@ class SSOActions
 	private $requestParams = array (
 		'SAMLRequest',
 		'option',
-		'wtrealm',   		);
+		'wtrealm',   	//checking wtrealm instead of clientRequestId as it is optional
+	);
 
 	public function _handle_SSO()
 	{
-		$keys 		= array_keys($_REQUEST);
+        $REQUESTS   = MoIDPUtility::sanitizeAssociateArray($_REQUEST);
+		$keys 		= array_keys($REQUESTS);
 		$operation 	= array_intersect($keys,$this->requestParams);
 		if(count($operation) <= 0) return;
 		try{
@@ -74,43 +76,51 @@ class SSOActions
 		}
 	}
 
-    
+    /**
+     * @param $op
+     * @throws InvalidServiceProviderException
+     * @throws NotRegisteredException
+     * @throws InvalidSSOUserException
+     */
     public function _route_data($op)
-	{
-		switch ($op)
-		{
-			case $this->requestParams[0]:
-				$this->readRequestHandler->_read_request($_REQUEST,$_GET,MoIDPConstants::SAML);		        break;
-			case $this->requestParams[1]:
-				$this->_initiate_saml_response($_REQUEST);								break;
-			case $this->requestParams[2]:
-				$this->readRequestHandler->_read_request($_REQUEST,$_GET,MoIDPConstants::WS_FED);		    break;
-		}
-	}
+    {
+        $GETS 		= MoIDPUtility::sanitizeAssociateArray($_GET);
+        $REQUESTS	= MoIDPUtility::sanitizeAssociateArray($_REQUEST);
+        switch ($op)
+        {
+            case $this->requestParams[0]:
+                $this->readRequestHandler->_read_request($REQUESTS,$GETS,MoIDPConstants::SAML);         break;
+            case $this->requestParams[1]:
+                $this->_initiate_saml_response($REQUESTS);                                              break;
+            case $this->requestParams[2]:
+                $this->readRequestHandler->_read_request($REQUESTS,$GETS,MoIDPConstants::WS_FED);       break;
+        }
+    }
 
 	public function mo_idp_handle_post_login($login)
 	{
-		if(array_key_exists('response_params', $_COOKIE) && !MoIDPUtility::isBlank($_COOKIE['response_params']))
+        $COOKIES    = MoIDPUtility::sanitizeAssociateArray($_COOKIE);
+		if(array_key_exists('response_params', $COOKIES) && !MoIDPUtility::isBlank($COOKIES['response_params']))
 		{
 			try{
 
-				if(isset($_COOKIE['moIdpsendSAMLResponse']) && strcmp( $_COOKIE['moIdpsendSAMLResponse'], 'true') == 0)
+				if(isset($COOKIES['moIdpsendSAMLResponse']) && strcmp( $COOKIES['moIdpsendSAMLResponse'], 'true') == 0)
 					$this->sendResponseHandler->mo_idp_send_reponse ([
                             'requestType' => MoIDPConstants::AUTHN_REQUEST,
-                            'acs_url' 	  => $_COOKIE['acs_url'],
-                            'issuer' 	  => $_COOKIE['audience'],
-                            'relayState'  => $_COOKIE['relayState'],
-                            'requestID'   => $_COOKIE['requestID']
+                            'acs_url' 	  => $COOKIES['acs_url'],
+                            'issuer' 	  => $COOKIES['audience'],
+                            'relayState'  => $COOKIES['relayState'],
+                            'requestID'   => $COOKIES['requestID']
                     ], $login);
 
-				if(isset($_COOKIE['moIdpsendWsFedResponse']) && strcmp( $_COOKIE['moIdpsendWsFedResponse'], 'true') == 0)
+				if(isset($COOKIES['moIdpsendWsFedResponse']) && strcmp( $COOKIES['moIdpsendWsFedResponse'], 'true') == 0)
 					$this->sendResponseHandler->mo_idp_send_reponse ([
                             'requestType' 		=> MoIDPConstants::WS_FED,
-                            'clientRequestId' 	=> $_COOKIE['clientRequestId'],
-                            'wtrealm' 	  		=> $_COOKIE['wtrealm'],
-                            'wa'	 			=> $_COOKIE['wa'],
-                            'relayState' 		=> $_COOKIE['relayState'],
-                            'wctx' 				=> $_COOKIE['wctx']
+                            'clientRequestId' 	=> $COOKIES['clientRequestId'],
+                            'wtrealm' 	  		=> $COOKIES['wtrealm'],
+                            'wa'	 			=> $COOKIES['wa'],
+                            'relayState' 		=> $COOKIES['relayState'],
+                            'wctx' 				=> $COOKIES['wctx']
                     ], $login);
 
 			}catch (NotRegisteredException $e) {
@@ -123,32 +133,44 @@ class SSOActions
 		}
 	}
 
-    
+    /**
+     * @param $REQUEST
+     * @throws InvalidSSOUserException
+     */
     private function _initiate_saml_response($REQUEST)
 	{
-		if ($_REQUEST['option']=='testConfig')
+		if ($REQUEST['option']=='testConfig')
 			$this->sendSAMLResponseBasedOnRequestData($REQUEST);
-		elseif ($_REQUEST['option']==='saml_user_login')
-			$this->sendSAMLResponseBasedOnSPName($_REQUEST['sp'],$_REQUEST['relayState']);
+		elseif ($REQUEST['option']==='saml_user_login')
+			$this->sendSAMLResponseBasedOnSPName($REQUEST['sp'],$REQUEST['relayState']);
+		elseif ($REQUEST['option']==='mo_idp_metadata')
+			MoIDPUtility::showMetadata();
 	}
 
-    
+    /**
+     * @param $REQUEST
+     * @throws InvalidSSOUserException
+     */
     private function sendSAMLResponseBasedOnRequestData($REQUEST)
 	{
 		$defaultRelayState = !array_key_exists('defaultRelayState',$REQUEST)
-								 || MoIDPUtility::isBlank($_REQUEST['defaultRelayState']) ? '/' : $_REQUEST['defaultRelayState'];
+								 || MoIDPUtility::isBlank($REQUEST['defaultRelayState']) ? '/' : $REQUEST['defaultRelayState'];
 		$this->sendResponseHandler->mo_idp_send_reponse ([
             'requestType' => MoIDPConstants::AUTHN_REQUEST,
-            'acs_url' 	  => $_REQUEST['acs'],
-            'issuer' 	  => $_REQUEST['issuer'],
+            'acs_url' 	  => $REQUEST['acs'],
+            'issuer' 	  => $REQUEST['issuer'],
             'relayState'  => $defaultRelayState
         ]);
 	}
 
-    
+    /**
+     * @param $spName
+     * @param $relayState
+     * @throws InvalidSSOUserException
+     */
     private function sendSAMLResponseBasedOnSPName($spName, $relayState)
 	{
-        
+        /** @global \IDP\Helper\Database\MoDbQueries $dbIDPQueries */
 		global $dbIDPQueries;
 		$sp = $dbIDPQueries->get_sp_from_name($spName);
 		if (!MoIDPUtility::isBlank($sp))

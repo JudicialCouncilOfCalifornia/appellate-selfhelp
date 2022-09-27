@@ -52,21 +52,27 @@ class GenerateResponse implements ResponseHandlerFactory
 		if(MoIDPUtility::isBlank($this->current_user)) throw new InvalidSSOUserException();
 		$response_params = $this->getResponseParams();
 
-				$resp = $this->createResponseElement($response_params);
+		//Create Response Element
+		$resp = $this->createResponseElement($response_params);
 		$this->xml->appendChild($resp);
 
-				$issuer = $this->buildIssuer();
+		//Build Issuer
+		$issuer = $this->buildIssuer();
 		$resp->appendChild($issuer);
 
-				$status = $this->buildStatus();
+		//Build Status
+		$status = $this->buildStatus();
 		$resp->appendChild($status);
+		
 		$statusCode = $this->buildStatusCode();
 		$status->appendChild($statusCode);
 
-				$assertion = $this->buildAssertion($response_params);
+		//Build Assertion
+		$assertion = $this->buildAssertion($response_params);
 		$resp->appendChild($assertion);
 
-				if($this->mo_idp_assertion_signed)
+		//Sign Assertion
+		if($this->mo_idp_assertion_signed)
 		{
 			$private_key = MoIDPUtility::getPrivateKey();
 			$this->signNode($private_key, $assertion, $this->subject, $response_params);
@@ -134,17 +140,21 @@ class GenerateResponse implements ResponseHandlerFactory
 		$assertion->setAttribute('IssueInstant',$response_params['IssueInstant']);
 		$assertion->setAttribute('Version','2.0');
 
-				$issuer = $this->buildIssuer($response_params);
+		//Build Issuer
+		$issuer = $this->buildIssuer($response_params);
 		$assertion->appendChild($issuer);
 
-				$subject = $this->buildSubject($response_params);
+		//Build Subject
+		$subject = $this->buildSubject($response_params);
 		$this->subject = $subject;
 		$assertion->appendChild($subject);
 
-				$condition = $this->buildCondition($response_params);
+		//Build Condition
+		$condition = $this->buildCondition($response_params);
 		$assertion->appendChild($condition);
 
-				$authnstat = $this->buildAuthnStatement($response_params);
+		//Build AuthnStatement
+		$authnstat = $this->buildAuthnStatement($response_params);
 		$assertion->appendChild($authnstat);
 
 		return $assertion;
@@ -170,7 +180,8 @@ class GenerateResponse implements ResponseHandlerFactory
 
 		$nameid = $this->xml->createElement("saml:NameID", $value);
 		$nameid->setAttribute('Format','urn:oasis:names:tc:SAML:'.$this->mo_idp_nameid_format);
-				return $nameid;
+		//$nameid->setAttribute('SPNameQualifier',$this->audience);
+		return $nameid;
 	}
 
 	function buildSubjectConfirmation($response_params)
@@ -198,7 +209,8 @@ class GenerateResponse implements ResponseHandlerFactory
 		$condition->setAttribute('NotBefore',$response_params['NotBefore']);
 		$condition->setAttribute('NotOnOrAfter',$response_params['NotOnOrAfter']);
 
-				$audiencer = $this->buildAudienceRestriction();
+		//Build AudienceRestriction
+		$audiencer = $this->buildAudienceRestriction();
 		$condition->appendChild($audiencer);
 
 		return $condition;
@@ -229,17 +241,21 @@ class GenerateResponse implements ResponseHandlerFactory
 
 	function signNode($private_key, $node, $subject,$response_params)
 	{
-				$objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA256,array( 'type' => 'private'));
+		//Private KEY
+		$objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA256,array( 'type' => 'private'));
 		$objKey->loadKey($private_key, FALSE);
 
-				$objXMLSecDSig = new XMLSecurityDSig();
+		//Sign the Assertion
+		$objXMLSecDSig = new XMLSecurityDSig();
 		$objXMLSecDSig->setCanonicalMethod(XMLSecurityDSig::EXC_C14N);
 
-		$objXMLSecDSig->addReferenceList(array($node), XMLSecurityDSig::SHA1,
+		$objXMLSecDSig->addReferenceList(array($node), XMLSecurityDSig::SHA256,
 			array('http://www.w3.org/2000/09/xmldsig#enveloped-signature', XMLSecurityDSig::EXC_C14N),array('id_name'=>'ID','overwrite'=>false));
 		$objXMLSecDSig->sign($objKey);
 		$objXMLSecDSig->add509Cert($response_params['x509']);
-				
+		// The below code can be used to generate the certificate in the chunked format
+		// like what we find in the ADFS SAML response.
+
 		$objXMLSecDSig->insertSignature($node,$subject);
 	}
 

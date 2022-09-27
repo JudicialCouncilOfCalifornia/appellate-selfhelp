@@ -11,16 +11,20 @@ final class ProcessRequestHandler extends BaseHandler
 {
     use Instance;
 
-    
+    /** @var SendResponseHandler $sendResponseHandler */
     private $sendResponseHandler;
 
-    
+    /** Private constructor to prevent direct object creation */
     private function __construct()
     {
         $this->sendResponseHandler = SendResponseHandler::instance();
     }
 
-    
+    /**
+     * @param $relayState
+     * @param AuthnRequest|WsFedRequest $requestObject
+     * @throws \IDP\Exception\InvalidSSOUserException
+     */
     public function mo_idp_authorize_user($relayState, $requestObject)
 	{
 		switch($requestObject->getRequestType())
@@ -32,7 +36,11 @@ final class ProcessRequestHandler extends BaseHandler
 		}
 	}
 
-    
+    /**
+     * @param $relayState
+     * @param AuthnRequest $requestObject
+     * @throws \IDP\Exception\InvalidSSOUserException
+     */
     public function startProcessForSamlResponse($relayState, $requestObject)
 	{
 		if(is_user_logged_in()) {
@@ -49,7 +57,11 @@ final class ProcessRequestHandler extends BaseHandler
 		}
 	}
 
-    
+    /**
+     * @param $relayState
+     * @param WsFedRequest $requestObject
+     * @throws \IDP\Exception\InvalidSSOUserException
+     */
     public function startProcessForWsFedResponse($relayState, $requestObject)
 	{
 		if(is_user_logged_in()) {
@@ -67,7 +79,10 @@ final class ProcessRequestHandler extends BaseHandler
 		}
 	}
 
-    
+    /**
+     * @param WsFedRequest $requestObject
+     * @param $relayState
+     */
 	public function setWSFedSessionCookies($requestObject,$relayState)
 	{
         if (ob_get_contents()) ob_clean();
@@ -82,7 +97,10 @@ final class ProcessRequestHandler extends BaseHandler
 		exit;
 	}
 
-    
+    /**
+     * @param AuthnRequest $requestObject
+     * @param $relayState
+     */
 	public function setSAMLSessionCookies($requestObject,$relayState)
 	{
         if (ob_get_contents()) ob_clean();

@@ -10,7 +10,8 @@ function tooltipGlobalSettings()
 	{
 		if (isset($_POST['onlyFirstKeyword']))
 		{
-			update_option("onlyFirstKeyword",$_POST['onlyFirstKeyword']);
+		    update_option("onlyFirstKeyword", sanitize_text_field($_POST['onlyFirstKeyword']));
+			//7.9.3 update_option("onlyFirstKeyword",$_POST['onlyFirstKeyword']);
 		}
 		$tooltipsMessageString =  __( 'Changes saved', 'wordpress-tooltips' );
 		tooltipsMessage($tooltipsMessageString);
@@ -23,7 +24,8 @@ function tooltipGlobalSettings()
 	{
 		if (isset($_POST['enableTooltipsForImage']))
 		{
-			update_option("enableTooltipsForImage",$_POST['enableTooltipsForImage']);
+		    update_option("enableTooltipsForImage",sanitize_text_field($_POST['enableTooltipsForImage']));
+			//7.9.3 update_option("enableTooltipsForImage",$_POST['enableTooltipsForImage']);
 		}
 		$tooltipsMessageString =  __( 'Changes saved', 'wordpress-tooltips' );
 		tooltipsMessage($tooltipsMessageString);		
@@ -35,7 +37,9 @@ function tooltipGlobalSettings()
 	{
 		if (isset($_POST['enableTooltipsForExcerpt']))
 		{
-			update_option("enableTooltipsForExcerpt",$_POST['enableTooltipsForExcerpt']);
+		    
+		    update_option("enableTooltipsForExcerpt",sanitize_text_field($_POST['enableTooltipsForExcerpt']));
+			//7.9.3 update_option("enableTooltipsForExcerpt",$_POST['enableTooltipsForExcerpt']);
 		}
 
 		$tooltipsMessageString =  __( 'Changes saved', 'wordpress-tooltips' );
@@ -49,7 +53,8 @@ function tooltipGlobalSettings()
 	{
 		if (isset($_POST['disableInHomePage']))
 		{
-			update_option("disableInHomePage",$_POST['disableInHomePage']);
+		    update_option("disableInHomePage", sanitize_text_field($_POST['disableInHomePage']));
+		    //7.9.3 update_option("disableInHomePage",$_POST['disableInHomePage']);
 		}
 		$tooltipsMessageString =  __( 'Changes saved', 'wordpress-tooltips' );
 		tooltipsMessage($tooltipsMessageString);
@@ -63,7 +68,8 @@ function tooltipGlobalSettings()
 	{
 		if (isset($_POST['cat']))
 		{
-			update_option("showOnlyInSingleCategory",$_POST['cat']);
+		    update_option("showOnlyInSingleCategory",sanitize_text_field($_POST['cat']));
+			// 7.9.3 update_option("showOnlyInSingleCategory",$_POST['cat']);
 		}
 
 		$tooltipsMessageString =  __( 'Changes saved', 'wordpress-tooltips' );
@@ -76,7 +82,8 @@ function tooltipGlobalSettings()
 	{
 		if (isset($_POST['toolstipsAnimationClass']))
 		{
-			update_option("toolstipsAnimationClass",$_POST['toolstipsAnimationClass']);
+		    update_option("toolstipsAnimationClass", sanitize_text_field($_POST['toolstipsAnimationClass']));
+		    //7.9.3 update_option("toolstipsAnimationClass",$_POST['toolstipsAnimationClass']);
 		}
 		$tooltipsMessageString =  __( 'Changes saved', 'wordpress-tooltips' );
 		tooltipsMessage($tooltipsMessageString);
@@ -88,7 +95,8 @@ function tooltipGlobalSettings()
 	{
 		if (isset($_POST['enableTooltipsForTag']))
 		{
-			update_option("enableTooltipsForTags",$_POST['enableTooltipsForTag']);
+		    update_option("enableTooltipsForTags",sanitize_text_field($_POST['enableTooltipsForTag']));
+			//7.9.3  update_option("enableTooltipsForTags",$_POST['enableTooltipsForTag']);
 		}
 		$tooltipsMessageString =  __( 'Changes saved', 'wordpress-tooltips' );
 		tooltipsMessage($tooltipsMessageString);
@@ -96,7 +104,7 @@ function tooltipGlobalSettings()
 	$enableTooltipsForTag = get_option("enableTooltipsForTags");
 	if (empty($enableTooltipsForTag)) $enableTooltipsForTag = 'NO';
 	
-	
+	/* moved to glossary setting panel
 	if (isset($_POST['showImageinglossarySubmit']))
 	{
 		if (isset($_POST['showImageinglossary']))
@@ -108,15 +116,16 @@ function tooltipGlobalSettings()
 	}
 	$showImageinglossary = get_option("showImageinglossary");
 	if (empty($showImageinglossary)) $showImageinglossary = 'YES';
-	
+	*/
 	if (isset($_POST['toolstipsstylesetting']))
 	{
 		if (isset($_POST['selectedTooltipStyle']))
 		{
-			update_option("selectedTooltipStyle",$_POST['selectedTooltipStyle']);
+		    update_option("selectedTooltipStyle",sanitize_text_field($_POST['selectedTooltipStyle']));
+			// 7.9.3 update_option("selectedTooltipStyle",$_POST['selectedTooltipStyle']);
 		}
-	
-		$selectedDefaultTooltipStyle = $_POST['selectedTooltipStyle'];
+		$selectedDefaultTooltipStyle = sanitize_text_field($_POST['selectedTooltipStyle']);
+		//7.9.3 $selectedDefaultTooltipStyle = $_POST['selectedTooltipStyle'];
 		$selectedDefaultTooltipStyle = str_ireplace('qtip-', '', $selectedDefaultTooltipStyle);
 	
 		$tooltipsMessageString =  __('You have selected ', 'wordpress-tooltips' ).$selectedDefaultTooltipStyle. __(' style, ', 'wordpress-tooltips' ) .__( 'Changes saved', 'wordpress-tooltips' );
@@ -133,7 +142,8 @@ function tooltipGlobalSettings()
 	{
 		if (isset($_POST['showToolstipsCloseButtonSelect']))
 		{
-			update_option("showToolstipsCloseButtonSelect",$_POST['showToolstipsCloseButtonSelect']);
+		    update_option("showToolstipsCloseButtonSelect",sanitize_text_field($_POST['showToolstipsCloseButtonSelect']));
+			//7.9.3 update_option("showToolstipsCloseButtonSelect",$_POST['showToolstipsCloseButtonSelect']);
 		}
 		$tooltipsMessageString =  __( 'Changes saved', 'wordpress-tooltips' );
 		tooltipsMessage($tooltipsMessageString);
@@ -148,7 +158,8 @@ function tooltipGlobalSettings()
 	{
 		if (isset($_POST['tooltipZindexValue']))
 		{
-			update_option("tooltipZindexValue",$_POST['tooltipZindexValue']);
+		    update_option("tooltipZindexValue",sanitize_text_field($_POST['tooltipZindexValue']));
+			//7.9.3 update_option("tooltipZindexValue",$_POST['tooltipZindexValue']);
 		}
 		$tooltipsMessageString =  __( 'Changes saved', 'wordpress-tooltips' );
 		tooltipsMessage($tooltipsMessageString);
@@ -165,7 +176,8 @@ function tooltipGlobalSettings()
 	{
 		if (isset($_POST['tooltipHookPriorityValue']))
 		{
-			update_option("tooltipHookPriorityValue",$_POST['tooltipHookPriorityValue']);
+		    update_option("tooltipHookPriorityValue",sanitize_text_field($_POST['tooltipHookPriorityValue']));
+			// 7.9.3 update_option("tooltipHookPriorityValue",$_POST['tooltipHookPriorityValue']);
 		}
 		$tooltipsMessageString =  __( 'Changes saved', 'wordpress-tooltips' );
 		tooltipsMessage($tooltipsMessageString);
@@ -180,7 +192,8 @@ function tooltipGlobalSettings()
 	{
 		if (isset($_POST['disabletooltipinhtmltag']))
 		{
-			update_option("disabletooltipinhtmltag",$_POST['disabletooltipinhtmltag']);
+		    update_option("disabletooltipinhtmltag",sanitize_text_field($_POST['disabletooltipinhtmltag']));
+			//7.9.3 update_option("disabletooltipinhtmltag",$_POST['disabletooltipinhtmltag']);
 		}
 	
 		$tooltipsMessageProString =  __( 'Changes saved', 'wordpress-tooltips' );
@@ -188,20 +201,153 @@ function tooltipGlobalSettings()
 	}
 	$disabletooltipinhtmltag = get_option("disabletooltipinhtmltag");
 	if (empty($disabletooltipinhtmltag)) $disabletooltipinhtmltag = '';
-//!!!start
+
 	if (isset($_POST['enabletooltipsPopupCreditLinkInPopupWindowSetting']))
 	{
 		if (isset($_POST['enabletooltipsPopupCreditLinkInPopupWindow']))
 		{
-			update_option("enabletooltipsPopupCreditLinkInPopupWindow",$_POST['enabletooltipsPopupCreditLinkInPopupWindow']);
+		    update_option("enabletooltipsPopupCreditLinkInPopupWindow",sanitize_text_field($_POST['enabletooltipsPopupCreditLinkInPopupWindow']));
+			//7.9.3 update_option("enabletooltipsPopupCreditLinkInPopupWindow",$_POST['enabletooltipsPopupCreditLinkInPopupWindow']);
 			$enabletooltipsPopupCreditLinkInPopupWindow = get_option("enabletooltipsPopupCreditLinkInPopupWindow");
 		}
 		$tooltipsMessageProString =  __( 'Changes saved', 'wordpress-tooltips' );
 		tooltipsMessage($tooltipsMessageProString);
 	}
 	$enabletooltipsPopupCreditLinkInPopupWindow = get_option("enabletooltipsPopupCreditLinkInPopupWindow");
-//!!!end
+
+	if (isset($_POST['selectdisabletooltipentiresite']))
+	{
+		if (isset($_POST['selectdisabletooltipentiresite']))
+		{
+		    update_option("disabletooltipentiresite",sanitize_text_field($_POST['selectdisabletooltipentiresite']));
+			//7.9.3 update_option("disabletooltipentiresite",$_POST['selectdisabletooltipentiresite']);
+		}
+		$tooltipsMessageProString =  __( 'Changes saved', 'wordpress-tooltips' );
+		tooltipsMessage($tooltipsMessageProString);
+	}
+	$disabletooltipentiresite = get_option('disabletooltipentiresite');
 	
+	//!!!start
+	// 6.93
+	if (isset($_POST['disabletooltipmobileoptionSetting']))
+	{
+		if (isset($_POST['selectdisabletooltipmobile']))
+		{
+		    update_option("disabletooltipmobile",sanitize_text_field($_POST['selectdisabletooltipmobile']));
+			//7.9.3 update_option("disabletooltipmobile",$_POST['selectdisabletooltipmobile']);
+		}
+		$tooltipsMessageProString =  __( 'Changes saved', 'wordpress-tooltips' );
+		tooltipsMessage($tooltipsMessageProString);
+	}
+	$disabletooltipmobile = get_option("disabletooltipmobile");
+	//!!!end
+	
+	//!!! 7.6.9
+	
+	if (isset($_POST['enableMoveInlineJsToFooter']))
+	{
+		if (isset($_POST['enableMoveInlineJsToFooter']))
+		{
+		    update_option("enableMoveInlineJsToFooter",sanitize_text_field($_POST['enableMoveInlineJsToFooter']));
+			//7.9.3 update_option("enableMoveInlineJsToFooter",$_POST['enableMoveInlineJsToFooter']);
+		}
+		$tooltipsMessageProString =  __( 'Changes saved', 'wordpress-tooltips' );
+		tooltipsMessage($tooltipsMessageProString);
+	}
+	$disabletooltipmobile = get_option("disabletooltipmobile");	
+	//!!! end 7.6.9
+	
+	//!!! 7.2.5
+	if (isset($_POST['enableTooltipsForCategoryTitleSubmit']))
+	{
+		if (isset($_POST['enableTooltipsForCategoryTitle']))
+		{
+		    update_option("enableTooltipsForCategoryTitle",sanitize_text_field($_POST['enableTooltipsForCategoryTitle']));
+			//7.9.3 update_option("enableTooltipsForCategoryTitle",$_POST['enableTooltipsForCategoryTitle']);
+		}
+	
+		$tooltipsMessageProString =  __( 'Changes saved', 'wordpress-tooltips' );
+		tooltipsMessage($tooltipsMessageProString);
+	}
+	$enableTooltipsForCategoryTitle = get_option("enableTooltipsForCategoryTitle");
+	if (empty($enableTooltipsForCategoryTitle)) $enableTooltipsForCategoryTitle = 'NO';
+	//!!! end 7.2.5
+	
+	
+	//!!! 7.5.7
+	
+	if (isset($_POST['toolstipsFontSizeSubmit']))
+	{
+		if (isset($_POST['toolstipsFontSize']))
+		{
+		    $toolstipsFontSize = sanitize_text_field($_POST['toolstipsFontSize']);
+			//7.9.3 $toolstipsFontSize = $_POST['toolstipsFontSize'];
+			$toolstipsFontSize = str_ireplace("px","",$toolstipsFontSize);
+			
+			update_option("toolstipsFontSize",$toolstipsFontSize);
+		}
+	
+		$tooltipsMessageProString =  __( 'Changes saved', 'wordpress-tooltips' );
+		tooltipsMessage($tooltipsMessageProString);
+	}
+	$toolstipsFontSize = get_option("toolstipsFontSize");	
+	//!!! end 7.5.7
+	
+	//!!!start
+	if (isset($_POST['disabletooltipforclassandidsSubmit']))
+	{
+		if (isset($_POST['disabletooltipforclassandids']))
+		{
+		    $disabletooltipforclassandids = sanitize_text_field($_POST['disabletooltipforclassandids']);
+			//7.9.3 $disabletooltipforclassandids = $_POST['disabletooltipforclassandids'];
+			if (!empty(trim($disabletooltipforclassandids)))
+			{
+			    update_option("disabletooltipforclassandids",sanitize_text_field($_POST['disabletooltipforclassandids']));
+				//7.9.3 update_option("disabletooltipforclassandids",$_POST['disabletooltipforclassandids']);
+			}
+			else
+			{
+				delete_option("disabletooltipforclassandids");
+			}
+		}
+	
+		$tooltipsMessageProString =  __( 'Changes saved', 'wordpress-tooltips' );
+		tooltipsMessage($tooltipsMessageProString);
+	}
+	
+	$disabletooltipforclassandids = get_option("disabletooltipforclassandids");
+	//!!!end
+	//!!! start 7.7.1
+	if (isset($_POST['enableDeferTooltipOptionSubmit']))
+	{
+	    if (isset($_POST['enableDeferTooltip']))
+	    {
+	        $enableDeferTooltip = sanitize_text_field($_POST['enableDeferTooltip']);
+	        update_option("enableDeferTooltip",$enableDeferTooltip);
+	        //7.9.3 update_option("enableDeferTooltip",$_POST['enableDeferTooltip']);
+	        $enableDeferTooltip = get_option("enableDeferTooltip");
+	    }
+	    
+	    $tooltipsMessageProString =  __( 'Changes saved', 'wordpress-tooltips' );
+	    tooltipsMessage($tooltipsMessageProString);
+	}
+	$enableDeferTooltip = get_option("enableDeferTooltip");
+	//!!! end 7.7.1
+	
+	// 7.7.3
+	if (isset($_POST['seletEnableJqueryMigrate']))
+	{
+	    if (isset($_POST['seletEnableJqueryMigrate']))
+	    {
+	        update_option("seletEnableJqueryMigrate", sanitize_text_field($_POST['seletEnableJqueryMigrate']));
+	        // 7.9.3 update_option("seletEnableJqueryMigrate",$_POST['seletEnableJqueryMigrate']);
+	    }
+	    $tooltipsMessageProString =  __( 'Changes saved', 'wordpress-tooltips' );
+	    tooltipsMessage($tooltipsMessageProString);
+	}
+	
+	$seletEnableJqueryMigrate = get_option('seletEnableJqueryMigrate');
+	//end 7.7.3
 ?>
 <div style='margin:20px 5px 10px 5px;'>
 	<div style='float:left;margin-right:10px;'>
@@ -611,7 +757,8 @@ $questiontip = '<div class="tooltip"><p>Some plugins or themes have a very high 
 		</div>
 		<div style="clear:both"></div>
 		<br />
-
+<?php 
+/*
 <div style='clear:both'></div>		
 		<div class="wrap">
 			<div id="dashboard-widgets-wrap">
@@ -665,7 +812,8 @@ $questiontip = '<div class="tooltip"><p>Some plugins or themes have a very high 
 		</div>
 		<div style="clear:both"></div>
 		<br />
-				
+		*/
+?>				
 <div style='clear:both'></div>		
 		<div class="wrap">
 			<div id="dashboard-widgets-wrap">
@@ -698,6 +846,7 @@ $questiontip = '<div class="tooltip"><p>Some plugins or themes have a very high 
 										</td>
 										<td width="60%"  style="text-align:left;">
 										<select id="selectedTooltipStyle" name="selectedTooltipStyle" style="width:200px;">
+										<option id="toptionstyle" value="qtip-default" <?php if ($selectedTooltipStyle == 'qtip-default') echo "selected";   ?>> <?php echo __( 'Yellow', 'wordpress-tooltips' ); ?> </option>
 										<option id="toptionstyle" value="qtip-dark" <?php if ($selectedTooltipStyle == 'qtip-dark') echo "selected";   ?>> <?php echo __( 'Dark', 'wordpress-tooltips' ); ?> </option>
 										<option id="toptionstyle" value="qtip-light" <?php if ($selectedTooltipStyle == 'qtip-light') echo "selected";   ?>> <?php echo __( 'Light', 'wordpress-tooltips' ); ?> </option>
 										<option id="toptionstyle" value="qtip-green" <?php if ($selectedTooltipStyle == 'qtip-green') echo "selected";   ?>> <?php echo __( 'Green', 'wordpress-tooltips' ); ?> </option>										
@@ -885,6 +1034,62 @@ $questiontip = '<div class="tooltip"><p>If you want tooltips can support functio
 		</div>
 		<div style="clear:both"></div>
 		<br />
+<?php //!!! start ?>
+<div style='clear:both'></div>		
+		<div class="wrap">
+			<div id="dashboard-widgets-wrap">
+			    <div id="dashboard-widgets" class="metabox-holder">
+					<div id="post-body">
+						<div id="dashboard-widgets-main-content">
+							<div class="postbox-container" style="width:98%;">
+								<div class="postbox">
+									<h3 class='hndle' style='padding: 10px 0px;'><span>
+									<?php
+										echo __( "Disable Tooltips for Selected Classes and IDs", 'wordpress-tooltips' );
+									?>
+									</span>
+									</h3>
+								
+									<div class="inside" style='padding-left:5px;'>
+										<form class="toolstipsform" name="toolstipsform" action="" method="POST">
+										<table id="toolstipstable" width="100%">
+
+										<tr style="text-align:left;">
+										<td width="30%"  style="text-align:left;">
+										<?php
+										$addtipto = 'span.questiondisabletooltipforclassandids';
+										$questiontip = '<div class="tooltip"><p>Disable tooltips for selected classed and ids, split with comma ","<br /><br /> for example: .sky,#removetooltip,#myclass,.checkout,...and so on </p></div>';
+										$tipadsorbent = '.questiondisabletooltipforclassandids';
+										$adminTip = showAdminTip($addtipto,$questiontip,'div.tooltip',$tipadsorbent);
+										echo $adminTip;
+										
+											$disabletooltipforclassandids = get_option('disabletooltipforclassandids');
+											echo __( 'Your Classes and IDs, split with comma "," : ', 'wordpress-tooltips' ).'<span class="questiondisabletooltipforclassandids">?</span>';
+										?>
+										</td>
+										<td width="60%"  style="text-align:left;">
+										<input type="text" id="disabletooltipforclassandids" name="disabletooltipforclassandids" value="<?php echo $disabletooltipforclassandids;  ?>" placeholder="<?php echo __('for example:.sky,#removetooltip,#myclass,.checkout', "wordpress-tooltips");; ?>">
+										</select>
+										</td>
+										<td width="10%"  style="text-align:left;">
+										<input type="submit" class="button-primary" id="disabletooltipforclassandidsSubmit" name="disabletooltipforclassandidsSubmit" value=" <?php echo __('Update Now', "wordpress-tooltips");?> ">
+										</td>
+										</tr>
+
+										</table>
+										</form>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+		<div style="clear:both"></div>
+		<br />
+<?php //!!! end ?>		
 <?php //!!!start ?>
 <div style='clear:both'></div>		
 		<div class="wrap">
@@ -943,9 +1148,419 @@ $questiontip = '<div class="tooltip"><p>If you want tooltips can support functio
 		    	</div>
 			</div>
 		</div>
+<?php //!!! start ?>
+<div style='clear:both'></div>		
+		<div class="wrap">
+			<div id="dashboard-widgets-wrap">
+			    <div id="dashboard-widgets" class="metabox-holder">
+					<div id="post-body">
+						<div id="dashboard-widgets-main-content">
+							<div class="postbox-container" style="width:98%;">
+								<div class="postbox">
+									<h3 class='hndle' style='padding: 10px 0px;'><span>
+										<?php 
+										echo __( 'Disable Tooltip in Entire Site', 'wordpress-tooltips' );
+										 ?>
+									</span>
+									</h3>
+								
+									<div class="inside" style='padding-left:5px;'>
+										<form id="toolstipsform" name="toolstipsform" action="" method="POST">
+										<table id="toolstipstable" width="100%" style="font-size: 11px;">
+
+										<tr style="text-align:left;">
+										
+										<td width="30%"  style="text-align:left;">
+										<?php 
+											$disabletooltipentiresite = get_option('disabletooltipentiresite');
+											$addtipto = 'span.questiondisabletooltipentiresite';
+$questiontip = '<div class="divclasstooltipentiresite"><p>Enable or Disable tooltips effect in entire site.</p></div>';
+											$tipadsorbent = '.questiondisabletooltipentiresite';
+											$adminTip = showAdminTip($addtipto,$questiontip,'div.divclasstooltipentiresite',$tipadsorbent);
+											echo $adminTip;
+											echo __( 'Disable Tooltip in Entire Site:', 'wordpress-tooltips' ).' <span class="questiondisabletooltipentiresite">?</span>';
+										?>
+										</td>
+										<td width="60%"  style="text-align:left;padding-right:30px;">
+										<select id="selectdisabletooltipentiresite" name="selectdisabletooltipentiresite" style="width:400px;">
+										<option id="selectdisabletooltipentiresiteoption" value="YES" <?php if ($disabletooltipentiresite == 'YES') echo "selected";   ?>> <?php echo __( 'Enable Tooltip in Entire Site', 'wordpress-tooltips' ); ?> </option>
+										<option id="selectdisabletooltipentiresiteoption" value="NO" <?php if ($disabletooltipentiresite == 'NO') echo "selected";   ?>>   <?php echo __( 'Disable Tooltip in Entire Site', 'wordpress-tooltips' ); ?> </option>
+										</select> 
+										</td>
+										<td width="10%"  style="text-align:left;">
+										<input type="submit" class="button-primary" id="disabletooltipentiresiteSetting" name="disabletooltipentiresiteSetting" value="<?php  echo __( ' Update Now ', 'wordpress-tooltips' ); ?>">
+										</td>
+										</tr>
+
+										</table>
+										</form>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+<?php //!!! start 6.9.3 ?>
+<div style='clear:both'></div>		
+		<div class="wrap">
+			<div id="dashboard-widgets-wrap">
+			    <div id="dashboard-widgets" class="metabox-holder">
+					<div id="post-body">
+						<div id="dashboard-widgets-main-content">
+							<div class="postbox-container" style="width:98%;">
+								<div class="postbox">
+									<h3 class='hndle' style='padding: 10px 0px;'><span>
+										<?php 
+										echo __( 'Disable Tooltip on Mobile Devices', 'wordpress-tooltips' );
+										 ?>
+									</span>
+									</h3>
+								
+									<div class="inside" style='padding-left:5px;'>
+										<form id="toolstipsform" name="toolstipsform" action="" method="POST">
+										<table id="toolstipstable" width="100%" style="font-size: 11px;">
+
+										<tr style="text-align:left;">
+										
+										<td width="30%"  style="text-align:left;">
+										<?php 
+											$disabletooltipmobile = get_option('disabletooltipmobile');
+											$addtipto = 'span.questiondisabletooltipmobile';
+$questiontip = '<div class="tooltipdisabletooltipmobile"><p>Enable or Disable tooltips effect on mobile device.</p></div>';
+											$tipadsorbent = '.questiondisabletooltipmobile';
+											$adminTip = showAdminTip($addtipto,$questiontip,'div.tooltipdisabletooltipmobile',$tipadsorbent);
+											echo $adminTip;
+											echo __( 'Disable Tooltip on Mobile Devices:', 'wordpress-tooltips' ).' <span class="questiondisabletooltipmobile">?</span>';
+										?>
+										</td>
+										<td width="60%"  style="text-align:left;padding-right:30px;">
+										<select id="selectdisabletooltipmobile" name="selectdisabletooltipmobile" style="width:400px;">
+										<option id="selectdisabletooltipmobileoption" value="NO" <?php if ($disabletooltipmobile == 'NO') echo "selected";   ?>> <?php echo __( 'Enable Tooltip on Mobile Devices', 'wordpress-tooltips' ); ?> </option>
+										<option id="selectdisabletooltipmobileoption" value="YES" <?php if ($disabletooltipmobile == 'YES') echo "selected";   ?>>   <?php echo __( 'Disable Tooltip on Mobile Devices', 'wordpress-tooltips' ); ?> </option>
+										</select> 
+										</td>
+										<td width="10%"  style="text-align:left;">
+										<input type="submit" class="button-primary" id="disabletooltipmobileoptionSetting" name="disabletooltipmobileoptionSetting" value="<?php  echo __( ' Update Now ', 'wordpress-tooltips' ); ?>">
+										</td>
+										</tr>
+
+										</table>
+										</form>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+<?php //!!! end ?>
+<?php //!!! 7.2.5  ?>
+<div style='clear:both'></div>		
+		<div class="wrap">
+			<div id="dashboard-widgets-wrap">
+			    <div id="dashboard-widgets" class="metabox-holder">
+					<div id="post-body">
+						<div id="dashboard-widgets-main-content">
+							<div class="postbox-container" style="width:98%;">
+								<div class="postbox">
+									<h3 class='hndle' style='padding: 10px 0px;'><span>
+										<?php 
+										echo __( 'Enable/Disable Tooltips for Category Title ', 'wordpress-tooltips' );
+										 ?>
+									</span>
+									</h3>
+								
+									<div class="inside" style='padding-left:5px;'>
+										<form id="toolstipsform" name="toolstipsform" action="" method="POST">
+										<table id="toolstipstable" width="100%" style="font-size: 11px;">
+
+										<tr style="text-align:left;">
+										
+										<td width="30%"  style="text-align:left;">
+										<?php 
+											$enableTooltipsForCategoryTitle = get_option("enableTooltipsForCategoryTitle");
+											$addtipto = 'span.spanquestioncategorytitle';
+$questiontip = '<div class="divtooltipforcategorytitle"><p>Enable tooltips effects in category archive title or not.</p></div>';
+											$tipadsorbent = '.spanquestioncategorytitle';
+											$adminTip = showAdminTip($addtipto,$questiontip,'div.divtooltipforcategorytitle',$tipadsorbent);
+											echo $adminTip;
+											echo __( 'Tooltips for Category Title:', 'wordpress-tooltips' ).' <span class="spanquestioncategorytitle">?</span>';
+										?>
+										</td>
+										<td width="60%"  style="text-align:left;padding-right:30px;">
+										<select id="enableTooltipsForCategoryTitle" name="enableTooltipsForCategoryTitle" style="width:300px;">
+										<option id="enableTooltipsForCategoryTitleOption" value="YES" <?php if ($enableTooltipsForCategoryTitle == 'YES') echo "selected";   ?>> <?php echo __('Enable Tooltips for Category Title', "wordpress-tooltips");?> </option>
+										<option id="enableTooltipsForCategoryTitleOption" value="NO" <?php if ($enableTooltipsForCategoryTitle == 'NO') echo "selected";   ?>>   <?php echo __('Disable Tooltips for Category Title', "wordpress-tooltips");?> </option>
+										</select>
+										</td>
+										<td width="10%"  style="text-align:left;">
+										<input type="submit" class="button-primary" id="enableTooltipsForCategoryTitleSubmit" name="enableTooltipsForCategoryTitleSubmit" value="<?php  echo __( ' Update Now ', 'wordpress-tooltips' ); ?>">
+										</td>
+										</tr>
+
+										</table>
+										</form>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+<?php //!!! end 7.2.5 ?>
+		<div style="clear:both"></div>
+<?php //!!! start 7.5.7 ?>
+<div style='clear:both'></div>		
+		<div class="wrap">
+			<div id="dashboard-widgets-wrap">
+			    <div id="dashboard-widgets" class="metabox-holder">
+					<div id="post-body">
+						<div id="dashboard-widgets-main-content">
+							<div class="postbox-container" style="width:98%;">
+								<div class="postbox">
+									<h3 class='hndle' style='padding: 10px 0px;'><span>
+										<?php 
+										echo __( 'Tooltip Content Font Size', 'wordpress-tooltips' );
+										 ?>
+									</span>
+									</h3>
+								
+									<div class="inside" style='padding-left:5px;'>
+										<form id="toolstipsform" name="toolstipsform" action="" method="POST">
+										<table id="toolstipstable" width="100%" style="font-size: 11px;">
+
+										<tr style="text-align:left;">
+										<td width="30%"  style="text-align:left;">
+										<?php 
+											$toolstipsFontSize = '';
+											$toolstipsFontSize = get_option("toolstipsFontSize");
+											
+											$addtipto = 'span.questionfontsize';
+											$questiontip = '<div class="tooltip28"><p>'. __('By default, the font size will be decided by your theme, but you can custom it in here, for example: 14, or just ignore this option', "wordpress-tooltips"). '</p></div>';
+											
+											$tipadsorbent = '.questionfontsize';
+											$adminTip = showAdminTip($addtipto,$questiontip,'div.tooltip28',$tipadsorbent);
+											echo $adminTip;
+
+												
+											echo __( 'Tooltip Font Size: ', 'wordpress-tooltips' ).'<span class="questionfontsize">?</span>';
+										?>
+										</td>
+										<td width="60%"  style="text-align:left;padding-right:30px;">
+										<input type="text" size="7" id="toolstipsFontSize" name="toolstipsFontSize" value="<?php echo $toolstipsFontSize;  ?>" placeholder="<?php echo __( 'for example:14 or just ignore it', 'wordpress-tooltips' ) ?>"> PX
+										</td>
+										<td width="10%"  style="text-align:left;">
+										<input type="submit" class="button-primary" id="toolstipsFontSizeSubmit" name="toolstipsFontSizeSubmit" value="<?php  echo __( ' Update Now ', 'wordpress-tooltips' ); ?>">
+										</td>
+										</tr>
+
+										</table>
+										</form>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+<?php //!!! end 7.5.7 ?>
 		<div style="clear:both"></div>
 		<br />
 <?php //!!!end ?>	 
+<?php //!!! start 7.6.9 ?>
+<div style='clear:both'></div>		
+		<div class="wrap">
+			<div id="dashboard-widgets-wrap">
+			    <div id="dashboard-widgets" class="metabox-holder">
+					<div id="post-body">
+						<div id="dashboard-widgets-main-content">
+							<div class="postbox-container" style="width:98%;">
+							
+								<div class="postbox">
+									<h3 class='hndle' style='padding: 10px 0px;'><span>
+										<?php 
+										echo __( 'Move inline javascripts to the footer', 'wordpress-tooltips' );
+										 ?>
+									</span>
+									</h3>
+								
+									<div class="inside" style='padding-left:5px;'>
+										<form id="toolstipsform" name="toolstipsform" action="" method="POST">
+										<table id="toolstipstable" width="100%" style="font-size: 11px;">
+
+										<tr style="text-align:left;">
+										<td width="30%"  style="text-align:left;">
+										<?php 
+											$enableMoveInlineJsToFooter = '';
+											$enableMoveInlineJsToFooter = get_option("enableMoveInlineJsToFooter");
+											
+											$addtipto = 'span.questionmovejstofooter';
+											$questiontip = '<div class="tooltipmovejstofooter"><p>'. __('By default, tooltips will generate some inline javascript codes, you can opt to move these inline js codes to the wordpress footer to speed up page speeds, also when you install a few cache plugins, maybe some optisons in these cache plugin will break js codes in tooltip plugin, you can avoid confict by enable this option', "wordpress-tooltips"). '</p></div>';
+											
+											$tipadsorbent = '.questionmovejstofooter';
+											$adminTip = showAdminTip($addtipto,$questiontip,'div.tooltipmovejstofooter',$tipadsorbent);
+											echo $adminTip;
+
+												
+											echo __( 'Move inline js to footer, speed up pages: ', 'wordpress-tooltips' ).'<span class="questionmovejstofooter">?</span>';
+										?>
+										</td>
+										<td width="60%"  style="text-align:left;padding-right:30px;">
+										<select id="enableMoveInlineJsToFooter" name="enableMoveInlineJsToFooter" style="width:300px;">
+										<option id="enableMoveInlineJsToFooterOption" value="NO" <?php if ($enableMoveInlineJsToFooter == 'NO') echo "selected";   ?>> <?php echo __('NO, let it be', "wordpress-tooltips");?></option>
+										<option id="enableMoveInlineJsToFooterOption" value="YES" <?php if ($enableMoveInlineJsToFooter == 'YES') echo "selected";   ?>>   <?php echo __('YES, move inline javascripts to the footer to speed up page speed', "wordpress-tooltips");?>  </option>
+										</select>
+										</td>
+										<td width="10%"  style="text-align:left;">
+										<input type="submit" class="button-primary" id="toolstipsFontSizeSubmit" name="toolstipsFontSizeSubmit" value="<?php  echo __( ' Update Now ', 'wordpress-tooltips' ); ?>">
+										</td>
+										</tr>
+
+										</table>
+										</form>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+		<div style="clear:both"></div>
+		<br />
+<?php //!!! start 7.7.3 ?>
+<div style='clear:both'></div>		
+		<div class="wrap">
+			<div id="dashboard-widgets-wrap">
+			    <div id="dashboard-widgets" class="metabox-holder">
+					<div id="post-body">
+						<div id="dashboard-widgets-main-content">
+							<div class="postbox-container" style="width:98%;">
+								<div class="postbox">
+									<h3 class='hndle' style='padding: 10px 0px;'><span>
+										<?php 
+										echo __( 'Enable / Disable JQuery-Migrate', 'wordpress-tooltips' );
+										 ?>
+									</span>
+									</h3>
+								
+									<div class="inside" style='padding-left:5px;'>
+										<form id="toolstipsform" name="toolstipsform" action="" method="POST">
+										<table id="toolstipstable" width="100%" style="font-size: 11px;">
+
+										<tr style="text-align:left;">
+										
+										<td width="30%"  style="text-align:left;">
+										<?php 
+											$seletEnableJqueryMigrate = get_option('seletEnableJqueryMigrate');
+											$addtipto = 'span.questionEnableJqueryMigrate';
+											$questiontip = '<div class="divEnableJqueryMigrate"><p>Enable or Disable Jquery-Migrate, by default, latest wordpress do not support JQuery-Migrate, this may caused some problems, for example, when users mouse hover tooltip terms, no tooltips pup-up window, enable jQuery-Migrate will solve this kind of problem. Also you can just install and activate enable jQuery-Migrate plugin which developed by WP offical</p></div>';
+											$tipadsorbent = '.questionEnableJqueryMigrate';
+											$adminTip = showAdminTip($addtipto,$questiontip,'div.divEnableJqueryMigrate',$tipadsorbent);
+											echo $adminTip;
+
+											echo __( 'Enable / Disable JQuery-Migrate:', 'wordpress-tooltips' ).' <span class="questionEnableJqueryMigrate">?</span>';
+										?>
+										</td>
+										<td width="60%"  style="text-align:left;padding-right:30px;">
+										<select id="seletEnableJqueryMigrate" name="seletEnableJqueryMigrate" style="width:300px;">
+										<option id="seletEnableJqueryMigrateoption" value="NO" <?php if ($seletEnableJqueryMigrate == 'NO') echo "selected";   ?>>   <?php echo __( 'No, let it be', 'wordpress-tooltips' ); ?> </option>
+										<option id="seletEnableJqueryMigrateoption" value="YES" <?php if ($seletEnableJqueryMigrate == 'YES') echo "selected";   ?>> <?php echo __( 'Enable JQuery-Migrate for WordPress', 'wordpress-tooltips' ); ?> </option>
+										</select> 
+										</td>
+										<td width="10%"  style="text-align:left;">
+										<input type="submit" class="button-primary" id="disableStatisticsoptionSetting" name="disableStatisticsoptionSetting" value="<?php  echo __( ' Update Now ', 'wordpress-tooltips' ); ?>">
+										</td>
+										</tr>
+
+										</table>
+										</form>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+<?php //!!! end 7.7.3 ?>		
+<?php //!!! end 7.6.9 ?>
+<?php /* //!!! start 7.7.1 ?>
+<div style='clear:both'></div>		
+		<div class="wrap">
+			<div id="dashboard-widgets-wrap">
+			    <div id="dashboard-widgets" class="metabox-holder">
+					<div id="post-body">
+						<div id="dashboard-widgets-main-content">
+							<div class="postbox-container" style="width:90%;">
+								<div class="postbox">
+									<h3 class='hndle' style='padding: 10px 0px;'><span>
+									<?php
+										echo __( "Enable Defer for Tooltip Javascript Files? ", 'wordpress-tooltips' );
+									?>
+									</span>
+									</h3>
+								
+									<div class="inside" style='padding-left:5px;'>
+										<form class="toolstipsform" name="toolstipsform" action="" method="POST">
+										<table id="toolstipstable" width="100%">
+
+										<tr style="text-align:left;">
+										<td width="25%"  style="text-align:left;">
+										<?php
+											$enableDeferTooltip =	get_option("enableDeferTooltip");
+											if (empty($enableDeferTooltip)) $enableDeferTooltip = 'no';
+											echo __( "Enable Defer for Tooltip Javascript Files", 'wordpress-tooltips' ).' <span class="spanquestionenableDeferTooltip">?</span>';
+										?>
+										<?php
+											$admin_tip = __('If you enable this option, we will add defer attribute for all javascript files of tooltips plugin, this will increase page load speed', "wordpress-tooltips");
+										?>
+										<script type="text/javascript"> 
+										jQuery(document).ready(function () {
+										  jQuery("span.spanquestionenableDeferTooltip").hover(function () {
+										    jQuery(this).append('<div class="divquestionenableDeferTooltip"><p><?php echo $admin_tip; ?></p></div>');
+										  }, function () {
+											  jQuery("div.divquestionenableDeferTooltip").remove();
+										  });
+										});
+										</script>
+										</td>
+										<td width="30%"  style="text-align:left;">
+										<select id="enableDeferTooltip" name="enableDeferTooltip">
+										<option id="enableDeferTooltipOption" value="no" <?php if ($enableDeferTooltip == 'no') echo "selected";   ?>>  <?php echo __('NO', "wordpress-tooltips") ?> </option>
+										<option id="enableDeferTooltipOption" value="yes"  <?php if ($enableDeferTooltip == 'yes') echo "selected";   ?>> <?php echo __('YES', "wordpress-tooltips") ?> </option>
+										</select>										</td>
+										<td width="30%"  style="text-align:left;">
+										<input type="submit" class="button-primary" id="enableDeferTooltipOptionSubmit" name="enableDeferTooltipOptionSubmit" value=" <?php echo __('Update Now', "wordpress-tooltips");?> ">
+										</td>
+										</tr>
+
+										</table>
+										</form>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+		<div style="clear:both"></div>
+		<br />
+<?php //!!! end 7.7.1 */ ?>		
+		<br />
 		<a class=""  target="_blank" href="https://paypal.me/sunpayment">
 		<span>
 		Buy me a coffee 								
@@ -1122,12 +1737,15 @@ function editTooltips()
 		{
 			if (isset($_POST['toolstipskeyword']))
 			{
-				$m_toolstipskeyword = $wpdb->escape($_POST['toolstipskeyword']);
+				//$m_toolstipskeyword = $wpdb->escape($_POST['toolstipskeyword']);
+				$m_toolstipskeyword = sanitize_text_field($_POST['toolstipskeyword']); // 7.6.7 
 			}
 
 			if (isset($_POST['toolstipscontent']))
 			{
-				$m_toolstipscontent = $wpdb->escape($_POST['toolstipscontent']);
+				//$m_toolstipscontent = $wpdb->escape($_POST['toolstipscontent']);
+				$m_toolstipscontent = sanitize_text_field($_POST['toolstipscontent']); //7.6.7
+				
 			}
 			
 			if ((!(empty($m_toolstipscontent))) && (!(empty($m_toolstipskeyword))))
@@ -1170,18 +1788,23 @@ function editTooltips()
 		{
 			if (isset($_POST['toolstipskeyword']))
 			{
-				$m_toolstipskeyword = $wpdb->escape($_POST['toolstipskeyword']);
+				//$m_toolstipskeyword = $wpdb->escape($_POST['toolstipskeyword']);
+				$m_toolstipskeyword = sanitize_text_field($_POST['toolstipskeyword']); // 7.6.7
+				
 			}
 
 			if (isset($_POST['toolstipscontent']))
 			{
-				$m_toolstipscontent = $wpdb->escape($_POST['toolstipscontent']);
+				//$m_toolstipscontent = $wpdb->escape($_POST['toolstipscontent']);
+				$m_toolstipscontent = sanitize_text_field($_POST['toolstipscontent']); //7.6.7
+				
 			}
 			
 			if ((!(empty($m_toolstipscontent))) && (!(empty($m_toolstipskeyword))))
 			{
 				$m_added = false;
-				$m_toolstipskeywordsubmithideen = $wpdb->escape($_POST['toolstipskeywordsubmithideen']);
+				//$m_toolstipskeywordsubmithideen = $wpdb->escape($_POST['toolstipskeywordsubmithideen']);
+				$m_toolstipskeywordsubmithideen = sanitize_text_field($_POST['toolstipskeywordsubmithideen']); //7.6.7
 				$m_tooltipsArray[$m_toolstipskeywordsubmithideen]['keyword'] = $m_toolstipskeyword;
 				$m_tooltipsArray[$m_toolstipskeywordsubmithideen]['content'] = $m_toolstipscontent;  
 				update_option('tooltipsarray',$m_tooltipsArray);
@@ -1193,7 +1816,9 @@ function editTooltips()
 
 		if (isset($_POST['toolstipskeywordsubmitdelete']))
 		{
-			$m_toolstipskeywordsubmithideen = $wpdb->escape($_POST['toolstipskeywordsubmithideen']);
+			//$m_toolstipskeywordsubmithideen = $wpdb->escape($_POST['toolstipskeywordsubmithideen']);
+			$m_toolstipskeywordsubmithideen = sanitize_text_field($_POST['toolstipskeywordsubmithideen']); //7.6.7
+			
 
 			{
 				array_splice($m_tooltipsArray,$m_toolstipskeywordsubmithideen,1);
@@ -1372,7 +1997,9 @@ function tooltipsControl()
     echo $m_title;
     if (isset($_POST['HiddenTooltipsControl'])) 
     {
-		update_option('titleTooltipsControl',$wpdb->escape($_POST['HiddenTooltipsControl']));
+		//update_option('titleTooltipsControl',$wpdb->escape($_POST['HiddenTooltipsControl']));
+    	update_option('titleTooltipsControl',sanitize_text_field($_POST['HiddenTooltipsControl'])); //7.6.7
+		
     }
 
     echo '<div style="width:250px">';
@@ -1460,189 +2087,5 @@ function showAdminTip($addtipto,$tip,$placeclass,$tipadsorbent)
 	return $tipScript;
 	
 }
-										
-function glossarysettingsfree()
-{
-	?>
-<div class="wrap tooltipsaddonclass">
-<div id="icon-options-general" class="icon32"><br></div>
-<h2>Glossary Settings</h2>
-</div>
-<?php
-if (isset($_POST['toolstipsCustomizedsubmit']))
-{
-	if (isset($_POST['tooltipsGlossaryIndexPage']))
-	{
-		update_option("tooltipsGlossaryIndexPage",$_POST['tooltipsGlossaryIndexPage']);
-		flush_rewrite_rules();
-	}
 
-	if (isset($_POST['enabGlossaryIndexPage']))
-	{
-		update_option("enabGlossaryIndexPage",$_POST['enabGlossaryIndexPage']);
-	}
-
-	if (isset($_POST['enableLanguageForGlossary']))
-	{
-		update_option("enableLanguageForGlossary",$_POST['enableLanguageForGlossary']);
-	}
-
-	//!!!start
-	if (isset($_POST['selectsignificantdigitalsuperscripts']))
-	{
-		update_option('selectsignificantdigitalsuperscripts',$_POST['selectsignificantdigitalsuperscripts']);
-	}
-	//!!!end
-	$tooltipsMessageProString =  __( 'Changes saved', 'wordpress-tooltips' );
-	tooltipsMessage($tooltipsMessageProString);
-}
-	$enabGlossaryIndexPage =  get_option("enabGlossaryIndexPage");
-	$tooltipsGlossaryIndexPage = get_option('tooltipsGlossaryIndexPage');
-
-	$enableLanguageForGlossary = get_option("enableLanguageForGlossary");
-
-?>
-		<div class="wrap">
-			<div id="dashboard-widgets-wrap">
-			    <div id="dashboard-widgets" class="metabox-holder">
-					<div id="post-body">
-						<div id="dashboard-widgets-main-content">
-							<div class="postbox-container" style="width:90%;">
-								<div class="postbox">
-									<div class="inside" style='padding-left:5px;'>
-										<form class="toolstipsform" name="toolstipsform" action="" method="POST">
-										<table id="toolstipstable" width="100%">
-										<tr style="text-align:left;">
-										<td style='width:25%'>
-										<?php
-											echo __( 'Enable Glossary Index Page: ', 'wordpress-tooltips' ).'<span class="questionindexforglossary">?</span>';
-										?>
-										<?php
-										$admin_tip = __('By default, we will show glossary index page and each glossary term have links, you will find glossary index page at http://yourdomain.com/glossary, but you can disable this glossary index page and hidden links for each glossary terms by select "Disable glossary index page"', "wordpress-tooltips");
-										?>
-										<script type="text/javascript"> 
-										jQuery(document).ready(function () {
-										  jQuery("span.questionindexforglossary").hover(function () {
-										    jQuery(this).append('<div class="glossary22"><p><?php echo $admin_tip; ?></p></div>');
-										  }, function () {
-										    jQuery("div.glossary22").remove();
-										  });
-										});
-										</script>
-										</td>
-										<td style='width:25%'>
-										<select id="enabGlossaryIndexPage" name="enabGlossaryIndexPage" style="width:98%;">
-										<option id="enabGlossaryIndexPageOption" value="YES"  <?php if ($enabGlossaryIndexPage == 'YES') echo "selected";   ?>> <?php echo __('Enable Glossary Index Page', "wordpress-tooltips") ?> </option>
-										<option id="enabGlossaryIndexPageOption" value="NO" <?php if ($enabGlossaryIndexPage == 'NO') echo "selected";   ?>>  <?php echo __('Disable Glossary Index Page', "wordpress-tooltips") ?> </option>
-										</select>
-										</td>
-										
-										<td style='width:25%'>
-										<?php
-											echo __( "Glossary Index Page: ", 'wordpress-tooltips' ).'<span class="questionglossaryindexpageselect">?</span>';
-											$admin_tip = __('Select your glossary index page', "wordpress-tooltips");
-										?>
-										<script type="text/javascript"> 
-										jQuery(document).ready(function () {
-										  jQuery("span.questionglossaryindexpageselect").hover(function () {
-										    jQuery(this).append('<div class="glossary24"><p><?php echo $admin_tip; ?></p></div>');
-										  }, function () {
-										    jQuery("div.glossary24").remove();
-										  });
-										});
-										</script>										
-										</td>
-										<td style='width:25%'>
-										<?php 
-											echo wp_dropdown_pages( array('name' => 'tooltipsGlossaryIndexPage', 'echo' => false, 'selected' => !empty( $tooltipsGlossaryIndexPage ) ? $tooltipsGlossaryIndexPage : false)); 
-										?>										
-										</td>										
-										</tr>
-
-<tr style="text-align:left;">
-										<td style='width:25%'>
-										<?php
-											$languageAddonUrl = get_option('siteurl').'/wp-admin/edit.php?post_type=tooltips&page=tooltipsFreeLanguageMenu';
-											echo __( 'Language: ', 'wordpress-tooltips' ).'<span class="questionlanguageforglossary">?</span>'." <a href='$languageAddonUrl' target='_blank' >enable custom language</a>";
-										?>
-										<?php
-										$admin_tip = __('By default, language for glossary is  English, you can choose your language from here, or you can choose "Custom My Language" option to generate your glossary language by yourself ', "wordpress-tooltips");
-										
-										$admin_tip_enable_language_addon = __(' -- please remember to <a style="color:yellow !important;" href="', "wordpress-tooltips") . $languageAddonUrl.__('" target="_blank" >enable custom language first</a> ', "wordpress-tooltips");
-										$admin_tip = $admin_tip.$admin_tip_enable_language_addon;
-										?>
-										<script type="text/javascript"> 
-										jQuery(document).ready(function () {
-										  jQuery("span.questionlanguageforglossary").hover(function () {
-										    jQuery(this).append('<div class="glossary22"><p><?php echo $admin_tip; ?></p></div>');
-										  }, function () {
-										    jQuery("div.glossary22").remove();
-										  });
-										});
-										</script>
-										</td>
-										<td style='width:25%'>
-										<select id="enableLanguageForGlossary" name="enableLanguageForGlossary" style="width:98%;">
-										<option id="enableLanguageForGlossaryOption" value="en" <?php if ($enableLanguageForGlossary == 'en') echo "selected";   ?>>  <?php echo __('English', "wordpress-tooltips") ?> </option>
-										<option id="enableLanguageForGlossaryOption" value="es" <?php if ($enableLanguageForGlossary == 'es') echo "selected";   ?>>  <?php echo __('Spanish', "wordpress-tooltips") ?> </option>
-										<option id="enableLanguageForGlossaryOption" value="fi" <?php if ($enableLanguageForGlossary == 'fi') echo "selected";   ?>>  <?php echo __('Finnish', "wordpress-tooltips") ?> </option>
-										<option id="enableLanguageForGlossaryOption" value="sv"  <?php if ($enableLanguageForGlossary == 'sv') echo "selected";   ?>> <?php echo __('Swedish', "wordpress-tooltips") ?> </option>
-										<option id="enableLanguageForGlossaryOption" value="de" <?php if ($enableLanguageForGlossary == 'de') echo "selected";   ?>>  <?php echo __('German', "wordpress-tooltips") ?> </option>
-										<option id="enableLanguageForGlossaryOption" value="fr" <?php if ($enableLanguageForGlossary == 'fr') echo "selected";   ?>>  <?php echo __('French', "wordpress-tooltips") ?> </option>
-										<option id="enableLanguageForGlossaryOption" value="custom" <?php if ($enableLanguageForGlossary == 'custom') echo "selected";   ?>>  <?php echo __('Custom My Language', "wordpress-tooltips") ?> </option>
-										</select>
-										</td>
-<?php //!!! start ?>
-										<td style='width:25%'>
-										<?php
-											echo __( 'Significant Display of Digital Superscripts on Navigation Bar: ', 'wordpress-tooltips' ).'<span class="removenavbaringlossarypage">?</span>';
-											$selectsignificantdigitalsuperscripts = get_option('selectsignificantdigitalsuperscripts');
-										?>
-										<?php
-											$admin_tip = __('By default, we will significant display of digital superscripts on navigation bar, also you can select to dislay normal mode too.', "wordpress-tooltips");
-										?>
-										<script type="text/javascript"> 
-										jQuery(document).ready(function () {
-										  jQuery("span.removenavbaringlossarypage").hover(function () {
-										    jQuery(this).append('<div class="glossaryremovenavbaringlossarypage"><p><?php echo $admin_tip; ?></p></div>');
-										  }, function () {
-										    jQuery("div.glossaryremovenavbaringlossarypage").remove();
-										  });
-										});
-										</script>
-										</td>
-										<td style='width:25%'>
-										<select id="selectsignificantdigitalsuperscripts" name="selectsignificantdigitalsuperscripts" style="width:98%;">
-										<option id="optionsignificantdigitalsuperscripts" value="yes"  <?php if ($selectsignificantdigitalsuperscripts == 'yes') echo "selected";   ?>> <?php echo __('YES', "wordpress-tooltips") ?> </option>
-										<option id="optionsignificantdigitalsuperscripts" value="no" <?php if ($selectsignificantdigitalsuperscripts == 'no') echo "selected";   ?>>  <?php echo __('NO', "wordpress-tooltips") ?> </option>
-										</select>
-										</td>
-<?php //!!! end ?>
-										</table>
-										<br />
-										<input type="submit" class="button-primary" id="toolstipsCustomizedsubmit" name="toolstipsCustomizedsubmit" value=" <?php echo __( 'Save Changes', 'wordpress-tooltips' ) ?> ">
-										</form>
-										
-										<br />
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-		    	</div>
-			</div>
-		</div>
-		<div style="clear:both"></div>
-		<br />
-		<a class=""  target="_blank" href="https://paypal.me/sunpayment">
-		<span>
-		Buy me a coffee 								
-		</span>
-		</a>
-		?
-		<span style="margin-right:20px;">
-		Thank you :)
-		</span>
-<?php
-}
 

@@ -1,108 +1,77 @@
 <?php
 
-	echo'<div class="mo_idp_divided_layout mo-idp-full">
-            <div class="mo_idp_table_layout mo-idp-center">
-                <h2>'.$header;
-                    restart_tour();
-echo        '</h2><hr>';
+	echo'<div class="mo-idp-divided-layout mo-idp-full mo-idp-bg mo-idp-margin-left mo-idp-pt">
+            <div class="mo-idp-table-layout mo-idp-center mo-idp-sp-width">';
+                echo'<h2 class="mo-idp-add-new-sp">'.esc_attr($header).'</h2>';
+			echo'<hr class="mo-idp-add-new-sp-hr">';
 			if(isset($sp) && !empty($sp) || $sp_exists)
 			{
 				show_protocol_options(isset($sp)?$sp : NULL,$protocol_inuse);
 
-	echo		'<form name="f" method="post" action="'.$post_url.'">';
+	echo		'<form name="f" method="post" class="mo-idp-bg-pad" action="'.esc_url($post_url).'" >';
 
 	echo			$sp_exists  ? '<input type="hidden" name="option" value="mo_add_idp" />'
                                 : '<input type="hidden" name="option" value="mo_edit_idp" />';
 
 	echo			'<input type="hidden" 
 	                        name="service_provider" 
-	                        value="'.(isset($sp) && !empty($sp) ? $sp->id : "").'" />
+	                        value="'.(isset($sp) && !empty($sp) ? esc_attr($sp->id) : "").'" />
 					<input  type="hidden" 
 					        name="mo_idp_protocol_type" 
-					        value="'.(!empty($sp) ? $sp->mo_idp_protocol_type : $protocol_inuse).'">
+					        value="'.(!empty($sp) ? esc_attr($sp->mo_idp_protocol_type) : esc_attr($protocol_inuse)).'">';
 					
-					<table id="wsFedTable" style="background-color: white" class="mo_idp_settings_table" >
+				echo' <table id="wsFedTable" class="mo-idp-settings-table mo-idp-mt-5" >
 						<tr>
-							<td colspan="2">
-                                <b>
-                                    Please note down the following information from your Service Provider admin screen and 
-                                    keep it handy to configure your Identity provider and map your Attributes.
-                                </b>
-								<ol>
-									<li><b>SP Entity ID / Issuer</b></li>
-									<li><b>ACS URL</b></li>
-									<li><b>Username</b></li>
-									<li><b>ImmutableId</b></li>
-									<li><b>UPN</b></li>
-									<li><b>NameID Format</b></li>
-								</ol>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<div style="background-color:#CBCBCB;padding:1%;border-radius:2px;">
-									<i>
-									    New to WS-FED? &nbsp; Looking for a documentation?
-                                        Here is a guide which details how you can setup SSO between the plugin and
-                                        your Microsoft Federated Domain. &nbsp;
-                                        <a href="'.$wsfed_doc.'" download="">Click Here to download our guide.</a></i>
-								</div>
-								<br>
-							</td>
-						</tr>
-						<tr>
-							<td style="width:200px;">
-							    <strong>Service Provider Name <span style="color:red;">*</span>:</strong>
-                            </td>
 							<td>
-								<input  type="text" 
+							    <strong class="mo-idp-home-card-link">Service Provider Name<span class="mo-idp-red">*</span> :</strong>
+                            </td>
+							<td>';
+							echo'	<input  type="text" 
 								        name="idp_sp_name" 
 								        id="idpName"
 								        placeholder="Service Provider Name" 
-								        style="width: 95%;" 
-								        value="'.(!empty($sp) ? $sp->mo_idp_sp_name : '').'" 
+								        class="mo-idp-table-input" 
+								        value="'.(!empty($sp) ? esc_attr($sp->mo_idp_sp_name) : '').'" 
 								        required 
 								        pattern="^\w*$" 
-								        title="Only alphabets, numbers and underscore is allowed"/>
-							</td>
+								        title="Only alphabets, numbers and underscore is allowed"/>';
+						echo'	</td>
 						</tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
-							    <strong>SP Entity ID or Issuer <span style="color:red;">*</span>:</strong>
+							    <strong class="mo-idp-home-card-link">SP Entity ID or Issuer<span class="mo-idp-red">*</span> :</strong>
                             </td>
-							<td>
-							    <input  type="text" 
+							<td>';
+							echo'    <input  type="text" 
 							            name="idp_sp_issuer" 
+										class="mo-idp-table-input"
 							            placeholder="Service Provider Entity ID or Issuer" 
-							            style="width: 95%;" 
-							            value="'.(!empty($sp) ? $sp->mo_idp_sp_issuer : '').'" 
-							            required/>
-                            </td>
+							            value="'.(!empty($sp) ? esc_attr($sp->mo_idp_sp_issuer) : '').'" 
+							            required/>';
+                            echo'</td>
 						</tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td>
-							    <strong>Application Service Endpoint <span style="color:red;">*</span>:</strong>
+							    <strong class="mo-idp-home-card-link">Application Service Endpoint<span class="mo-idp-red">*</span> :</strong>
                             </td>
-							<td>
-							    <input  type="text" 
+							<td>';
+							  echo'  <input  type="text" 
 							            name="idp_acs_url" 
 							            placeholder="AssertionConsumerService URL" 
-							            style="width: 95%;" 
-							            value="'.(!empty($sp) ? $sp->mo_idp_acs_url : '').'" 
-							            required/>
-                            </td>
+										class="mo-idp-table-input"
+										value="'.(!empty($sp) ? esc_url($sp->mo_idp_acs_url) : '').'" 
+							            required/>';
+                            echo'</td>
 						</tr>
-
 						<tr><td>&nbsp;</td></tr>
-
 						<tr>
-							<td><strong>NameID format <span style="color:red;">*</span>:</strong></td>
+							<td><strong class="mo-idp-home-card-link" >NameID format<span class="mo-idp-red">*</span> :</strong></td>
 							<td>
-								<select style="width:95%;" name="idp_nameid_format" required>
-								    <option value="">Select a NameID Format</option>
-								    <option value="1.1:nameid-format:emailAddress" 
+								<select class="mo-idp-table-input" name="idp_nameid_format" style="max-width:none;" required >
+								    <option value="">Select a NameID Format</option>';
+								   echo' <option value="1.1:nameid-format:emailAddress" 
                                             '.(!empty($sp) && strpos($sp->mo_idp_nameid_format,'emailAddress') ? 'selected' : '').'>
                                             urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress
                                     </option>
@@ -117,37 +86,38 @@ echo        '</h2><hr>';
 								    <option value="2.0:nameid-format:persistent" 
 								            '.(!empty($sp) && strpos($sp->mo_idp_nameid_format,'persistent') ? 'selected' : '').'>
 								            urn:oasis:names:tc:SAML:1.1:nameid-format:persistent
-                                    </option>
-								</select>
+                                    </option>';
+								echo'</select>
+								<br>
 								<i>
-								    (<span style="color:red">NOTE: </span> Select urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress by default)
+								    (<span class="mo-idp-red">NOTE: </span> Select urn:oasis:names:tc:SAML:1.1:nameid-format:<b>emailAddress</b> by default)
                                 </i>		
 							</td>
-						</tr>
+						</tr>	
 						<tr><td>&nbsp;</td></tr>
-
 						<tr>
 							<td>&nbsp;</td>
 							<td><br/>
 								<input  type="submit" 
 								        name="submit"
 								        id="Save" 
-								        style="width:100px;margin-bottom:2%;" 
+								        style="margin-bottom:2%;" 
 								        value="Save" 
-								        class="button button-primary button-large" 
-								       /> &nbsp;
-								<input  type="button" 
+								        class="button button-primary mo-idp-button-large" 
+								       /> &nbsp;';
+								echo '<input  type="button" 
 								        name="delete" 
-								        class="button button-primary button-large" 
+								        class="button button-primary mo-idp-button-large" 
 								        '.(empty($sp) ? 'disabled' :'').' 
 								        value="Delete SP Configuration" 
-								        onclick = "window.location=\''.$delete_url.( !empty($sp) ? $sp->id : '' ).'\'"/>
-							</td>
+								        onclick = "window.location=\''.esc_url($delete_url).( !empty($sp) ? esc_attr($sp->id) : '' ).'\'"/>';
+						echo'	</td>
 						</tr>
 					</table>
-				</form>
-				<form id="add_sp" method="get" action="'.$post_url.'">
-					<input type="hidden" name="page" value="'.$spSettingsTabDetails->_menuSlug.'"/>
+				</form>';
+				echo'
+				<form id="add_sp" method="get" action="'.esc_url($post_url).'">
+					<input type="hidden" name="page" value="'.esc_attr($spSettingsTabDetails->_menuSlug).'"/>
 					<input type="hidden" name="action" value="add_sp"/>
 				</form>';
 			}

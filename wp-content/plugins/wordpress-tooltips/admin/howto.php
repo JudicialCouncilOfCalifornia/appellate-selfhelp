@@ -73,6 +73,25 @@ function tooltips_free_howto_setting()
 	
 	tooltips_free_howto_setting_panel ( $tooltips_free_default_how_to_bar_id,$tooltips_free_how_to_bar_title,$tooltips_free_how_to_bar_content );
 
+
+	$tooltips_free_default_how_to_bar_id = 'tooltips_knowledge_2021082001';
+	$tooltips_free_how_to_bar_title = 'WordPress Tooltips Video Tutorial 4: How to Create Your First Tooltip?';
+	
+	$tooltips_free_how_to_bar_content = '';
+	$tooltips_free_how_to_bar_content .= '<div style="padding: 30px 20px 20px 20px;">';
+	$tooltips_free_how_to_bar_content .= '<h2>How to Create Your First Tooltip</h2>';
+	$tooltips_free_how_to_bar_content .= '<p>';
+	$tooltips_free_how_to_bar_content .= 'You can find full text description with video / images / screenshots of WordPress Tooltips Video Tutorial 4: How to Create Your First Tooltip in here:';
+	$tooltips_free_how_to_bar_content .= '<br />';
+	$tooltips_free_how_to_bar_content .= '<a href="https://tooltips.org/wordpress-tooltips-video-tutorial-4-how-to-create-your-first-tooltips-in-wordpress-tooltips-pro-plugin/" target="_blank">https://tooltips.org/wordpress-tooltips-video-tutorial-4-how-to-create-your-first-tooltips-in-wordpress-tooltips-pro-plugin/</a>';
+	$tooltips_free_how_to_bar_content .= '</p>';
+	$tooltips_free_how_to_bar_content .= '<p>';
+	$tooltips_free_how_to_bar_content .= '<font color="gray"><i>(Might include description of free and pro features)</i></font>';
+	$tooltips_free_how_to_bar_content .= '</p>';
+	$tooltips_free_how_to_bar_content .= '</div>';
+	
+	tooltips_free_howto_setting_panel ( $tooltips_free_default_how_to_bar_id,$tooltips_free_how_to_bar_title,$tooltips_free_how_to_bar_content );
+	
 	$tooltips_free_default_how_to_bar_id = 'tooltips_knowledge_4';
 	$tooltips_free_how_to_bar_title = 'Wordpress Tooltips Plugin Settings';
 	
@@ -278,10 +297,12 @@ function tooltips_free_howto_setting()
 	$tooltips_free_how_to_bar_content .= '</p>';
 
 	$languageselectboxURL = get_option('siteurl'). '/wp-admin/edit.php?post_type=tooltips&page=glossarysettingsfree';
-	$title = "please select '<a href='$languageselectboxURL' target='_blank'>custom my language</a>' option in <a href='$languageselectboxURL' target='_blank'>language selectbox</a> first )</i></p>";
+	//7.9.3 $title = "please select '<a href='$languageselectboxURL' target='_blank'>custom my language</a>' option in <a href='$languageselectboxURL' target='_blank'>language selectbox</a> first )</i></p>";
+	$title = "please select '<a href='".esc_url($languageselectboxURL)."' target='_blank'>custom my language</a>' option in <a href='".esc_url($languageselectboxURL)."' target='_blank'>language selectbox</a> first )</i></p>";
 	
 	$tooltips_free_how_to_bar_content .= '<p>';
-	$tooltips_free_how_to_bar_content .= '#3 Please note, for use the function of "Custom Language of Tooltip and Glossary " you need setting your language from "English" to <a href="'.$languageselectboxURL.'" target="_blank">custom my language</a> option in <a href="'.$languageselectboxURL.'" target="_blank">language selectbox</a> first, in "language selectbox", we will support more and more language later. ';
+	//7.9.3 $tooltips_free_how_to_bar_content .= '#3 Please note, for use the function of "Custom Language of Tooltip and Glossary " you need setting your language from "English" to <a href="'.$languageselectboxURL.'" target="_blank">custom my language</a> option in <a href="'.$languageselectboxURL.'" target="_blank">language selectbox</a> first, in "language selectbox", we will support more and more language later. ';
+	$tooltips_free_how_to_bar_content .= '#3 Please note, for use the function of "Custom Language of Tooltip and Glossary " you need setting your language from "English" to <a href="'.esc_url($languageselectboxURL).'" target="_blank">custom my language</a> option in <a href="'.$languageselectboxURL.'" target="_blank">language selectbox</a> first, in "language selectbox", we will support more and more language later. ';
 	$tooltips_free_how_to_bar_content .= '</p>';	
 	
 	$tooltips_free_how_to_bar_content .= '<p>';
@@ -297,7 +318,66 @@ function tooltips_free_howto_setting()
 	tooltips_free_howto_setting_panel ( $tooltips_free_default_how_to_bar_id,$tooltips_free_how_to_bar_title,$tooltips_free_how_to_bar_content );
 	
 //!!!end	
+	//!!!start
+	$tooltips_free_default_how_to_bar_id = 'tooltips_knowledge_2020053001';
+	$tooltips_free_how_to_bar_title = 'How to Enable / Disable WordPress Tooltips in WordPress Glossary Page?';
+	
+	$tooltips_free_how_to_bar_content = '';
+	$tooltips_free_how_to_bar_content .= '<div style="padding: 30px 20px 20px 20px;">';
+	$tooltips_free_how_to_bar_content .= '<p>';
+	$tooltips_free_how_to_bar_content .= 'Please check: '. '<a href="https://tooltips.org/how-to-enable-disable-wordpress-tooltips-in-wordpress-glossary-page/" target="_blank">'. 'How to Enable / Disable WordPress Tooltips in WordPress Glossary Page?'.'</a>';
+	$tooltips_free_how_to_bar_content .= '</p>';
+	$tooltips_free_how_to_bar_content .= '<p>';
+	$tooltips_free_how_to_bar_content .= '<font color="gray"><i>(Might include description of free and pro features)</i></font>';
+	$tooltips_free_how_to_bar_content .= '</p>';
 
+	$tooltips_free_how_to_bar_content .= '</div>';
+	
+	tooltips_free_howto_setting_panel ( $tooltips_free_default_how_to_bar_id,$tooltips_free_how_to_bar_title,$tooltips_free_how_to_bar_content );
+	
+	//!!!end
+	$tooltips_free_default_how_to_bar_id = 'tooltips_knowledge_2020072001';
+	$tooltips_free_how_to_bar_title = 'WordPress Tooltips Video Tutorial 10: Import Wordpress Tooltips From csv';
+	
+	$tooltips_free_how_to_bar_content = '';
+	$tooltips_free_how_to_bar_content .= '<div style="padding: 30px 20px 20px 20px;">';
+	$tooltips_free_how_to_bar_content .= '<h2>Import Wordpress Tooltips From csv</h2>';
+	$tooltips_free_how_to_bar_content .= '<p>';
+	$tooltips_free_how_to_bar_content .= 'You can find full text description with video / images / screenshots of WordPress Tooltips Video Tutorial 10: Import Wordpress Tooltips From csv in here:';
+	$tooltips_free_how_to_bar_content .= '<br />';
+	$tooltips_free_how_to_bar_content .= '<a href="https://tooltips.org/wordpress-tooltips-video-tutorial-10-import-wordpress-tooltips-from-csv/" target="_blank">https://tooltips.org/wordpress-tooltips-video-tutorial-10-import-wordpress-tooltips-from-csv/</a>';
+	$tooltips_free_how_to_bar_content .= '</p>';
+	$tooltips_free_how_to_bar_content .= '<p>';
+	$tooltips_free_how_to_bar_content .= '<font color="gray"><i>(Might include description of free and pro features)</i></font>';
+	$tooltips_free_how_to_bar_content .= '</p>';	
+	$tooltips_free_how_to_bar_content .= '</div>';
+
+	tooltips_free_howto_setting_panel ( $tooltips_free_default_how_to_bar_id,$tooltips_free_how_to_bar_title,$tooltips_free_how_to_bar_content );
+	//!!!start
+	
+	$tooltips_free_default_how_to_bar_id = 'tooltips_knowledge_20220503';
+	$tooltips_free_how_to_bar_title = 'WordPress Tooltip Plugin Document Page?';
+	
+	$tooltips_free_how_to_bar_content = '';
+	$tooltips_free_how_to_bar_content .= '<div style="padding: 30px 20px 20px 20px;">';
+	$tooltips_free_how_to_bar_content .= '<h2>WordPress Tooltip Plugin Document Page at https://tooltips.org?</h2>';
+	$tooltips_free_how_to_bar_content .= '<p>';
+	$tooltips_free_how_to_bar_content .= 'Please check our detailed step by step <b>document</b> with video / screenshot at: '. '<a href="https://tooltips.org/wordpress-tooltip-plugin/wordpress-tooltip-plugin-document/" target="_blank">'. 'WordPress Tooltip Plugin Document Page'.'</a>';
+	$tooltips_free_how_to_bar_content .= '</p>';
+	$tooltips_free_how_to_bar_content .= '<p>';
+	$tooltips_free_how_to_bar_content .= 'Also you can search tooltip tips in top search bar :)';
+	$tooltips_free_how_to_bar_content .= '</p>';
+	$tooltips_free_how_to_bar_content .= '<p>';
+	$tooltips_free_how_to_bar_content .= '<font color="gray"><i>(Might include description of free and pro features)</i></font>';
+	$tooltips_free_how_to_bar_content .= '</p>';
+	$tooltips_free_how_to_bar_content .= '</div>';
+	
+	tooltips_free_howto_setting_panel ( $tooltips_free_default_how_to_bar_id,$tooltips_free_how_to_bar_title,$tooltips_free_how_to_bar_content );
+	
+	//!!!end//tooltips_pro_howto_setting_panel ( $tooltips_pro_default_how_to_bar_id,$tooltips_pro_how_to_bar_title,$tooltips_pro_how_to_bar_content );
+
+
+	
 //!!!start
 
 	$tooltips_free_default_how_to_bar_id = 'tooltips_knowledge_16';
@@ -308,6 +388,9 @@ function tooltips_free_howto_setting()
 	$tooltips_free_how_to_bar_content .= '<h2>WordPress Tooltip Plugin F.A.Q Page at https://tooltips.org?</h2>';
 	$tooltips_free_how_to_bar_content .= '<p>';
 	$tooltips_free_how_to_bar_content .= 'Please check it at: '. '<a href="https://tooltips.org/faq/" target="_blank">'. 'WordPress Tooltip Plugin F.A.Q Page'.'</a>';
+	$tooltips_free_how_to_bar_content .= '</p>';
+	$tooltips_free_how_to_bar_content .= '<p>';
+	$tooltips_free_how_to_bar_content .= 'You can find detailed step by step <b>document</b> with video / screenshot at: '. '<a href="https://tooltips.org/wordpress-tooltip-plugin/wordpress-tooltip-plugin-document/" target="_blank">'. 'WordPress Tooltip Plugin Document Page'.'</a>';
 	$tooltips_free_how_to_bar_content .= '</p>';
 	$tooltips_free_how_to_bar_content .= '<p>';
 	$tooltips_free_how_to_bar_content .= '<font color="gray"><i>(Might include description of free and pro features)</i></font>';
@@ -365,11 +448,15 @@ function tooltips_free_howto_setting_panel($tooltips_free_how_to_bar_id, $toolti
 			<div id="post-body">
 				<div id="dashboard-widgets-main-content">
 					<div class="postbox-container" style="width: 90%;">
-						<div
-							class="postbox tooltips-pro-how-to-each-bar"
-							id="tooltips-pro-how-to-each-bar-id"
-							data-user-role="<?php echo $tooltips_free_how_to_bar_id ?>">					
-							<span id='bp-members-pro-compent-plus-<?php echo $tooltips_free_how_to_bar_id; ?>'>+</span>
+						<div class="postbox tooltips-pro-how-to-each-bar" id="tooltips-pro-how-to-each-bar-id" data-user-role="<?php echo esc_attr($tooltips_free_how_to_bar_id) ?>">
+							<?php 
+							/*
+							 * 7.9.3
+							 * <div class="postbox tooltips-pro-how-to-each-bar" id="tooltips-pro-how-to-each-bar-id" data-user-role="<?php echo $tooltips_free_how_to_bar_id ?>">
+							 * <span id='bp-members-pro-compent-plus-<?php echo $tooltips_free_how_to_bar_id; ?>'>+</span>
+							 */
+							?>
+							<span id='bp-members-pro-compent-plus-<?php echo esc_attr($tooltips_free_how_to_bar_id); ?>'>+</span>
 							<h3 class='hndle'
 								style='padding: 10px; ! important; border-bottom: 0px solid #eee !important;'>
 	<?php
@@ -378,9 +465,15 @@ function tooltips_free_howto_setting_panel($tooltips_free_how_to_bar_id, $toolti
 									</h3>
 
 						</div>
-						<div class="inside tomas-tooltips-howto-settings postbox"
+						<?php 
+						/*
+						 *7.9.3 
+						 * 						<div class="inside tomas-tooltips-howto-settings postbox"
 							style='padding-left: 10px; border-top: 1px solid #eee;'
 							id=<?php echo $tooltips_free_how_to_bar_id ?>>
+						 */
+						?>
+						<div class="inside tomas-tooltips-howto-settings postbox" style='padding-left: 10px; border-top: 1px solid #eee;' id=<?php echo esc_attr($tooltips_free_how_to_bar_id) ?>>
 							<?php echo $tooltips_free_how_to_bar_content; ?>
 							<br />
 						</div>

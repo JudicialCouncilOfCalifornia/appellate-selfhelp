@@ -1,21 +1,18 @@
 <?php
-		echo "<div class='mo_idp_divided_layout mo-idp-full'>
-            <div class='mo_idp_table_layout mo-idp-center'>
-                <h2>    
-                    ATTRIBUTE MAPPING (OPTIONAL)";
-                    restart_tour();
-    echo        "</h2><hr>";
-		echo '      
-                <form name="f" method="post" id="mo_name_idp_attr_settings">
+	//start
+	echo '<div class="mo-idp-divided-layout mo-idp-full mo-idp-bg mo-idp-margin-left mo-idp-pt">
+            <div class="mo-idp-table-layout mo-idp-center mo-idp-sp-width">
+                <h2 class="mo-idp-add-new-sp">    
+                    Attribute Mapping (Optional)
+                    </h2><hr class="mo-idp-add-new-sp-hr">
+                    <form name="f" method="post" class="mo-idp-mt-5">
                     <input type="hidden" name="option" value="change_name_id" />
-                    <input type="hidden" name="error_message" id="error_message" />
-                    <input type="hidden" name="service_provider" value="'. (isset($sp) && !empty($sp) ? $sp->id : '') .'"/>
-    
-                    <table class="mo_idp_settings_table">
-                        <tr id="nameIdTable" style="background-color: white">
-                            <td style="width:150px;"><strong>NameID Attribute:</strong></td>
+                    <input type="hidden" name="error_message" id="error_message" />';
+                echo '  <input type="hidden" name="service_provider" value="'. (isset($sp) && !empty($sp) ? esc_attr($sp->id) : '') .'"/>';
+                echo '   <table class="mo-idp-settings-table" style="border-spacing: 0 6px;">
+                        <tr id="nameIdTable">
+                            <td><strong class="mo-idp-home-card-link">NameID Attribute:</strong></td>
                             <td>';
-
                                 get_nameid_select_box($disabled,$sp);
 
 	echo'					
@@ -23,144 +20,110 @@
                             <td>
                                 <input  type="submit" 
                                         name="submit" 
-                                        style="margin-left:20px;width:100px;" 
+                                        style="margin-left:1.25rem;width:6.25rem !important;" 
                                         value="Save" 
-                                        class="button button-primary button-large"/>
+                                        class="button button-primary button-large mo-idp-button-large"/>
                             </td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td colspan="2">
-                                <i>
-                                    <span style="color:red">NOTE: </span>
-                                    This attribute value is sent in SAML Response. 
-                                    Users in your Service Provider will be searched (existing users) or created 
-                                    (new users) based on this attribute. Use EmailAddress by default.
-                                </i>
+                            <td colspan="1" class="mo-idp-note-endp">
+                            <b>
+                                <span class="mo-idp-red">NOTE: </span>
+                                This attribute value is sent in SAML Response. 
+                                Users in your Service Provider will be searched (existing users) or created 
+                                (new users) based on this attribute. Use <span style="background: #ffc2c2;padding: 1px;">user_email</span> by default.
+                            </b>
                             </td>
                         </tr>
                     </table>
                 </form>
-             </div>
-		     <div class="mo_idp_table_layout mo-idp-center">
-                <br/>
-                <div class="mo_idp_premium_option_text">
-                    <span style="color:red;">*</span> This is a premium feature. Check 
-                    <a href="'.$license_url.'">Licensing Tab</a> to learn more.
+             </div>';
+            echo ' <a href="'.esc_url($license_url).'" class="mo-idp-advt mo-idp-upload-data-anchor">';
+            echo' <div class="mo-idp-table-layout mo-idp-center mo-idp-sp-width mo-idp-mt-5 mo-idp-border mo-idp-text-color" style="border:3px solid #F2BE54;margin-top: 4rem !important;position:relative;">
+             <h2 class="mo-idp-advt-premium-feature-head-jwt-prem mo-idp-flex" style="margin-top:3rem;">Premium Features</h2>';
+            echo' <img class="mo-idp-advt-premium-feature-lock-attr-map" src="'.MSI_LOCK.'"/>';
+            echo' <div class="mo-idp-flex" style="justify-content:space-around!important;">
+             <div class="mo-idp-attr-map-prem-feature  mo-idp-border">
+                    <br/>
+                    <div class="mo-premium-option">
+                        <form name="f" method="post" id="mo_idp_attr_settings">
+                            <input type="hidden" name="option" value="mo_idp_attr_settings" />';
+                        echo'<input type="hidden" name="service_provider" value="'. (isset($sp) && !empty($sp) ? esc_attr($sp->id) : '') .'"/>';
+                        echo'    <table style="border-spacing:0.2rem"> 
+                                <tr>
+                                    <td style="width:15.625rem" class="mo-idp-home-card-link"><strong>User Attributes</strong></td>
+                                </tr>
+                                <tr></tr>
+                            </table>
+                        </form>
+                        <div class="mo-idp-mt-5">
+                            <b>
+                                <span class="mo-idp-red">NOTE:</span>
+                                    These are user attributes that will be sent in the SAML Response. 
+                                    Choose the User data you want to send in the Response from the dropdown. 
+                                    In the textbox to the left of the dropdown, give an appropriate name you 
+                                    want the User data mapped to.
+                            </b>
+                        </div>
+                    </div>
                 </div>
-                <div class="mo_premium_option">
-                    <form name="f" method="post" id="mo_idp_attr_settings">
-                        <input type="hidden" name="option" value="mo_idp_attr_settings" />
-                        <input type="hidden" name="service_provider" value="'. (isset($sp) && !empty($sp) ? $sp->id : '') .'"/>
-                        <table class="mo_idp_settings_table">
-                            <tr>
-                                <td style="width:250px"><strong>User Attributes (OPTIONAL):</strong></td>
-                                <td>
-                                    <input  type="button" 
-                                            name="add_attribute" 
-                                            value="+" disabled 
-                                            onclick="add_user_attribute();" 
-                                            class="button button-primary" />&nbsp;
-                                    <input  type="button" 
-                                            name="remove_attribute" 
-                                            value="-" disabled 
-                                            onclick="remove_user_attribute();" 
-                                            class="button button-primary" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Name</strong></td>
-                                <td><strong>User Meta Data</strong></td>
-                            </tr>';
-
-	echo 		'	    </table>
-			        </form>
-                    <i>
-                        <span style="color:red;">NOTE:</span>
-                            These are user attributes that will be send in the SAML Response. 
-                            Choose the User data you want to send in the Response from the dropdown. 
-                            In the textbox to the left of the dropdown give an appropriate name you 
-                            want the User data mapped to.
-                    </i>
-                </div>
-            </div>
-            <div class="mo_idp_table_layout mo-idp-center">';
-
-	        echo 	'<br/>
-                <div class="mo_idp_premium_option_text">
-                    <span style="color:red;">*</span> This is a premium feature. Check 
-                    <a href="'.$license_url.'">Licensing Tab</a> to learn more.
-                </div>
-                <div class="mo_premium_option">
+            <div class="mo-idp-attr-map-prem-feature mo-idp-border"> ';
+	//custom attributes
+      echo '    <br/>
+                <div class="mo-premium-option">
                     <form name="f" method="post" id="mo_custom_idp_attr_settings">
                         <input type="hidden" name="option" value="mo_save_custom_idp_attr" />	
-                        <input type="hidden" name="error_message" id="error_message" />
-                        <input type="hidden" name="service_provider" value="'. (isset($sp) && !empty($sp) ? $sp->id : '') .'"/>
-                        <table class="mo_idp_settings_table">
+                        <input type="hidden" name="error_message" id="error_message" />';
+                    echo'   <input type="hidden" name="service_provider" value="'. (isset($sp) && !empty($sp) ? esc_attr($sp->id) : '') .'"/>';
+                    echo'    <table style="border-spacing:0.2rem">
                             <tr>
-                                <td><strong>Custom Attributes (OPTIONAL):</strong></td>
-                                <td>
-                                    <input  type="button" 
-                                            name="add_custom_attribute" 
-                                            value="+"  
-                                            onclick="add_custom_attributes();" disabled 
-                                            class="button button-primary" />&nbsp;
-                                    <input  type="button" 
-                                            name="remove_custom_attribute" 
-                                            value="-" disabled 
-                                            onclick="remove_custom_attributes();" 
-                                            class="button button-primary" />
-                                </td>
+                                <td class="mo-idp-home-card-link"><strong>Custom Attributes</strong></td>
                             </tr>
-                            <tr>
-                                <td><strong>Name</strong></td>
-                                <td><strong>Custom Attribute Value</strong></td>
-                            </tr>';
-
-        echo		'    </table>
+                        </table>
 			        </form>
-                    <i>
-                        <span style="color:red;">NOTE:</span>These are extra static attributes that will be send in the SAML Response. 
-                        Enter the data you want to send in the Response from the dropdown. 
-                        In the textbox to the left of the dropdown give an appropriate name you want the data mapped to.
-                    </i>
+                    <div class="mo-idp-mt-5">
+                        <b>
+                            <span class="mo-idp-red">NOTE:</span> These are extra static attributes that will be sent in the SAML Response. 
+                            Enter the data you want to send in the Response from the dropdown. 
+                            In the textbox to the left of the dropdown, give an appropriate name you want the data mapped to.
+                        </b>
+                    </div>
                 </div>
             </div>
-		    <div class="mo_idp_table_layout mo-idp-center">';
-
+		    <div class="mo-idp-attr-map-prem-feature mo-idp-border">';
                     $role_mapping_enabled = false;
                     $role_mapping_hidden  = "hidden";
-
-		echo '	    <br/>
-	            <div class="mo_idp_premium_option_text">
-                    <span style="color:red;">*</span> This is a premium feature. Check 
-                    <a href="'.$license_url.'">Licensing Tab</a> to learn more.
-                </div>
-                <div class="mo_premium_option">
-                    <div><h3>Group/Role Mapping (Optional)</h3></div>
+	//Group Mapping
+	echo '	    <br/>
+                <div class="mo-premium-option">
+                    <div class="mo-idp-home-card-link"><b>Group/Role Mapping</b></div>
+                    <br>
                     <form name="f" method="post" id="mo_idp_group_setting">
                         <input type="hidden" name="option" value="mo_add_role_attribute" />
-                        <input type="hidden" name="error_message" id="error_message" />
-                        <input type="hidden" name="service_provider" value="'. (isset($sp) && !empty($sp) ? $sp->id : '') .'"/>
-                        <div>
-                            <input  type="checkbox" 
+                        <input type="hidden" name="error_message" id="error_message" />';
+                    echo' <input type="hidden" name="service_provider" value="'. (isset($sp) && !empty($sp) ? esc_attr($sp->id) : '') .'"/>';
+                    echo'   <div class="mo-idp-mt-5">';
+                    echo'       <input  type="checkbox" 
                                     class="mo_idp_checkbox" disabled 
                                     name="idp_role_attribute" 
-                                    value="1" '. $role_mapping_enabled;
-        echo 		                (empty($sp) ? 'disabled title="Disabled. Configure your Identity Provider"' : '') .' /> 
-                            Check this option if you want to send User Roles as Group Attribute
-                            
-                            <div id="idp_role_attr_name" class="mo_idp_help_desc" '. $role_mapping_hidden .'>
-                                <input  type="text" style="margin-bottom:1%;" disabled 
+                                    value="1" '. esc_attr($role_mapping_enabled);
+         		                (empty($sp) ? 'disabled title="Disabled. Configure your Identity Provider"' : '') .' /> ';
+                    echo'       Check this option if you want to send User Roles as Group Attribute';
+                    echo'       <div id="idp_role_attr_name" class="mo-idp-help-desc" '. esc_attr($role_mapping_hidden) .'>';
+                    echo'            <input  type="text" style="margin-bottom:1%;" disabled 
                                         name="mo_idp_role_mapping_name" 
                                         placeholder="Name" 
-                                        value="'. (isset($sp_user_attr_result['groupMapName']) ? $sp_user_attr_result['groupMapName'] : '') .'" />	
-                                <i>
-                                    <span style="margin-left:2%;color:red;">NOTE:</span> User Role will be mapped to this name in the SAML Response
-                                </i>
+                                        value="'. (isset($sp_user_attr_result['groupMapName']) ? esc_attr($sp_user_attr_result['groupMapName']) : '') .'" />';	
+                    echo '           <b>
+                                    <span style="margin-left:2%;" class="mo-idp-red">NOTE:</span> User Role will be mapped to this name in the SAML Response
+                                </b>
                             </div>
                         </div>
                     </form>
                 </div>
+                </div>
             </div>
-        </div>';
+        </div>
+        </a>';
+    

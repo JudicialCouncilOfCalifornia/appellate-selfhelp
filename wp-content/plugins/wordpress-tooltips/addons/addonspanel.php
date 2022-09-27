@@ -10,7 +10,9 @@ function tooltipFreeAddonSettings()
 	{
 		if (isset($_POST['enableLanguageCustomization']))
 		{
-			update_option("enableLanguageCustomization",$_POST['enableLanguageCustomization']);
+			$enableLanguageCustomization = sanitize_textarea_field($_POST['enableLanguageCustomization']);
+			update_option("enableLanguageCustomization",$enableLanguageCustomization);
+			//update_option("enableLanguageCustomization",$_POST['enableLanguageCustomization']);
 		}
 	
 		if (file_exists(TOOLTIPS_ADDONS_PATH.'tooltips_languages.php'))
@@ -42,7 +44,9 @@ function tooltipFreeAddonSettings()
 	{
 		if (isset($_POST['enableTooltipsForOceanWP']))
 		{
-			update_option("enableTooltipsForOceanWP",$_POST['enableTooltipsForOceanWP']);
+			$enableTooltipsForOceanWP = sanitize_textarea_field($_POST['enableTooltipsForOceanWP']);
+			update_option("enableTooltipsForOceanWP",$enableTooltipsForOceanWP);
+			//update_option("enableTooltipsForOceanWP",$_POST['enableTooltipsForOceanWP']);
 		}
 	
 		if (file_exists(TOOLTIPS_ADDONS_PATH.'tooltips_for_oceanwp.php'))
@@ -79,7 +83,8 @@ function tooltipFreeAddonSettings()
 									<?php
 										$knowledgeBaseURL = get_option('siteurl'). '/wp-admin/edit.php?post_type=tooltips&page=tooltipsfaq';
 										echo __( "Enable/Disable Tooltips Language Customization Addon", 'wordpress-tooltips' )."<i> <font color='Gray'></font></i>";
-										echo __(" <font color='gray'><i>(please check 'How to Use Language Addon to Custom Language of Your Glossary' in <a href='$knowledgeBaseURL' target='_blank'>'Knowledge Base'</a> menu first )</i></font>")
+										echo __(" <font color='gray'><i>(please check 'How to Use Language Addon to Custom Language of Your Glossary' in <a href='". esc_url($knowledgeBaseURL)."' target='_blank'>'Knowledge Base'</a> menu first )</i></font>")
+										//7.9.1 echo __(" <font color='gray'><i>(please check 'How to Use Language Addon to Custom Language of Your Glossary' in <a href='$knowledgeBaseURL' target='_blank'>'Knowledge Base'</a> menu first )</i></font>")
 									?>
 									</span>
 									</h3>

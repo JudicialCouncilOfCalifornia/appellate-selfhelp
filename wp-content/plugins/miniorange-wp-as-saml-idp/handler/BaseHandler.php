@@ -10,12 +10,12 @@ use IDP\Helper\Utilities\MoIDPUtility;
 
 class BaseHandler
 {
-    
+    /** @var string $_nonce */
     public $_nonce;
 
 	public function checkIfValidPlugin()
 	{
-	                    		return TRUE;
+		return TRUE;
 	}
 
 	public function isValidRequest()
@@ -26,13 +26,20 @@ class BaseHandler
         return TRUE;
     }
 
-    
+    /**
+     * @param $array
+     * @param string $key
+     * @throws JSErrorException
+     */
     public function checkIfJSErrorMessage($array, $key='error_message')
 	{
 		if(array_key_exists($key,$array) && $array[$key]) throw new JSErrorException($array[$key]);
 	}
 
-    
+    /**
+     * @param $array
+     * @throws RequiredFieldsException
+     */
     public function checkIfRequiredFieldsEmpty($array)
 	{
 		foreach ($array as $key => $value)
@@ -45,7 +52,10 @@ class BaseHandler
 		}
 	}
 
-    
+    /**
+     * @param $array
+     * @throws SupportQueryRequiredFieldsException
+     */
     public function checkIfSupportQueryFieldsEmpty($array)
 	{
 		try{

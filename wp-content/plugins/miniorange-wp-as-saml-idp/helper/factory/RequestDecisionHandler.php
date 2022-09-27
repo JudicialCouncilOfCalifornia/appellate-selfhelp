@@ -46,6 +46,7 @@ class RequestDecisionHandler
 
 	public static function getAuthnRequestHandler($xml)
 	{
-				return;
+		//currently of no use
+		return;
 	}
 }

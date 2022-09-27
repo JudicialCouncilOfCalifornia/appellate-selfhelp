@@ -84,20 +84,25 @@ class SAMLUtilities {
     {
         $matches = array();
 
-                $regex = '/^(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)T(\\d\\d):(\\d\\d):(\\d\\d)(?:\\.\\d+)?Z$/D';
+        // We use a very strict regex to parse the timestamp.
+        $regex = '/^(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)T(\\d\\d):(\\d\\d):(\\d\\d)(?:\\.\\d+)?Z$/D';
         if (preg_match($regex, $time, $matches) == 0) {
-            echo sprintf("nvalid SAML2 timestamp passed to xsDateTimeToTimestamp: ".$time);
+            echo sprintf("Invalid SAML2 timestamp passed to xsDateTimeToTimestamp: ".esc_html($time));
             exit;
         }
 
-                        $year   = intval($matches[1]);
+        // Extract the different components of the time from the  matches in the regex.
+        // intval will ignore leading zeroes in the string.
+        $year   = intval($matches[1]);
         $month  = intval($matches[2]);
         $day    = intval($matches[3]);
         $hour   = intval($matches[4]);
         $minute = intval($matches[5]);
         $second = intval($matches[6]);
 
-                        $ts = gmmktime($hour, $minute, $second, $month, $day, $year);
+        // We use gmmktime because the timestamp will always be given
+        //in UTC.
+        $ts = gmmktime($hour, $minute, $second, $month, $day, $year);
 
         return $ts;
     }
@@ -117,7 +122,9 @@ class SAMLUtilities {
 
 	public static function validateElement(\DOMElement $root)
     {
-    	    	
+    	//$data = $root->ownerDocument->saveXML($root);
+    	//echo htmlspecialchars($data);
+
         $objXMLSecDSig = new XMLSecurityDSig();
 
         $objXMLSecDSig->idKeys[] = 'ID';
@@ -165,14 +172,16 @@ class SAMLUtilities {
             $certData = trim($certNode->textContent);
             $certData = str_replace(array("\r", "\n", "\t", ' '), '', $certData);
             $certificates[] = $certData;
-			        }
+			//echo "CertDate: " . $certData . "<br />";
+        }
 
         $ret = array(
             'Signature' => $objXMLSecDSig,
             'Certificates' => $certificates,
             );
 
-		
+		//echo "Signature validated";
+
         return $ret;
     }
 
@@ -206,7 +215,8 @@ class SAMLUtilities {
     public static function castKey(XMLSecurityKey $key, $algorithm, $type = 'public')
     {
 
-    	    	if ($key->type === $algorithm) {
+    	// do nothing if algorithm is already the type of the key
+    	if ($key->type === $algorithm) {
     		return $key;
     	}
 
@@ -413,7 +423,7 @@ class SAMLUtilities {
 				break;
 
 			default:
-				echo sprintf('Invalid Encryption Method: '.$method);
+				echo sprintf('Invalid Encryption Method: '.esc_html($method));
 				exit;
 				break;
 		}
@@ -432,9 +442,12 @@ class SAMLUtilities {
 
 	public static function desanitize_certificate( $certificate ) {
 		$certificate = preg_replace("/[\r\n]+/", "", $certificate);
-				$certificate = str_replace( "-----BEGIN CERTIFICATE-----", "", $certificate );
+		//$certificate = str_replace( "-", "", $certificate );
+		$certificate = str_replace( "-----BEGIN CERTIFICATE-----", "", $certificate );
 		$certificate = str_replace( "-----END CERTIFICATE-----", "", $certificate );
 		$certificate = str_replace( " ", "", $certificate );
-						return $certificate;
+		//$certificate = chunk_split($certificate, 64, "\r\n");
+		//$certificate = "-----BEGIN CERTIFICATE-----\r\n" . $certificate . "-----END CERTIFICATE-----";
+		return $certificate;
 	}
 }

@@ -42,10 +42,12 @@ class GenerateWsFedResponse implements ResponseHandlerFactory
 		if(MoIDPUtility::isBlank($this->current_user)) throw new InvalidSSOUserException();
 		$response_params = $this->getResponseParams();
 
-				$resp = $this->createResponseElement($response_params);
+		//Create Response Elements
+		$resp = $this->createResponseElement($response_params);
 		$this->xml->appendChild($resp);
 
-				$private_key = MoIDPUtility::getPrivateKey();
+		//Sign the node
+		$private_key = MoIDPUtility::getPrivateKey();
 		$this->signNode($private_key, $resp->firstChild->nextSibling->nextSibling->firstChild, NULL, $response_params);
 
 		$xmlResponseString = $this->xml->saveXML();
@@ -150,7 +152,8 @@ class GenerateWsFedResponse implements ResponseHandlerFactory
 		$objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA256,array( 'type' => 'private'));
 		$objKey->loadKey($private_key, FALSE);
 
-				$objXMLSecDSig = new XMLSecurityDSig();
+		//Sign the Assertion
+		$objXMLSecDSig = new XMLSecurityDSig();
 		$objXMLSecDSig->setCanonicalMethod(XMLSecurityDSig::EXC_C14N);
 
 		$objXMLSecDSig->addReferenceList(array($node), XMLSecurityDSig::SHA256

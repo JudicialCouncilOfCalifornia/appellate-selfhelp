@@ -1,13 +1,13 @@
 <?php
 	echo'<form name="f" method="post" id="otp_form" action="">
 			<input type="hidden" name="option" value="mo_idp_validate_otp" />
-				<div class="mo_idp_table_layout">
-					<table class="mo_idp_settings_table">
+				<div class="mo-idp-table-layout">
+					<table class="mo-idp-settings-table">
 						<h3>Verify Your Email</h3>
 						<tr>
 							<td><b><font color="#FF0000">*</font>Enter OTP:</b></td>
 							<td colspan="3">
-							    <input  class="mo_idp_table_textbox" 
+							    <input  class="mo-idp-table-textbox" 
 							            autofocus="true" 
 							            type="text" 
 							            name="otp_token" required 
@@ -51,10 +51,10 @@
 			    <br><br>
 				<b>Enter your valid phone number here and verify your identity using one time passcode sent to your phone.</b>
 				<br><br>
-				<table class="mo_idp_settings_table">
+				<table class="mo-idp-settings-table">
 					<tr>
-					<td colspan="3">
-						<input  class="mo_idp_table_textbox" 
+					<td colspan="3">';
+					echo	'<input  class="mo-idp-table-textbox" 
 						        required  
 						        pattern="[0-9\+]{12,18}" 
 						        autofocus="true" 
@@ -63,9 +63,9 @@
 						        name="phone_number" 
 						        id="phone" 
 						        placeholder="Enter Phone Number" 
-						        value="'.get_site_option('mo_idp_admin_phone').'" 
-						        title="Enter phone number(at least 10 digits) without any space or dashes."/>
-					</td>
+						        value="'.esc_attr(get_site_option('mo_idp_admin_phone')).'" 
+						        title="Enter phone number(at least 10 digits) without any space or dashes."/>';
+				echo	'</td>
 					<td>&nbsp;&nbsp;
 						<a style="cursor:pointer;" onclick="document.getElementById(\'phone_verification\').submit();">Resend OTP ?</a>
 					</td>

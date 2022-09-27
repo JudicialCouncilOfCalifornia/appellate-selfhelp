@@ -4,7 +4,7 @@
 	use IDP\Handler\RegistrationHandler;
 
 	$hostname 		= MoIDPConstants::HOSTNAME;
-	
+	/** @var RegistrationHandler $handler */
 	$handler        = RegistrationHandler::instance();
 	$url 			= $hostname.'/moas/login'.'?redirectUrl='.$hostname.'/moas/viewlicensekeys';
 	$email 			= get_site_option('mo_idp_admin_email');

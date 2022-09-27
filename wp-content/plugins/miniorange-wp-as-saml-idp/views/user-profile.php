@@ -1,44 +1,35 @@
 <?php
 
-	echo '<div class="mo_idp_divided_layout mo-idp-full">
-            <div class="mo_idp_table_layout mo-idp-center">
-                <h2>
-                    YOUR PROFILE
-                    <span style="float:right;margin-top:-10px;">
+	echo '<div class="mo-idp-divided-layout mo-idp-full mo-idp-bg mo-idp-margin-left mo-idp-pt">
+            <div class="mo-idp-table-layout mo-idp-center mo-idp-sp-width">
+                <h2 class="mo-idp-add-new-sp">
+                    Your Profile
+                </h2>
+                <hr class="mo-idp-add-new-sp-hr">
+                <h4 class="mo-idp-home-card-link">Here are your Account Details :</h4>
+                <table class="mo-idp-home-card-link mo-idp-table-input wp-idp-pricing-down"  style="border-collapse: collapse;">';
+                echo '
+                    <tr>
+                        <td class="mo-idp-profile-table"><b>Registered Email</b></td>
+                        <td class="mo-idp-profile-table">'.esc_attr($email).' 
+                        </td>
+                    </tr>';
+                    echo '
+                    <tr>
+                        <td class="mo-idp-profile-table"><b>Customer ID</b></td>
+                        <td class="mo-idp-profile-table">'.esc_attr($customerID).'</td>
+                    </tr>';
+                    echo '
+                </table>
+                <div class="mo-idp-mt-5 mo-idp-flex">
                         <input  type="button" 
                                 name="remove_accnt" 
                                 id="remove_accnt" 
-                                class="button button-primary button-large" 
+                                class="button mo-idp-button-large mo-idp-text-white"  style="background-color:#2271B1;"
                                 value="Remove Account">
-                    </span>
-                </h2>
-                <hr>
-                <h4>Here are your Account Details :</h4>
-                <table border="1" style="background-color:#FFFFFF; 
-                                         border:1px solid #CCCCCC; 
-                                         border-collapse: collapse; 
-                                         padding:0px 0px 0px 10px; 
-                                         margin:2px; width:100%">
-                    <tr>
-                        <td style="width:45%; padding: 10px;"><b>Registered Email</b></td>
-                        <td style="width:55%; padding: 10px;">'.$email.' 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width:45%; padding: 10px;"><b>Customer ID</b></td>
-                        <td style="width:55%; padding: 10px;">'.$customerID.'</td>
-                    </tr>
-                    <tr>
-                        <td style="width:45%; padding: 10px;"><b>API Key</b></td>
-                        <td style="width:55%; padding: 10px;">'.$apiKey.'</td>
-                    </tr>
-                    <tr>
-                        <td style="width:45%; padding: 10px;"><b>Token Key</b></td>
-                        <td style="width:55%; padding: 10px;">'.$tokenKey.'</td>
-                    </tr>
-                </table>
+                </div>
             </div>
-           </div>
+        </div>
            <form id="remove_accnt_form" style="display:none;" action="" method="post">';
 			    wp_nonce_field( $regnonce );
 echo'		<input type="hidden" name="option" value="remove_idp_account" />

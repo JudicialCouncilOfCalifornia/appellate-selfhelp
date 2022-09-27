@@ -60,8 +60,10 @@ function tooltipsFreeLanguageMenu()
 
 	if (isset($_POST['glossaryLanguageCustomNavALLSubmit']))
 	{
-	
-		$glossaryLanguageCustomNavALL = $_POST['glossaryLanguageCustomNavALL'];
+		check_admin_referer ( 'tooltipslanguagenonce' );	
+		//7.8.7
+		// $glossaryLanguageCustomNavALL = $_POST['glossaryLanguageCustomNavALL'];
+		$glossaryLanguageCustomNavALL = sanitize_textarea_field($_POST['glossaryLanguageCustomNavALL']);
 		update_option('glossaryLanguageCustomNavALL', $glossaryLanguageCustomNavALL);
 		tooltipsMessage('Glossary language has been changed');
 	}
@@ -73,13 +75,18 @@ function tooltipsFreeLanguageMenu()
 	}
 	
 	$languageselectboxURL = get_option('siteurl'). '/wp-admin/edit.php?post_type=tooltips&page=glossarysettingsfree';
-	$title = "Custom Language of Tooltip and Glossary <p><i style='color:gray;'>(please select '<a href='$languageselectboxURL' target='_blank'>custom my language</a>' option in <a href='$languageselectboxURL' target='_blank'>language selectbox</a> first )</i></p>";
+	//7.9.3
+	//$title = "Custom Language of Tooltip and Glossary <p><i style='color:gray;'>(please select '<a href='$languageselectboxURL' target='_blank'>custom my language</a>' option in <a href='$languageselectboxURL' target='_blank'>language selectbox</a> first )</i></p>";
+	$title = "Custom Language of Tooltip and Glossary <p><i style='color:gray;'>(please select '<a href='".esc_url($languageselectboxURL)."' target='_blank'>custom my language</a>' option in <a href='$languageselectboxURL' target='_blank'>language selectbox</a> first )</i></p>";
 	tooltips_free_language_setting_panel_head($title);
 
 	$title = 'Custom Glossary to Your Own Language -- word "ALL" on Navigation Bar:';
 	$content = '';
 	
 	$content .= '<form class="formTooltips" name="formTooltips" action="" method="POST">';
+
+	$content .= wp_nonce_field ( 'tooltipslanguagenonce');
+
 	$content .= '<table id="tableTooltips" width="100%">';
 	
 	$content .= '<tr style="text-align:left;">';
@@ -87,7 +94,9 @@ function tooltipsFreeLanguageMenu()
 	$content .= 'Custom the word "ALL" on Nav Bar: ';
 	$content .= '</td>';
 	$content .= '<td width="30%"  style="text-align:left;">';
-	$content .=  '<input type="text" id="glossaryLanguageCustomNavALL" name="glossaryLanguageCustomNavALL" value="'.  $glossaryLanguageCustomNavALL .'" required placeholder="for example:ALL">';
+	//7.9.3
+	//$content .=  '<input type="text" id="glossaryLanguageCustomNavALL" name="glossaryLanguageCustomNavALL" value="'.  $glossaryLanguageCustomNavALL .'" required placeholder="for example:ALL">';
+	$content .=  '<input type="text" id="glossaryLanguageCustomNavALL" name="glossaryLanguageCustomNavALL" value="'.  esc_attr($glossaryLanguageCustomNavALL) .'" required placeholder="for example:ALL">';
 	$content .= '</td>';
 	$content .= '<td width="30%"  style="text-align:left;">';
 	$content .= '<input type="submit" class="button-primary" id="glossaryLanguageCustomNavALLSubmit" name="glossaryLanguageCustomNavALLSubmit" value=" Submit ">';

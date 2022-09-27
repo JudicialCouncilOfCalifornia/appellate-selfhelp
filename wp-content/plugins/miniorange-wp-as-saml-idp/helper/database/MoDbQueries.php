@@ -10,14 +10,14 @@ final class MoDbQueries
 {
     use Instance;
 
-    
+    /** @var string $spDataTableName */
     private $spDataTableName;
-    
+    /** @var string $spAttrTableName */
     private $spAttrTableName;
-    
+    /** @var string $userMetaTable */
     private $userMetaTable;
 
-    
+    /** Private constructor to prevent direct object creation */
     private function __construct()
     {
         global $wpdb;
@@ -216,6 +216,13 @@ final class MoDbQueries
     {
         global $wpdb;
         return $wpdb->insert(  $this->spDataTableName, $data );
+    }
+
+    function update_metdata_data()
+    {
+        global $wpdb;
+        $wpdb->query("DELETE FROM ".$this->spDataTableName);
+        $wpdb->query("ALTER TABLE ".$this->spDataTableName." AUTO_INCREMENT=0");
     }
 
     function update_sp_data($data,$where)

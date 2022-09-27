@@ -1,6 +1,6 @@
 <?php
 
-    
+    /** @global \IDP\Helper\Database\MoDbQueries $dbIDPQueries */
 	global $dbIDPQueries;
 	$sp_list 				= $dbIDPQueries->get_sp_list();
 	$disabled				= !$registered || !$verified ? "" : NULL;

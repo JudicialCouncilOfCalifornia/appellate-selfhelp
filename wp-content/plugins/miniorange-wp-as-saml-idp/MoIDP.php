@@ -13,13 +13,12 @@ use IDP\Helper\Utilities\MoIDPUtility;
 use IDP\Helper\Utilities\RewriteRules;
 use IDP\Helper\Utilities\TabDetails;
 use IDP\Helper\Utilities\Tabs;
-use IDP\VisualTour\PointersManager;
 
 final class MoIDP
 {
     use Instance;
 
-    
+    /** Private constructor to avoid direct object creation */
     private function __construct()
     {
         $this->initializeGlobalVariables();
@@ -41,9 +40,9 @@ final class MoIDP
         add_action( 'admin_enqueue_scripts', 		        array( $this, 'mo_idp_plugin_settings_script' 	) 		 );
         add_action( 'enqueue_scripts', 				        array( $this, 'mo_idp_plugin_settings_style' 	) 		 );
         add_action( 'enqueue_scripts', 				        array( $this, 'mo_idp_plugin_settings_script' 	) 		 );
-        add_action( 'admin_enqueue_scripts', 		        array( $this, 'load_pointers' 	                ) 		 );
         add_action( 'admin_footer',                         array( $this, 'feedback_request'  				)        );
-        register_activation_hook  ( MSI_PLUGIN_NAME, 	array( $this, 'mo_plugin_activate'			    ) 		 );
+        add_filter( 'plugin_action_links_'.MSI_PLUGIN_NAME, array($this , 'mo_idp_plugin_anchor_links'      )        );
+        register_activation_hook  ( MSI_PLUGIN_NAME, 	    array( $this, 'mo_plugin_activate'			    ) 		 );
     }
 
     function initializeActions()
@@ -67,43 +66,65 @@ final class MoIDP
     function mo_idp_plugin_settings_style()
     {
         wp_enqueue_style( 'mo_idp_admin_settings_style'	,MSI_CSS_URL				 );
-        wp_enqueue_style( 'wp-pointer' );
     }
 
     function mo_idp_plugin_settings_script()
     {
-        wp_enqueue_script( 'mo_idp_admin_settings_script',MSI_JS_URL , array('jquery'));
+        wp_enqueue_script( 'mo_idp_admin_settings_script', MSI_JS_URL, array('jquery') );
     }
 
-    function load_pointers($page)
-    {
-        $pointers = PointersManager::instance()->parse()->filter($page);
-        if(MoIDPUtility::isBlank($pointers)) return;
-
-        wp_enqueue_script( MSI_POINTER_PREFIX, MSI_POINTER_JS, array('wp-pointer'), NULL, TRUE );
-                $data = [
-            'next_label'    => __( 'Next' ),
-            'close_label'   => __('Close'),
-            'pointers'      => $pointers,
-            'registerURL'   => getRegistrationURL()
-        ];
-        wp_localize_script( MSI_POINTER_PREFIX, 'idppointers', $data );
-    }
 
     function mo_plugin_activate()
     {
-        
+        /** @var MoDbQueries $dbIDPQueries */
         global $dbIDPQueries;
         $dbIDPQueries->checkTablesAndRunQueries();
+        if (!get_site_option("mo_idp_new_certs"))
+        {
+            MoIDPUtility::useNewCerts();
+        }
+        $metadata_dir		= MSI_DIR . "metadata.xml";
+        if (file_exists($metadata_dir) && filesize($metadata_dir) > 0) {
+            unlink($metadata_dir);
+            MoIDPUtility::createMetadataFile();
+        }
+        if (get_site_option("idp_keep_settings_intact", NULL) === NULL)
+        {
+            update_site_option( "idp_keep_settings_intact", TRUE );
+        }
     }
 
     function mo_show_message($content,$type)
     {
-        new MoIdPDisplayMessages($content,$type);
+        new MoIdPDisplayMessages($content, $type);
     }
 
     function feedback_request()
     {
         include MSI_DIR . 'controllers/feedback.php';
+    }
+
+    function mo_idp_plugin_anchor_links( $links ) 
+    {
+        if(array_key_exists("deactivate", $links))
+        {
+            $arr = array();
+            $data = [
+                'Settings'          => 'idp_configure_idp',
+                'Purchase License'  => 'idp_upgrade_settings'
+            ];
+
+            foreach ($data as $key => $val) {
+                $url = esc_url(add_query_arg(
+                    'page',
+                    $val,
+                    get_admin_url() . 'admin.php?'
+                ));
+                $anchor_link = "<a href='$url'>" . __($key) . '</a>' ;
+                array_push($arr, $anchor_link);
+            }
+            $links = $arr + $links;
+        }
+        return $links ;
     }
 }

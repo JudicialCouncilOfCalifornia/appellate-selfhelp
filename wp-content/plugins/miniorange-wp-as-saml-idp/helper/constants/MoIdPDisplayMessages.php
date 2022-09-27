@@ -19,13 +19,13 @@
 	    	switch ($this->_type)
 	    	{
 	    		case 'CUSTOM_MESSAGE':
-	    			echo  $this->_message;																				break;
+	    			echo  esc_html($this->_message);																				break;
 	    		case 'NOTICE':
-	    			echo '<div style="margin-top:1%;" class="is-dismissible notice notice-warning"> <p>'.$this->_message.'</p> </div>';		break;
+	    			echo '<div  class="is-dismissible notice notice-warning mo-idp-note-endp mo-idp-margin-left"> <p>'.esc_html($this->_message).'</p> </div>';		break;
 	    		case 'ERROR':
-	    			echo '<div  style="margin-top:1%;" class="notice notice-error is-dismissible"> <p>'.$this->_message.'</p> </div>';		break;
+	    			echo '<div  class="notice notice-error is-dismissible mo-idp-note-error mo-idp-margin-left"> <p>'.esc_html($this->_message).'</p> </div>';		break;
 	    		case 'SUCCESS':
-	    			echo '<div  style="margin-top:1%;" class="notice notice-success is-dismissible"> <p>'.$this->_message.'</p> </div>';		break;
+	    			echo '<div  class="notice notice-success is-dismissible mo-idp-note-success mo-idp-margin-left"> <p>'.esc_html($this->_message).'</p> </div>';		break;
 	    	}
 	    }
 	}

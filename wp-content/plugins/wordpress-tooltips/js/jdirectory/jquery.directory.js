@@ -1,14 +1,14 @@
 /*!
  * jQuery.Directory. The jQuery directory plugin
  *
- * Copyright (c) 2014 - 2019 Tomas Zhu
+ * Copyright (c) 2014 - 2020 Tomas Zhu
  * http://tomas.zhu.bz
  * Support: http://tomas.zhu.bz/jquery-directory-plugin.html
  * Licensed under GPLv3 licenses
  * http://www.gnu.org/licenses/gpl.html
  *
  * Launch  : June 2014
- * Version : 2.5.2
+ * Version : 3.5.2
  * Released: 10 June, 2014 - 00:00
  * 
  */
@@ -173,8 +173,8 @@
 				$(this).data('alpha',firstAlpha);
 			});
 			
-			var navbar = '<a class="navitem allDirectory" href="#">'+customizedwordofselectall+'</a>';
-			
+			var navbar = '<a navname="navnameall" class="navitem allDirectory" href="#navnameall">'+customizedwordofselectall+'</a>';
+			var navname = '';
 			$.each($.fn.directory.defaults.navigation, function(i,val)
 			{
 				var directorySelectors = $.fn.directory.defaults.selectors
@@ -191,21 +191,23 @@
 				}
 				)
 				
+				var navname = 'navname' + val;
+				var navnamehref = 'navnameall';
 				if (countStore == 0 ) 
 				{
 					if ( $.fn.directory.defaults.hidezeronumberitem == 'yes' )
 					{
-						navbar = navbar + '<a class="navitem navitemhidden '+val+'" data-counter='+countStore+' href="#">'+val.toUpperCase()+'</a>';
+						navbar = navbar + '<a name="' + navname + '" class="navitem navitemhidden '+val+'" data-counter='+countStore+' href="#' + navnamehref + '">'+val.toUpperCase()+'</a>';
 					}
 					else
 					{
-						navbar = navbar + '<a class="navitem  '+val+'" data-counter='+countStore+' href="#">'+val.toUpperCase()+'</a>';
+						navbar = navbar + '<a name = "' + navname + '" class="navitem  '+val+'" data-counter='+countStore+' href="#' + navnamehref + '">'+val.toUpperCase()+'</a>';
 					}
 						
 				}
 				else 
 				{
-						navbar = navbar + '<a class="navitem '+val+'" href="#">'+val.toUpperCase()+'<span class="tooltiplist_count">'+countStore+'</span></a>';
+						navbar = navbar + '<a name = "' + navname + '" class="navitem '+val+'" href="#' + navnamehref +'">'+val.toUpperCase()+'<span class="tooltiplist_count">'+countStore+'</span></a>';
 				}
   			});
   			navbar = '<div class="navitems">' + navbar + '</div>';

@@ -13,16 +13,22 @@ final class RegistrationHandler extends RegistrationUtility
 {
     use Instance;
 
-    
+    /** Private constructor to avoid direct object creation */
     private function __construct()
     {
         $this->_nonce = 'reg_handler';
     }
 
-    
+    /**
+     * @param $POSTED
+     * @throws \IDP\Exception\PasswordMismatchException
+     * @throws \IDP\Exception\PasswordStrengthException
+     * @throws \IDP\Exception\RegistrationRequiredFieldsException
+     */
     public function _idp_register_customer($POSTED)
 	{
-				$email 				= sanitize_email	 (	$POSTED['email'] 			);
+		//validate and sanitize
+		$email 				= sanitize_email	 (	$POSTED['email'] 			);
 		$password 			= sanitize_text_field( 	$POSTED['password'] 		);
 		$confirmPassword 	= sanitize_text_field( 	$POSTED['confirmPassword'] 	);
 
@@ -44,7 +50,13 @@ final class RegistrationHandler extends RegistrationUtility
 		}
 	}
 
-    
+    /**
+     * @param $POSTED
+     * @throws \IDP\Exception\InvalidPhoneException
+     * @throws \IDP\Exception\OTPSendingFailedException
+     *
+     * @deprecated since 1.10.9
+     */
     public function _mo_idp_phone_verification($POSTED)
 	{
 		$phone 		= sanitize_text_field($POSTED['phone_number']);
@@ -78,17 +90,19 @@ final class RegistrationHandler extends RegistrationUtility
         delete_site_option('mo_idp_admin_customer_key');
         delete_site_option('mo_idp_admin_api_key');
         delete_site_option('mo_idp_admin_email');
-        if($_POST['option']==="remove_idp_account") {
+        if(sanitize_text_field($_POST['option'])==="remove_idp_account") {
             delete_site_option('sml_idp_lk');
             delete_site_option('t_site_status');
             delete_site_option('site_idp_ckl');
         }
-        update_site_option('mo_idp_verify_customer', $_POST['option'] === "remove_idp_account");
-        update_site_option("mo_idp_new_registration", $_POST['option']==="mo_idp_go_back");
+        update_site_option('mo_idp_verify_customer', sanitize_text_field($_POST['option']) === "remove_idp_account");
+        update_site_option("mo_idp_new_registration", sanitize_text_field($_POST['option']) ==="mo_idp_go_back");
         wp_redirect(getRegistrationURL());
 	}
 
-    
+    /**
+     * @throws \IDP\Exception\PasswordResetFailedException
+     */
     public function _mo_idp_forgot_password()
 	{
 		$email 		= get_site_option('mo_idp_admin_email');
@@ -97,7 +111,10 @@ final class RegistrationHandler extends RegistrationUtility
 		do_action('mo_idp_show_message',MoIDPMessages::showMessage('PASS_RESET'),'SUCCESS');
 	}
 
-    
+    /**
+     * @param $POSTED
+     * @throws \IDP\Exception\RequiredFieldsException
+     */
     public function _mo_idp_verify_customer($POSTED)
 	{
 		$email 	  = sanitize_email( $POSTED['email'] );
@@ -106,7 +123,14 @@ final class RegistrationHandler extends RegistrationUtility
 		$this->_get_current_customer($email,$password);
 	}
 
-    
+    /**
+     * @param $email
+     * @param $phone
+     * @param $auth_type
+     * @throws \IDP\Exception\OTPSendingFailedException
+     *
+     * @deprecated since 1.10.9
+     */
     public function _send_otp_token($email, $phone, $auth_type)
 	{
 		$content  = json_decode(MoIDPUtility::sendOtpToken($auth_type,$email,$phone), true);
@@ -128,7 +152,7 @@ final class RegistrationHandler extends RegistrationUtility
 		if(json_last_error() == JSON_ERROR_NONE)
 		{
 			update_site_option( 'mo_idp_admin_email'		, $email 				 	);
-						$this->save_success_customer_config($customerKey['id'], $customerKey['apiKey'], $customerKey['token'], $customerKey['appSecret']);
+			$this->save_success_customer_config($customerKey['id'], $customerKey['apiKey'], $customerKey['token'], $customerKey['appSecret']);
 		}
 		else
 		{
@@ -138,7 +162,13 @@ final class RegistrationHandler extends RegistrationUtility
 		}
 	}
 
-    
+    /**
+     * @param $POSTED
+     * @throws \IDP\Exception\OTPRequiredException
+     * @throws \IDP\Exception\OTPValidationFailedException
+     *
+     * @deprecated since 1.10.9
+     */
     public function _idp_validate_otp($POSTED)
 	{
 		$otp_token 	= sanitize_text_field( $POSTED['otp_token'] );
@@ -158,8 +188,11 @@ final class RegistrationHandler extends RegistrationUtility
 		}
 	}
 
-    
-	public function _create_user_without_verification($email,$password)
+    /**
+     * @param $email
+     * @param $password
+     */
+    public function _create_user_without_verification($email,$password)
     {
         $customerKey = json_decode( MoIDPUtility::createCustomer(), true );
         if( strcasecmp( $customerKey['status'], 'CUSTOMER_USERNAME_ALREADY_EXISTS') == 0 )

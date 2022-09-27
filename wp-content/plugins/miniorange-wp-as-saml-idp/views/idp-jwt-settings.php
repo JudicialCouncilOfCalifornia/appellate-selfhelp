@@ -1,103 +1,53 @@
 <?php
 
-	echo'<div class="mo_idp_divided_layout mo-idp-full">
-            <div class="mo_idp_table_layout mo-idp-center">
-                <h2>'.$header;
+	echo'<div class="mo-idp-divided-layout mo-idp-full mo-idp-bg mo-idp-margin-left mo-idp-pt">
+            <div class="mo-idp-table-layout mo-idp-center mo-idp-sp-width">';
+            echo '<h2 class="mo-idp-add-new-sp">'.esc_attr($header);
 				if(!empty($sp_list))
 				{
-	echo			'<span style="float:right;margin-top:-10px;">
-						<a href="'.$goback_url.'">
-							<input type="button" value="Go Back" class="button button-primary button-large">
+	echo			'<span style="float:right;margin-top:-0.625rem;">
+						<a href="'.esc_url($goback_url).'">
+							<input type="button" value="Go Back" class="button button-primary mo-idp-button-large">
 						</a>
 					</span>';
 				}
 
 	echo	 '  </h2>
-                <hr/>';
+                <hr class="mo-idp-add-new-sp-hr"/>';
 			if(isset($sp) && !empty($sp) || $sp_exists)
 			{
                 show_protocol_options($sp,$protocol_inuse);
-
-	echo		'<div class="mo_idp_premium_option_text">
-                    <span style="color:red;">*</span> This is a premium feature. Check 
-                    <a href="'.$license_url.'">Licensing Tab</a> to learn more.
-                </div>
-                <div class="mo_premium_option">
-                    <form name="f" method="post" action="'.$post_url.'">';
-        echo			$sp_exists ? '<input type="hidden" name="option" value="mo_add_idp" />' : '<input type="hidden" name="option" value="mo_edit_idp" />';
-        echo			'<input type="hidden" name="service_provider" value="'.(isset($sp) && !empty($sp) ? $sp->id : "").'" />
-                        <input  type="hidden" 
-                                name="mo_idp_protocol_type" 
-                                value="'.(!empty($sp) ? $sp->mo_idp_protocol_type : $protocol_inuse).'">
-                        <table class="mo_idp_settings_table">
-                            <tr>
-                                <td colspan="2">
-                                    <b>
-                                        Please note down the following information from your Service Provider admin screen
-                                        and keep it handy to configure your Identity provider and map your Attributes.
-                                    </b>
-                                    <ol>
-                                        <li><b>JWT Endpoint URL</b></li>
-                                        <li><b>Shared Secret</b></li>
-                                        <li><b>Return To URL</b></li>
-                                    </ol>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:200px;">
-                                    <strong>Application Name <span style="color:red;">*</span>:</strong>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr><td>&nbsp;</td></tr>
-                            <tr>
-                                <td>
-                                    <strong>
-                                        App JWT Endpoint URL <span style="color:red;">*</span>:
-                                    </strong>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr><td>&nbsp;</td></tr>
-                            <tr>
-                                <td>
-                                    <strong>
-                                        Shared Secret <span style="color:red;">*</span>:
-                                    </strong>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr><td>&nbsp;</td></tr>
-                            <tr>
-                                <td>
-                                    <strong>
-                                        Hashing Algorithm <span style="color:red;">*</span>:
-                                    </strong>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr><td>&nbsp;</td></tr>
-                            <tr>
-                                <td>
-                                    <strong>Return to URL: (optional)</span>:</strong>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;</td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </form>
-                    <form id="add_sp" method="get" action="'.$post_url.'">
-                        <input type="hidden" name="page" value="'.$spSettingsTabDetails->_menuSlug.'"/>
-                        <input type="hidden" name="action" value="add_sp"/>
-                    </form>
-                    <input  type="checkbox"  
-                            '.(!$registered || empty($sp) ? 'disabled title="Disabled. Configure your Identity Provider"' : '').' 
-                            onchange="window.location=\''.$sp_page_url.'\'" />
-                        Check this option if you have Configured your Identity Provider settings.';
-    echo'       </div>';
+	echo		'
+                <div class="mo-idp-sp-data-manual mo-idp-bg" >';
+                   echo' <a href="'.esc_url($license_url).'" class="mo-idp-upload-data-anchor">';
+                        echo' <div id="mo-idp-advt-premium-feature">';
+                            echo'  <img class="mo-idp-advt-premium-feature-lock" src="'.MSI_URL.'includes/images/lock.png"/>';
+                                echo'     <form name="f" method="post" action="'.esc_url($post_url).'">';
+                echo			$sp_exists ? '<input type="hidden" name="option" value="mo_add_idp" />' : '<input type="hidden" name="option" value="mo_edit_idp" />';
+                echo			'<input type="hidden" name="service_provider" value="'.(isset($sp) && !empty($sp) ? esc_attr($sp->id) : "").'" />
+                                <input  type="hidden" 
+                                        name="mo_idp_protocol_type" 
+                                        value="'.(!empty($sp) ? esc_attr($sp->mo_idp_protocol_type) : esc_attr($protocol_inuse)).'">       
+                            </form>
+                            <form id="add_sp" method="get" action="'.esc_url($post_url).'">
+                                <input type="hidden" name="page" value="'.esc_attr($spSettingsTabDetails->_menuSlug).'"/>
+                                <input type="hidden" name="action" value="add_sp"/>
+                            </form>';
+                          echo'  <div>
+                                <h2 class="mo-idp-advt-premium-feature-head-jwt-prem">Premium Features</h2>
+                                <div class="mo-idp-advt-premium-feature-row1 mo-idp-flex mo-idp-mt-5">
+                                    <div>App JWT Endpoint URL</div>
+                                    <div>Return to URL (optional)</div>
+                                </div>
+                                <div class="mo-idp-advt-premium-feature-row2 mo-idp-flex mo-idp-mt-5">
+                                    <div>Hashing Algorithm</div>
+                                    <div>Shared Secret</div>
+                                </div>
+				            </div>
+                    </div>
+                    </a>
+                </div>';
+                
 			}
 			else
 			{

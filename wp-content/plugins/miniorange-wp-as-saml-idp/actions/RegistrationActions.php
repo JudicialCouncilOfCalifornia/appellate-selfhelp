@@ -18,7 +18,7 @@ class RegistrationActions extends BasePostAction
 {
     use Instance;
 
-    
+    /** @var RegistrationHandler $handler */
     private $handler;
 
     public function __construct()
@@ -42,7 +42,7 @@ class RegistrationActions extends BasePostAction
 	{
 		if ( current_user_can( 'manage_options' ) and isset( $_POST['option'] ) )
 		{
-			$option = trim($_POST['option']);
+			$option = trim( sanitize_text_field( $_POST['option'] ) );
 			try{
 				$this->route_post_data($option);
 			}catch(RegistrationRequiredFieldsException $e){
@@ -72,20 +72,31 @@ class RegistrationActions extends BasePostAction
 		}
 	}
 
-    
+    /**
+     * @param $option
+     * @throws InvalidPhoneException
+     * @throws OTPRequiredException
+     * @throws OTPSendingFailedException
+     * @throws OTPValidationFailedException
+     * @throws PasswordMismatchException
+     * @throws PasswordResetFailedException
+     * @throws PasswordStrengthException
+     * @throws RegistrationRequiredFieldsException
+     * @throws \IDP\Exception\RequiredFieldsException
+     */
     public function route_post_data($option)
 	{
-
+		$POSTED = MoIDPUtility::sanitizeAssociateArray($_POST);
 		switch($option)
 		{
 			case $this->funcs[0]:
-				$this->handler->_idp_register_customer($_POST);									break;
+				$this->handler->_idp_register_customer($POSTED);									break;
 			case $this->funcs[1]:
-				$this->handler->_idp_validate_otp($_POST);										break;
+				$this->handler->_idp_validate_otp($POSTED);										break;
 			case $this->funcs[2]:
-				$this->handler->_mo_idp_phone_verification($_POST);								break;
+				$this->handler->_mo_idp_phone_verification($POSTED);								break;
 			case $this->funcs[3]:
-				$this->handler->_mo_idp_verify_customer($_POST);								break;
+				$this->handler->_mo_idp_verify_customer($POSTED);								break;
 			case $this->funcs[4]:
 				$this->handler->_mo_idp_forgot_password();										break;
 			case $this->funcs[5]:

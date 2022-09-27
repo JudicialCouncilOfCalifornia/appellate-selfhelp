@@ -2,6 +2,8 @@
 
 	use IDP\Helper\Constants\MoIDPConstants;
 
+    wp_enqueue_script( 'mo_idp_pricing_script', MSI_PRICING_JS_URL, array('jquery') );
+
 	$disabled    	= !$registered ? 'disabled' : '';
 	$hostname    	= MoIDPConstants::HOSTNAME;
 	$login_url   	= $hostname . '/moas/login';

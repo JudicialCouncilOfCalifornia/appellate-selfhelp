@@ -41,7 +41,7 @@ class MoIDPcURL
     {
         $current_user = wp_get_current_user();
         $url    = MoIDPConstants::HOSTNAME . "/moas/rest/customer/contact-us";
-        $query  = '['.MoIDPConstants::AREA_OF_INTEREST.']: ' . $query;
+        $query  = '['."WP IDP Free Plugin"." - " . MSI_VERSION .']: ' . $query;
         $customerKey 	= !MoIDPUtility::isBlank(get_site_option('mo_idp_admin_customer_key'))
                         ? get_site_option('mo_idp_admin_customer_key') : MoIDPConstants::DEFAULT_CUSTOMER_KEY;
         $apiKey 	 	= !MoIDPUtility::isBlank(get_site_option('mo_idp_admin_customer_key'))
@@ -49,8 +49,9 @@ class MoIDPcURL
         $fields = array(
                     'firstName'	=> $current_user->user_firstname,
                     'lastName'	=> $current_user->user_lastname,
-                    'company' 	=> $_SERVER['SERVER_NAME'],
+                    'company' 	=> esc_url_raw($_SERVER['SERVER_NAME']),
                     'email' 	=> $q_email,
+                    'ccEmail'   =>'samlsupport@xecurify.com',
                     'phone'		=> $q_phone,
                     'query'		=> $query
                 );
@@ -85,8 +86,8 @@ class MoIDPcURL
                     'fromEmail'     => MoIDPConstants::FEEDBACK_FROM_EMAIL,
                     'bccEmail'      => MoIDPConstants::FEEDBACK_FROM_EMAIL,
                     'fromName'      => 'miniOrange',
-                    'toEmail'       => MoIDPConstants::FEEDBACK_EMAIL,
-                    'toName'        => MoIDPConstants::FEEDBACK_EMAIL,
+                    'toEmail'       => MoIDPConstants::SAMLSUPPORT_EMAIL,
+                    'toName'        => MoIDPConstants::SAMLSUPPORT_EMAIL,
                     'subject'       => $subject,
                     'content'       => $content
                 ),
@@ -202,7 +203,30 @@ class MoIDPcURL
         return $header;
     }
 
-    
+    /**
+     *  Uses WordPress HTTP API to make cURL calls to miniOrange server
+     *  <br/>Arguments that you can pass
+     * <ol>
+     *  <li>'timeout'     => 5,</li>
+     *  <li>'redirection' => 5,</li>
+     *  <li>'httpversion' => '1.0',</li>
+     *  <li>'user-agent'  => 'WordPress/' . $wp_version . '; ' . home_url(),</li>
+     *  <li>'blocking'    => true,</li>
+     *  <li>'headers'     => array(),</li>
+     *  <li>'cookies'     => array(),</li>
+     *  <li>'body'        => null,</li>
+     *  <li>'compress'    => false,</li>
+     *  <li>'decompress'  => true,</li>
+     *  <li>'sslverify'   => true,</li>
+     *  <li>'stream'      => false,</li>
+     *  <li>'filename'    => null</li>
+     * </ol>
+     *
+     * @param string $url           URL to post to
+     * @param string $json_string   json encoded post data
+     * @param array  $headers       headers to be passed in the call
+     * @return string
+     */
     private static function callAPI($url, $json_string, $headers = ["Content-Type" => "application/json"])
     {
         $args = [

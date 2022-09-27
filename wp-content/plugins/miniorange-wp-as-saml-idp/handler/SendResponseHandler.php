@@ -11,10 +11,14 @@ final class SendResponseHandler extends BaseHandler
 {
     use Instance;
 
-    
+    /** Private constructor to avoid direct object creation */
     private function __construct(){}
 
-    
+    /**
+     * @param $args
+     * @param null $login
+     * @throws \IDP\Exception\InvalidSSOUserException
+     */
     public function mo_idp_send_reponse($args, $login = NULL)
 	{
 		if(MSI_DEBUG) MoIDPUtility::mo_debug("Generating Login Response");
@@ -49,7 +53,7 @@ final class SendResponseHandler extends BaseHandler
 
 	public function getSAMLResponseParams($args,$current_user)
 	{
-        
+        /** @global \IDP\Helper\Database\MoDbQueries $dbIDPQueries */
 		global $dbIDPQueries;
 		$acs_url = $args['acs_url'];
 		$audience = $args['issuer'];
@@ -71,7 +75,7 @@ final class SendResponseHandler extends BaseHandler
 
 	public function getWSFedResponseParams($args,$current_user)
 	{
-        
+        /** @global \IDP\Helper\Database\MoDbQueries $dbIDPQueries */
 		global $dbIDPQueries;
 
 		$clientRequestId = $args['clientRequestId'];
@@ -80,7 +84,9 @@ final class SendResponseHandler extends BaseHandler
 		$relayState = isset($args['relayState']) ? $args['relayState'] : NULL;
 		$wctx = isset($args['wctx']) ? $args['wctx'] : NULL;
 
-				
+		// Not adding SP to cookie to avoid conflict with SAML Logout flow
+		//MoIDPUtility::addSPCookie($audience);
+
 		$blogs 		= is_multisite() ? get_sites() : null;
 		$site_url 	= is_null($blogs) ? site_url('/') : get_site_url($blogs[0]->blog_id,'/');
 		$issuer 	= get_site_option('mo_idp_entity_id') ?  get_site_option('mo_idp_entity_id') : MSI_URL;
@@ -103,10 +109,10 @@ final class SendResponseHandler extends BaseHandler
 				<meta http-equiv="pragma" content="no-cache">
 			</head>
 			<body>
-			<form id="responseform" action="'.$acs_url.'" method="post">
+			<form id="responseform" action="'.esc_url($acs_url).'" method="post">
 				<input type="hidden" name="SAMLResponse" value="'.htmlspecialchars($saml_response).'" />';
         if($relayState!="/") {
-            echo '<input type="hidden" name="RelayState" value="' . $relayState . '" />';
+            echo '<input type="hidden" name="RelayState" value="' . esc_attr($relayState) . '" />';
         }
         echo '</form>
 			</body>
@@ -127,11 +133,11 @@ final class SendResponseHandler extends BaseHandler
 				<meta http-equiv="pragma" content="no-cache">
 			</head>
 			<body>
-				<form id="responseform" action="'.$acs_url.'" method="post">
-					<input type="hidden" name="wa" value="'.$wa.'" />
+				<form id="responseform" action="'.esc_url($acs_url).'" method="post">
+					<input type="hidden" name="wa" value="'.esc_attr($wa).'" />
 			
-					<input type="hidden" name="wresult" value="'.htmlentities($wsfed_response).'" />
-					<input type="hidden" name="wctx" value="'.$wctx.'" />';
+					<input type="hidden" name="wresult" value="'.htmlspecialchars($wsfed_response).'" />
+					<input type="hidden" name="wctx" value="'.esc_attr($wctx).'" />';
         echo '	</form>
 			</body>
 			<script>

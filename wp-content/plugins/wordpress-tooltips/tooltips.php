@@ -3,13 +3,13 @@
 Plugin Name: Tooltips
 Plugin URI:  https://tooltips.org/features-of-wordpress-tooltips-plugin/
 Description: Wordpress Tooltips,You can add text,image,link,video,radio in tooltips, add tooltips in gallery. More amazing features? Do you want to customize a beautiful style for your tooltips? One Minute, Check <a href='https://tooltips.org/features-of-wordpress-tooltips-plugin/' target='_blank'> Features of WordPress Tooltips Pro</a>.
-Version: 6.4.7
-Author: Tomas Zhu | <a href='https://tooltips.org/wordpress-tooltip-plugin/wordpress-tooltip-plugin-document/' target='_blank'>Docs</a> | <a href='https://tooltips.org/faq/' target='_blank'>FAQ</a> | <a href='https://tooltips.org/tooltips-support-ticket-controlpanel/' target='_blank'>Premium Support</a> 
+Version: 7.9.9
+Author: Tomas | <a href='https://tooltips.org/wordpress-tooltip-plugin/wordpress-tooltip-plugin-document/' target='_blank'>Docs</a> | <a href='https://tooltips.org/faq/' target='_blank'>FAQ</a> | <a href='https://tooltips.org/contact-us' target='_blank'>Premium Support</a> 
 Author URI: https://tooltips.org/wordpress-tooltip-plugin/wordpress-tooltips-demo/
 Text Domain: wordpress-tooltips
 License: GPLv3 or later
 */
-/*  Copyright 2011 - 2020 Tomas Zhu
+/*  Copyright 2011 - 2022 Tomas Zhu
  This program comes with ABSOLUTELY NO WARRANTY;
  https://www.gnu.org/licenses/gpl-3.0.html
  https://www.gnu.org/licenses/quick-guide-gplv3.html
@@ -24,146 +24,129 @@ define('TOOLTIPS_ADMIN_PATH', plugin_dir_path(__FILE__).'admin'.'/');
 define('TOOLTIPS_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('TOOLTIPS_ADDONS_PATH', plugin_dir_path(__FILE__).'addons'.'/');
 define('TOOLTIP_PLUGIN_URL', plugin_dir_url( __FILE__ ));
-require_once(TOOLTIPS_ADDONS_PATH."addons.php");
-
-
-add_action( 'wp_enqueue_scripts', 'tooltips_loader_scripts' );
-function tooltips_loader_scripts()
-{
-	wp_register_style( 'qtip2css', plugin_dir_url( __FILE__ ).'js/qtip2/jquery.qtip.min.css');
-	wp_enqueue_style( 'qtip2css' );
-	
-	wp_register_style( 'directorycss', plugin_dir_url( __FILE__ ).'js/jdirectory/directory.css');
-	wp_enqueue_style( 'directorycss' );
-	
-	wp_register_script( 'qtip2js', plugin_dir_url( __FILE__ ).'js/qtip2/jquery.qtip.min.js', array('jquery'));
-	wp_enqueue_script( 'qtip2js' );
-	
-	wp_register_script( 'directoryjs', plugin_dir_url( __FILE__ ).'js/jdirectory/jquery.directory.js', array('jquery'));
-	wp_enqueue_script( 'directoryjs' );	
-
-
-}
-
-add_action('admin_head', 'tooltips_admin_css');
-function tooltips_admin_css()
-{
-	wp_enqueue_style( 'ionrangeslidercss', plugin_dir_url( __FILE__ ).'css/ionrangeslider/ion.rangeSlider.css' );	
-	
-	wp_register_script('ionrangesliderjs', plugin_dir_url( __FILE__ ).'js/ionrangeslider/ion.rangeSlider.min.js', array('jquery') );
-	wp_enqueue_script( 'ionrangesliderjs' );
-}
-
-
 require_once("tooltipsfunctions.php");
-function tooltipsHead()
-{
-	$m_pluginURL = get_option('siteurl').'/wp-content/plugins';
-	$showImageinglossary = get_option("showImageinglossary");
-	$toolstipsAnimationClass = get_option("toolstipsAnimationClass");
-	$tooltipZindexValue = get_option("tooltipZindexValue");
-	if (empty($tooltipZindexValue))
-	{
-		$tooltipZindexValue = 15001;
-	}
-	if ((!(empty($tooltipZindexValue))) && ($tooltipZindexValue <>15001))
-	{
-		?>
-		<style type="text/css">
-		.qtip
-		{
-			z-index:<?php echo $tooltipZindexValue; ?> !important;
-		}
-		</style>
-		<?php						
-	}
-	
-	if ($showImageinglossary == 'NO')
-	{
-		?>
-		<style type="text/css">
-		.tooltips_list img
-		{
-			display:none !important;
-		}
-		.tooltips_list .wp-caption-text
-		{
-			display:none !important;
-		}
-		</style>
-		<?php 		
-	}
-	?>
-	<style type="text/css">
-	.tooltips_table .tooltipsall
-	{
-		border-bottom:none !important;
-	}
-	.tooltips_table span {
-    color: inherit !important;
-	}
-	.qtip-content .tooltipsall
-	{
-		border-bottom:none !important;
-		color: inherit !important;
-	}
-	
+require_once("rules/ttsimport.php");
+require_once(TOOLTIPS_ADDONS_PATH."addons.php");
+require_once('rules/disabletooltipsinglossarypage.php');
+require_once('rules/detectmobile.php');
 
-	.tooltipsPopupCreditLink a
-	{
-		color:gray;
-	}	
-	</style>
-	<?php
-	$selectedTooltipStyle = get_option("selectedTooltipStyle");
-	if (empty($selectedTooltipStyle))
-	{
-		$selectedTooltipStyle = 'qtip-dark';
-	}	
-?>
- 	<script type="text/javascript">	
-	if(typeof jQuery=='undefined')
-	{
-		document.write('<'+'script src="<?php echo $m_pluginURL; ?>/<?php echo  '/wordpress-tooltips'; ?>/js/qtip/jquery.js" type="text/javascript"></'+'script>');
-	}
-	</script>
-	<script type="text/javascript">
+function add_tooltips_post_type() {
+	global $wp_rewrite;
+	$catlabels = array(
+			'name'                          => 'Categories',
+			'singular_name'                 => 'Tooltips Categories',
+			'all_items'                     => 'All Tooltips',
+			'parent_item'                   => 'Parent Tooltips',
+			'edit_item'                     => 'Edit Tooltips',
+			'update_item'                   => 'Update Tooltips',
+			'add_new_item'                  => 'Add New Tooltips',
+			'new_item_name'                 => 'New Tooltips',
+	);
 
-	function toolTips(whichID,theTipContent)
+	$args = array(
+			'label'                         => 'Categories',
+			'labels'                        => $catlabels,
+			'public'                        => true,
+			'hierarchical'                  => true,
+			'show_ui'                       => true,
+			'show_in_nav_menus'             => true,
+			'args'                          => array( 'orderby' => 'term_order' ),
+			'rewrite'                       => array( 'slug' => 'tooltips_categories', 'with_front' => false ),
+			'query_var'                     => true
+	);
+
+	register_taxonomy( 'tooltips_categories', 'tooltips', $args );
+
+
+	$labels = array(
+			'name' => __('Tooltips', 'wordpress-tooltips'),
+			'singular_name' => __('Tooltip', 'wordpress-tooltips'),
+			'add_new' => __('Add New', 'wordpress-tooltips'),
+			'add_new_item' => __('Add New Tooltip', 'wordpress-tooltips'),
+			'edit_item' => __('Edit Tooltip', 'wordpress-tooltips'),
+			'new_item' => __('New Tooltip', 'wordpress-tooltips'),
+			'all_items' => __('All Tooltips', 'wordpress-tooltips'),
+			'view_item' => __('View Tooltip', 'wordpress-tooltips'),
+			'search_items' => __('Search Tooltip', 'wordpress-tooltips'),
+			'not_found' =>  __('No Tooltip found', 'wordpress-tooltips'),
+			'not_found_in_trash' => __('No Tooltip found in Trash', 'wordpress-tooltips'),
+			'menu_name' => __('Tooltips', 'wordpress-tooltips')
+	);
+ // 7.2.1
+	$enableGlossarySearchable =	get_option("enableGlossarySearchable");
+	$enableGlossarySearchableFlag = false;
+	if (empty($enableGlossarySearchable))
 	{
-			jQuery(whichID).qtip
-			(
-				{
-					content:
-					{
-						text:theTipContent,
-						<?php
-							$showToolstipsCloseButtonSelect = get_option("showToolstipsCloseButtonSelect");
-							if ((!(empty($showToolstipsCloseButtonSelect))) && ($showToolstipsCloseButtonSelect == 'yes'))
-							{
-								echo "button:'Close'";
-							}
-						?>						
-					},
-   					style:
-   					{
-   						classes:' <?php echo $selectedTooltipStyle; ?> wordpress-tooltip-free qtip-rounded qtip-shadow <?php echo $toolstipsAnimationClass; ?>'
-    				},
-    				position:
-    				{
-    					viewport: jQuery(window),
-    					my: 'bottom center',
-    					at: 'top center'
-    				},
-					show:'mouseover',
-					hide: { fixed: true, delay: 200 }
-				}
-			)
+		$enableGlossarySearchableFlag = false;
 	}
-</script>
+	elseif ($enableGlossarySearchable == 'yes')
+	{
+		$enableGlossarySearchableFlag = false;
+	}
+	elseif ($enableGlossarySearchable == 'no')
+	{
+		$enableGlossarySearchableFlag = true;
+	}
+// end 7.2.1	
 	
-<?php
+	$enabGlossaryIndexPage =  get_option("enabGlossaryIndexPage");
+	if (empty($enabGlossaryIndexPage))
+	{
+		$enabGlossaryIndexPage = 'YES';
+	}
+
+	if ($enabGlossaryIndexPage == 'YES')
+	{
+		$hasGlossaryIndex = true;
+		$tooltipsGlossaryIndexPage = get_option('tooltipsGlossaryIndexPage');
+		if (empty($tooltipsGlossaryIndexPage))
+		{
+			$glossarySlug =  'glossary';
+		}
+		else
+		{
+			$glossaryPost = get_post($tooltipsGlossaryIndexPage);
+			if ( empty($glossaryPost->ID) )
+			{
+				$glossarySlug =  'glossary';
+			}
+			else
+			{
+				$glossarySlug = $glossaryPost->post_name;
+			}
+		}
+
+
+		$hasGlossaryIndexRewrite =  array('slug' => $glossarySlug, 'with_front' => true, 'feeds' => true, 'pages' => true);
+
+
+	}
+	else
+	{
+		$hasGlossaryIndex = false;
+		$hasGlossaryIndexRewrite =  false;
+	}
+
+	$args = array(
+			'labels' => $labels,
+			'public' => $hasGlossaryIndex,
+			'show_ui' => true,
+			'show_in_menu' => true,
+			'_builtin' =>  false,
+			'query_var' => "tooltips",
+			'rewrite'	=>  $hasGlossaryIndexRewrite,
+			'capability_type' => 'post',
+			'has_archive' => $hasGlossaryIndex,
+			'hierarchical' => false,
+			'menu_position' => null,
+			'exclude_from_search' => $enableGlossarySearchableFlag, // 7.2.1
+			'supports' => array( 'title', 'editor','author','custom-fields','thumbnail','excerpt')  //7.5.1
+	);
+
+	register_post_type('tooltips', $args);
+	$wp_rewrite->flush_rules();
 }
+add_action( 'init', 'add_tooltips_post_type' );
 
 function tooltipsMenu()
 {
@@ -175,10 +158,11 @@ add_action('admin_menu', 'tooltips_menu');
 
 function tooltips_menu() {
 	add_submenu_page('edit.php?post_type=tooltips',__('Global Settings','wordpress-tooltips'), __('Global Settings','wordpress-tooltips'),'manage_options', 'tooltipglobalsettings','tooltipGlobalSettings');
-	add_submenu_page('edit.php?post_type=tooltips',__('Glossary Setttings','wordpress-tooltips'), __('Glossary Settings','wordpress-tooltips'),"manage_options", 'glossarysettingsfree','glossarysettingsfree');
+	add_submenu_page('edit.php?post_type=tooltips',__('Glossary Setttings','wordpress-tooltips'), __('Glossary Settings','wordpress-tooltips'),"manage_options", 'glossarysettingsfree','tooltipFreeGlossarySettings');
+	add_submenu_page("edit.php?post_type=tooltips", __("Import Tooltips", "wordpress-tooltips"), __("Import Tooltips", "wordpress-tooltips"), "manage_options", "tooltipsimport","tooltipsImportFree");	
 	add_submenu_page("edit.php?post_type=tooltips", __("Addons", "wordpress-tooltips"), __("Addons", "wordpress-tooltips"), "manage_options", "tooltipsfreeaddonmanager","tooltipsfreeaddonmanager");
 	add_submenu_page('edit.php?post_type=tooltips',__('Knowledge Base','wordpress-tooltips'), __('Knowledge Base','wordpress-tooltips'),"manage_options", 'tooltipsfaq','tooltipFreeFAQ');
-	
+
 }
 
 
@@ -193,391 +177,26 @@ function tooltipFreeFAQ()
 	require_once(TOOLTIPS_ADMIN_PATH."howto.php");
 }
 
-
-function showTooltips($content)
+function tooltipFreeGlossarySettings()
 {
-	global $table_prefix,$wpdb,$post;
-
-	do_action('action_before_showtooltips', $content);
-	remove_filter('the_title', 'wptexturize');
-	$content = apply_filters( 'filter_before_showtooltips',  $content);
-	
-	$curent_post = get_post($post);
-	
-	if (empty($curent_post->post_content))
-	{
-		$curent_content = '';
-	}
-	else
-	{
-		$curent_content = $curent_post->post_content;
-	}
-	
-	
-
-	
-	$m_result = tooltips_get_option('tooltipsarray','post_title', 'DESC', 'LENGTH');
-	
-	$m_keyword_result = '';
-	if (!(empty($m_result)))
-	{
-		$m_keyword_id = 0;
-		foreach ($m_result as $m_single)
-		{
-			$tooltip_post_id = $m_single['post_id'];
-			$tooltip_unique_id = $m_single['unique_id'];
-			
-			$get_post_meta_value_for_this_page = get_post_meta($tooltip_post_id, 'toolstipssynonyms', true);
-			$get_post_meta_value_for_this_page = trim($get_post_meta_value_for_this_page);
-			
-			$tooltsip_synonyms = false;
-			if (!(empty($get_post_meta_value_for_this_page)))
-			{
-				$tooltsip_synonyms = explode('|', $get_post_meta_value_for_this_page);
-			}
-				
-				
-			if ((!(empty($tooltsip_synonyms))) && (is_array($tooltsip_synonyms)) && (count($tooltsip_synonyms) > 0))
-			{
-					
-			}
-			else
-			{
-				$tooltsip_synonyms = array();
-				$tooltsip_synonyms[] = $m_single['keyword'];
-					
-			}
-				
-			if ((!(empty($tooltsip_synonyms))) && (is_array($tooltsip_synonyms)) && (count($tooltsip_synonyms) > 0))
-			{
-				$tooltsip_synonyms[] = $m_single['keyword'];
-				$tooltsip_synonyms = array_unique($tooltsip_synonyms);
-			
-				foreach ($tooltsip_synonyms as $tooltsip_synonyms_single)
-				{
-					$m_keyword = $tooltsip_synonyms_single;
-						
-						
-					if (stripos($curent_content,$m_keyword) === false)
-					{
-							
-					}
-					else
-					{
-						$m_keyword_result .= '<script type="text/javascript">';
-						$m_content = $m_single['content'];
-
-						$m_content = do_shortcode($m_content);
-						
-						$m_content = preg_quote($m_content,'/');
-						$m_content = str_ireplace('\\','',$m_content);
-						$m_content = str_ireplace("'","\'",$m_content);
-						$m_content = preg_replace('|\r\n|', '<br/>', $m_content);
-						$m_content = preg_replace('|\r|', '', $m_content);
-						$m_content = preg_replace('|\n|', '<br/>', $m_content);
-						
-						if (!(empty($m_content)))
-						{
-							
-							//!!!start
-							$tooltipsPopupCreditLink =	'';
-							$enabletooltipsPopupCreditLinkInPopupWindow = get_option("enabletooltipsPopupCreditLinkInPopupWindow");
-							
-							
-							if ($enabletooltipsPopupCreditLinkInPopupWindow == 'YES')
-							{
-								$tooltipsPopupCreditLink =	'<div class="tooltipsPopupCreditLink" style="float:left;margin-top:4px;margin-left:2px;"><a href="https://tooltips.org/contact-us" target="_blank">'."Tooltip Support"."</a></div>";
-							}
-							else
-							{
-								$tooltipsPopupCreditLink =	'';
-							}
-							
-							$tooltiplinkintooltipboxstart = '<div class="tooltiplinkintooltipbox">';
-							$tooltiplinkintooltipboxclearfloat = '<div style="clear:both"></div>';
-							$tooltiplinkintooltipboxend = "</div>";
-							
-							
-							if ($enabletooltipsPopupCreditLinkInPopupWindow == 'YES')
-							{
-								$m_content = $m_content.$tooltiplinkintooltipboxstart.$tooltipsPopupCreditLink.$tooltiplinkintooltipboxclearfloat.$tooltiplinkintooltipboxend;
-							}
-							//!!!end
-							
-							
-							$m_title_in_tooltip = $m_keyword;
-							$m_keyword_result .= '//##'. " toolTips('.classtoolTips$m_keyword_id','$m_content'); ".'##]]';
-						}
-						$m_keyword_result .= '</script>';
-					}
-				}
-			}
-			$m_keyword_id++;
-		}
-	}
-	
-	$content = $content.$m_keyword_result;
-	do_action('action_after_showtooltips', $content);
-	$content = apply_filters( 'filter_after_showtooltips',  $content);
-	add_filter('the_title', 'wptexturize');
-	return $content;
+	require_once(TOOLTIPS_ADMIN_PATH."glossaryglobalsettings.php");
+	glossarysettingsfree();
 }
 
-function showTooltipsInTag($content)
+add_action('admin_head', 'tooltips_admin_css');
+function tooltips_admin_css()
 {
-	global $table_prefix,$wpdb,$post;
+	wp_enqueue_style( 'ionrangeslidercss', plugin_dir_url( __FILE__ ).'css/ionrangeslider/ion.rangeSlider.css' );
 
-	do_action('action_before_showtooltipsintag', $content);
-	$content = apply_filters( 'filter_before_showtooltipsintag',  $content);
-	
-	$curent_content = $content;
-
-	$m_result = tooltips_get_option('tooltipsarray','post_title', 'DESC', 'LENGTH');
-	
-	$m_keyword_result = '';
-	if (!(empty($m_result)))
-	{
-		$m_keyword_id = 0;
-		foreach ($m_result as $m_single)
-		{
-			if (stripos($curent_content,$m_single['keyword']) === false)
-			{
-				
-			}
-			else 
-			{			
-				$m_keyword_result .= '<script type="text/javascript">';
-				$m_content = $m_single['content'];
-				$m_content = preg_quote($m_content,'/');
-				$m_content = str_ireplace('\\','',$m_content);
-				$m_content = str_ireplace("'","\'",$m_content);
-				$m_content = preg_replace('|\r\n|', '<br/>', $m_content);
-				$m_content = preg_replace('|\r|', '', $m_content);
-				$m_content = preg_replace('|\n|', '<br/>', $m_content);
-				
-				
-				if (!(empty($m_content)))
-				{
-					$m_keyword_result .= '//##'. " toolTips('.classtoolTips$m_keyword_id','$m_content'); ".'##]]';
-				}
-				$m_keyword_result .= '</script>';
-			}
-			$m_keyword_id++;
-		}
-	}
-	$content = $content.$m_keyword_result;
-
-	do_action('action_after_showtooltipsintag', $content);
-	$content = apply_filters( 'filter_after_showtooltipsintag',  $content);
-
-	return $content;
+	wp_register_script('ionrangesliderjs', plugin_dir_url( __FILE__ ).'js/ionrangeslider/ion.rangeSlider.min.js', array('jquery') );
+	wp_enqueue_script( 'ionrangesliderjs' );
 }
 
-
-function tooltipsInContent($content)
-{
-	global $table_prefix,$wpdb,$post;
-	
-	do_action('action_before_tooltipsincontent', $content);
-	$content = apply_filters( 'filter_before_tooltipsincontent',  $content);
-
-	$disableInHomePage = get_option("disableInHomePage");
-	
-	if ($disableInHomePage == 'NO')
-	{
-		if (is_home())
-		{
-			return $content;
-		}		
-	}
-	
-	$showOnlyInSingleCategory = get_option("showOnlyInSingleCategory");
-	
-	if ($showOnlyInSingleCategory != 0)
-	{
-		
-		$post_cats = wp_get_post_categories($post->ID);
-		if (in_array($showOnlyInSingleCategory,$post_cats))
-		{
-			
-		}
-		else 
-		{
-			return $content;
-		}
-	}	
-	
-	$onlyFirstKeyword = get_option("onlyFirstKeyword");
-	if 	($onlyFirstKeyword == false)
-	{
-		$onlyFirstKeyword = 'all';
-	}
-
-	$m_result = tooltips_get_option('tooltipsarray','post_title', 'DESC', 'LENGTH');
-	
-	if (!(empty($m_result)))
-	{
-		$m_keyword_id = 0;
-		foreach ($m_result as $m_single)
-		{
-		
-			$m_keyword = $m_single['keyword'];
-			$m_content = $m_single['content'];
-
-			$tooltip_post_id = $m_single['post_id'];
-			$tooltip_unique_id = $m_single['unique_id'];
-
-			$get_post_meta_value_for_this_page = get_post_meta($tooltip_post_id, 'toolstipssynonyms', true);
-			$get_post_meta_value_for_this_page = trim($get_post_meta_value_for_this_page);
-				
-			$tooltsip_synonyms = false;
-			if (!(empty($get_post_meta_value_for_this_page)))
-			{
-				$tooltsip_synonyms = explode('|', $get_post_meta_value_for_this_page);
-			}
-
-			if ((!(empty($tooltsip_synonyms))) && (is_array($tooltsip_synonyms)) && (count($tooltsip_synonyms) > 0))
-			{
-			
-			}
-			else
-			{
-				$tooltsip_synonyms = array();
-				$tooltsip_synonyms[] = $m_keyword;
-			
-			}
-				
-			if ((!(empty($tooltsip_synonyms))) && (is_array($tooltsip_synonyms)) && (count($tooltsip_synonyms) > 0))
-			{
-				$tooltsip_synonyms[] = $m_keyword;
-				$tooltsip_synonyms = array_unique($tooltsip_synonyms);
-				
-				foreach ($tooltsip_synonyms as $tooltsip_synonyms_single)
-				{
-					$m_keyword = $tooltsip_synonyms_single;
-					$m_keyword = trim($m_keyword);
-					$m_replace = "<span class=\"tooltipsall classtoolTips$m_keyword_id\" style=\"border-bottom:2px dotted #888;\">$m_keyword</span>";
-					
-					if (stripos($content,$m_keyword) === false)
-					{
-					
-					}
-					else
-					{
-						$m_keyword = str_replace('/','\/',$m_keyword); //!!! 6.2.9
-						
-						if ($onlyFirstKeyword == 'all')
-						{
-							$m_keyword = preg_quote($m_keyword,'/');
-							$content1 = preg_replace("/(\W)(".$m_keyword.")(?![^<|^\[]*[>|\]])(\W)/is","\\1"."<span class=\"tooltipsall classtoolTips$m_keyword_id\" style=\"border-bottom:2px dotted #888;\">"."\\2"."</span>"."\\3",$content);
-						}
-							
-						if ($onlyFirstKeyword == 'first')
-						{
-							$m_keyword = preg_quote($m_keyword,'/');
-							$content1 = preg_replace("/(\W)(".$m_keyword.")(?![^<|^\[]*[>|\]])(\W)/is","\\1"."<span class=\"tooltipsall classtoolTips$m_keyword_id\" style=\"border-bottom:2px dotted #888;\">"."\\2"."</span>"."\\3",$content,1);
-						}
-						
-						if ($content1 == $content)
-						{
-							$content1 = " x98 ".$content." x98 ";
-							if ($onlyFirstKeyword == 'all')
-							{
-								$m_keyword = preg_quote($m_keyword,'/');
-								$content1 = preg_replace("/(\W)(".$m_keyword.")(?![^<|^\[]*[>|\]])(\W)/is","\\1"."<span class=\"tooltipsall classtoolTips$m_keyword_id\" style=\"border-bottom:2px dotted #888;\">"."\\2"."</span>"."\\3",$content1);
-							}
-								
-							if ($onlyFirstKeyword == 'first')
-							{
-								$m_keyword = preg_quote($m_keyword,'/');
-								$content1 = preg_replace("/(\W)(".$m_keyword.")(?![^<|^\[]*[>|\]])(\W)/is","\\1"."<span class=\"tooltipsall classtoolTips$m_keyword_id\" style=\"border-bottom:2px dotted #888;\">"."\\2"."</span>"."\\3",$content1,1);
-							}
-						
-							$content1 = trim($content1," x98 ");
-						}
-						$m_check = "<span class=\"tooltipsall classtoolTips$m_keyword_id\" style=\"border-bottom:2px dotted #888;\">";
-						if (stripos($content1, $m_check.$m_check) === false)
-						{
-							$content = $content1;
-						}
-						else
-						{
-							$content = $content;
-						}
-						
-					}
-				}
-				//!!! old $content = str_replace($m_single['keyword'], $tooltip_unique_id, $content);
-				//!!! 6.2.9 $content = preg_replace("/"."(".$m_single['keyword'].")(?![^@@@@]*[####])/s",'@@@@'.$tooltip_unique_id.'####'."\\2",$content); //!!!new
-				
-				$m_single_keyword = str_replace('/','\/',$m_single['keyword']); //!!! 6.2.9
-				$content = preg_replace("/"."(".$m_single_keyword.")(?![^@@@@]*[####])/s",'@@@@'.$tooltip_unique_id.'####'."\\2",$content); //!!!new
-			}
-							
-			$m_keyword_id++;
-		}
-		foreach ($m_result as $m_single)
-		{
-			$m_keyword = $m_single['keyword'];
-			$m_content = $m_single['content'];
-			$tooltip_post_id = $m_single['post_id'];
-			$tooltip_unique_id = $m_single['unique_id'];
-			$content = str_ireplace($tooltip_unique_id, $m_keyword , $content);
-		}		
-	}
-	
-	do_action('action_after_tooltipsincontent', $content);
-	$content = apply_filters( 'filter_after_tooltipsincontent',  $content);
-		
-	//!!!start
-	$content = str_replace('@@@@', '', $content);
-	$content = str_replace('####', '', $content);	
-	//!!!end
-	$content = str_ireplace('//##', '', $content);
-	$content = str_ireplace('##]]', '', $content);	
-	
-	return $content;
-}
-
-function nextgenTooltips()
-{
-?>
-<script type="text/javascript">
-jQuery("document").ready(function()
-{
-	jQuery("body img").each(function()
-	{
-		if ((jQuery(this).parent("a").attr('title') != '' )  && (jQuery(this).parent("a").attr('title') != undefined ))
-		{
-			toolTips(jQuery(this).parent("a"),jQuery(this).parent("a").attr('title'));
-		}
-		else
-		{
-			var tempAlt = jQuery(this).attr('alt');
-			if (typeof(tempAlt) !== "undefined")
-			{
-				tempAlt = tempAlt.replace(' ', '');
-				if (tempAlt == '')
-				{
-
-				}
-				else
-				{
-					toolTips(jQuery(this),jQuery(this).attr('alt'));
-				}
-			}
-		}
-	}
-
-	);
-})
-</script>
-<?php
-}
-
+/*  7.2.3 moved from tooltips.php inline codes to css to speed up page load speed */
+/*
 function tooltipsAdminHead()
 {
-?>	
+	?>
 <style type="text/css">
 span.question, span.questionimage, span.questionexcerpt, span.questiontags,
 span.questionsinglecat, span.hiddenimageinglossary, span.questiontooltippopupanimation,span.questionstyle
@@ -646,7 +265,7 @@ div.tooltip p
 	font-size: 11px;
 	color: #eee;
 }
-/** glossary */
+// glossary 
 div.glossary7 {
   text-align: left;
   left: 25px;
@@ -715,22 +334,1095 @@ div.glossary p, .glossary1 p, .glossary3 p, .glossary4 p,.glossary5 p,.glossary6
 </style>										
 <?php
 }
+*/
+
 $tooltipHookPriorityValue = get_option("tooltipHookPriorityValue");
 if (empty($tooltipHookPriorityValue))
 {
 	$tooltipHookPriorityValue = 20000;
 }
 
+// removed from 7.2.3 add_action('admin_head', 'tooltipsAdminHead');
+
+$disabletooltipentiresite = get_option('disabletooltipentiresite');
+if ('NO' == $disabletooltipentiresite)
+{
+	return;
+}
+
+
+add_action( 'wp_enqueue_scripts', 'tooltips_loader_scripts' );
+function tooltips_loader_scripts()
+{
+	
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+	//6.9.3
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		//
+	}
+	else
+	{
+		wp_register_style( 'qtip2css', plugin_dir_url( __FILE__ ).'js/qtip2/jquery.qtip.min.css');
+		wp_enqueue_style( 'qtip2css' );		
+	}
+	//end 6.9.3
+	
+	/*
+	 * old code works good
+	wp_register_style( 'qtip2css', plugin_dir_url( __FILE__ ).'js/qtip2/jquery.qtip.min.css');
+	wp_enqueue_style( 'qtip2css' );
+	*/
+	
+	//wp_register_style( 'directorycss', plugin_dir_url( __FILE__ ).'js/jdirectory/directory.css');
+	wp_register_style( 'directorycss', plugin_dir_url( __FILE__ ).'js/jdirectory/directory.min.css');
+	wp_enqueue_style( 'directorycss' );
+	
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();	
+	//6.9.3
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	
+	//7.7.3
+	$seletEnableJqueryMigrate = get_option('seletEnableJqueryMigrate');
+	if ($seletEnableJqueryMigrate == 'YES')
+	{
+	    wp_register_script( 'loadedjquerymigratejs', plugin_dir_url( __FILE__ ).'js/jquery-migrate-3.3.2.min.js', array('jquery'));
+	    wp_enqueue_script( 'loadedjquerymigratejs' );
+	}
+	//end 7.7.3
+	
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		//
+	}
+	else
+	{
+		wp_register_script( 'qtip2js', plugin_dir_url( __FILE__ ).'js/qtip2/jquery.qtip.min.js', array('jquery'));
+		wp_enqueue_script( 'qtip2js' );
+	}
+	//end 6.9.3
+	/*
+	 * old code works good	
+	wp_register_script( 'qtip2js', plugin_dir_url( __FILE__ ).'js/qtip2/jquery.qtip.min.js', array('jquery'));
+	wp_enqueue_script( 'qtip2js' );
+	*/
+	
+	//wp_register_script( 'directoryjs', plugin_dir_url( __FILE__ ).'js/jdirectory/jquery.directory.js', array('jquery'));
+	wp_register_script( 'directoryjs', plugin_dir_url( __FILE__ ).'js/jdirectory/jquery.directory.min.js', array('jquery'));
+	wp_enqueue_script( 'directoryjs' );	
+
+
+}
+
+/*
+add_action('admin_head', 'tooltips_admin_css');
+function tooltips_admin_css()
+{
+	wp_enqueue_style( 'ionrangeslidercss', plugin_dir_url( __FILE__ ).'css/ionrangeslider/ion.rangeSlider.css' );	
+	
+	wp_register_script('ionrangesliderjs', plugin_dir_url( __FILE__ ).'js/ionrangeslider/ion.rangeSlider.min.js', array('jquery') );
+	wp_enqueue_script( 'ionrangesliderjs' );
+}
+*/
+
+//require_once("tooltipsfunctions.php");
+function tooltipsHead()
+{
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+	
+	//6.9.3
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		return '';
+	}
+	//end 6.9.3
+	
+	$m_pluginURL = get_option('siteurl').'/wp-content/plugins';
+	$showImageinglossary = get_option("showImageinglossary");
+	$toolstipsAnimationClass = get_option("toolstipsAnimationClass");
+	$tooltipZindexValue = get_option("tooltipZindexValue");
+	if (empty($tooltipZindexValue))
+	{
+		$tooltipZindexValue = 15001;
+	}
+	if ((!(empty($tooltipZindexValue))) && ($tooltipZindexValue <>15001))
+	{
+	    /*
+	     * 7.9.3 z-index:<?php echo $tooltipZindexValue; ?> !important;
+	     */
+		?>
+		<style type="text/css">
+		.qtip
+		{
+			z-index:<?php echo esc_attr($tooltipZindexValue); ?> !important;
+		}
+		</style>
+		<?php						
+	}
+	
+	if ($showImageinglossary == 'NO')
+	{
+		?>
+		<style type="text/css">
+		.tooltips_list img
+		{
+			display:none !important;
+		}
+		.tooltips_list .wp-caption-text
+		{
+			display:none !important;
+		}
+		</style>
+		<?php 		
+	}
+	?>
+	<style type="text/css">
+	.tooltips_table .tooltipsall
+	{
+		border-bottom:none !important;
+	}
+	.tooltips_table span {
+    color: inherit !important;
+	}
+	.qtip-content .tooltipsall
+	{
+		border-bottom:none !important;
+		color: inherit !important;
+	}
+	
+	<?php //!!! 6.9.3 ?>
+	.tooltipsincontent
+	{
+		border-bottom:2px dotted #888;	
+	}
+
+	.tooltipsPopupCreditLink a
+	{
+		color:gray;
+	}	
+	</style>
+	<?php
+	$selectedTooltipStyle = get_option("selectedTooltipStyle");
+	if (empty($selectedTooltipStyle))
+	{
+		$selectedTooltipStyle = 'qtip-dark';
+	}	
+	/*
+?>
+ 	<script type="text/javascript">	
+	if(typeof jQuery=='undefined')
+	{
+		document.write('<'+'script src="<?php echo $m_pluginURL; ?>/<?php echo  '/wordpress-tooltips'; ?>/js/qtip/jquery.js" type="text/javascript"></'+'script>');
+	}
+	</script>
+	<script type="text/javascript">
+
+	function toolTips(whichID,theTipContent)
+	{
+			jQuery(whichID).qtip
+			(
+				{
+					content:
+					{
+						text:theTipContent,
+						<?php
+							$showToolstipsCloseButtonSelect = get_option("showToolstipsCloseButtonSelect");
+							if ((!(empty($showToolstipsCloseButtonSelect))) && ($showToolstipsCloseButtonSelect == 'yes'))
+							{
+								echo "button:'Close'";
+							}
+						?>						
+					},
+   					style:
+   					{
+   						classes:' <?php echo $selectedTooltipStyle; ?> wordpress-tooltip-free qtip-rounded qtip-shadow <?php echo $toolstipsAnimationClass; ?>'
+    				},
+    				position:
+    				{
+    					viewport: jQuery(window),
+    					my: 'bottom center',
+    					at: 'top center'
+    				},
+					show:'mouseover',
+					hide: { fixed: true, delay: 200 }
+				}
+			)
+	}
+</script>
+	
+<?php
+*/
+}
+
+//start 7.7.1
+function loadTooltipJsFree()
+{
+    $tooltips_pro_disable_tooltip_in_mobile_free = '';
+    $tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+    
+    //6.9.3
+    //if (tooltips_pro_disable_tooltip_in_mobile_free())
+    if ($tooltips_pro_disable_tooltip_in_mobile_free)
+    {
+        return '';
+    }
+    //end 6.9.3
+    
+    $m_pluginURL = get_option('siteurl').'/wp-content/plugins';
+    $showImageinglossary = get_option("showImageinglossary");
+    $toolstipsAnimationClass = get_option("toolstipsAnimationClass");
+    $tooltipZindexValue = get_option("tooltipZindexValue");
+    
+    $selectedTooltipStyle = get_option("selectedTooltipStyle");
+    if (empty($selectedTooltipStyle))
+    {
+        $selectedTooltipStyle = 'qtip-dark';
+    }
+    /*
+     * 7.9.3 document.write('<'+'script src="<?php echo $m_pluginURL; ?>/<?php echo  '/wordpress-tooltips'; ?>/js/qtip/jquery.js" type="text/javascript"></'+'script>');
+     */
+    ?>
+ 	<script type="text/javascript">	
+	if(typeof jQuery=='undefined')
+	{
+		document.write('<'+'script src="<?php echo esc_url($m_pluginURL); ?>/<?php echo  '/wordpress-tooltips'; ?>/js/qtip/jquery.js" type="text/javascript"></'+'script>');
+	}
+	</script>
+	<script type="text/javascript">
+
+	function toolTips(whichID,theTipContent)
+	{
+			jQuery(whichID).qtip
+			(
+				{
+					content:
+					{
+						text:theTipContent,
+						<?php
+							$showToolstipsCloseButtonSelect = get_option("showToolstipsCloseButtonSelect");
+							if ((!(empty($showToolstipsCloseButtonSelect))) && ($showToolstipsCloseButtonSelect == 'yes'))
+							{
+								echo "button:'Close'";
+							}
+						?>						
+					},
+   					style:
+   					{
+   					<?php 
+   					/*
+   					 * 7.9.3classes:' <?php echo $selectedTooltipStyle; ?> wordpress-tooltip-free qtip-rounded qtip-shadow <?php echo $toolstipsAnimationClass; ?>'
+   					 */
+   					?>
+   						classes:' <?php echo $selectedTooltipStyle; ?> wordpress-tooltip-free qtip-rounded qtip-shadow <?php echo esc_attr($toolstipsAnimationClass); ?>'
+    				},
+    				position:
+    				{
+    					viewport: jQuery(window),
+    					my: 'bottom center',
+    					at: 'top center'
+    				},
+					show:'mouseover',
+					hide: { fixed: true, delay: 200 }
+				}
+			)
+	}
+</script>
+	
+<?php 	
+}
+
+$enableMoveInlineJsToFooter = get_option("enableMoveInlineJsToFooter");
+if ($enableMoveInlineJsToFooter == 'YES')
+{
+    add_action('wp_footer', 'loadTooltipJsFree');
+}
+else
+{
+    add_action('wp_head', 'loadTooltipJsFree');
+}
+
+
+
+//end 7.7.1
+
+function showTooltipsAndLoadFromFooter($content)
+{
+	global $table_prefix,$wpdb,$post;
+
+	do_action('action_before_showtooltips', $content);
+	remove_filter('the_title', 'wptexturize');
+	$content = apply_filters( 'filter_before_showtooltips',  $content);
+	
+
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+	
+	//6.9.3
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		return $content;
+	}
+	//end 6.9.3
+	
+	$curent_post = get_post($post);
+	
+	if (empty($curent_post->post_content))
+	{
+		$curent_content = '';
+	}
+	else
+	{
+		$curent_content = $curent_post->post_content;
+	}
+	
+	
+
+	
+	$m_result = tooltips_get_option('tooltipsarray','post_title', 'DESC', 'LENGTH');
+	
+	$m_keyword_result = '';
+	if (!(empty($m_result)))
+	{
+		$m_keyword_id = 0;
+		foreach ($m_result as $m_single)
+		{
+			$tooltip_post_id = $m_single['post_id'];
+			$tooltip_unique_id = $m_single['unique_id'];
+			
+			$get_post_meta_value_for_this_page = get_post_meta($tooltip_post_id, 'toolstipssynonyms', true);
+			$get_post_meta_value_for_this_page = trim($get_post_meta_value_for_this_page);
+			
+			$tooltsip_synonyms = false;
+			if (!(empty($get_post_meta_value_for_this_page)))
+			{
+				$tooltsip_synonyms = explode('|', $get_post_meta_value_for_this_page);
+			}
+				
+				
+			if ((!(empty($tooltsip_synonyms))) && (is_array($tooltsip_synonyms)) && (count($tooltsip_synonyms) > 0))
+			{
+					
+			}
+			else
+			{
+				$tooltsip_synonyms = array();
+				$tooltsip_synonyms[] = $m_single['keyword'];
+					
+			}
+				
+			if ((!(empty($tooltsip_synonyms))) && (is_array($tooltsip_synonyms)) && (count($tooltsip_synonyms) > 0))
+			{
+				$tooltsip_synonyms[] = $m_single['keyword'];
+				$tooltsip_synonyms = array_unique($tooltsip_synonyms);
+			
+				foreach ($tooltsip_synonyms as $tooltsip_synonyms_single)
+				{
+					$m_keyword = $tooltsip_synonyms_single;
+						
+						
+					/*
+					if (stripos($curent_content,$m_keyword) === false)
+					{
+							
+					}
+					else
+					*/
+					//{
+						$m_keyword_result .= '<script type="text/javascript">';
+						$m_content = $m_single['content'];
+
+						$m_content = do_shortcode($m_content);
+						
+						$m_content = preg_quote($m_content,'/');
+						$m_content = str_ireplace('\\','',$m_content);
+						$m_content = str_ireplace("'","\'",$m_content);
+						$m_content = preg_replace('|\r\n|', '<br/>', $m_content);
+						$m_content = preg_replace('|\r|', '', $m_content);
+						$m_content = preg_replace('|\n|', '<br/>', $m_content);
+						
+						if (!(empty($m_content)))
+						{
+							
+							//!!!start
+							$tooltipsPopupCreditLink =	'';
+							$enabletooltipsPopupCreditLinkInPopupWindow = get_option("enabletooltipsPopupCreditLinkInPopupWindow");
+							
+							
+							if ($enabletooltipsPopupCreditLinkInPopupWindow == 'YES')
+							{
+								$tooltipsPopupCreditLink =	'<div class="tooltipsPopupCreditLink" style="float:left;margin-top:4px;margin-left:2px;"><a href="https://tooltips.org/contact-us" target="_blank">'."Tooltip Support"."</a></div>";
+							}
+							else
+							{
+								$tooltipsPopupCreditLink =	'';
+							}
+							
+							$tooltiplinkintooltipboxstart = '<div class="tooltiplinkintooltipbox">';
+							$tooltiplinkintooltipboxclearfloat = '<div style="clear:both"></div>';
+							$tooltiplinkintooltipboxend = "</div>";
+							
+							
+							if ($enabletooltipsPopupCreditLinkInPopupWindow == 'YES')
+							{
+								$m_content = $m_content.$tooltiplinkintooltipboxstart.$tooltipsPopupCreditLink.$tooltiplinkintooltipboxclearfloat.$tooltiplinkintooltipboxend;
+							}
+							//!!!end
+							
+							
+							$m_title_in_tooltip = $m_keyword;
+							//$m_keyword_result .= '//##'. " toolTips('.classtoolTips$m_keyword_id','$m_content'); ".'##]]';
+							$m_keyword_result .= " toolTips('.classtoolTips$m_keyword_id','$m_content'); ";
+						}
+						$m_keyword_result .= '</script>';
+					//}
+				}
+			}
+			$m_keyword_id++;
+		}
+	}
+	
+	$content = $content.$m_keyword_result;
+	do_action('action_after_showtooltips', $content);
+	$content = apply_filters( 'filter_after_showtooltips',  $content);
+	add_filter('the_title', 'wptexturize');
+	echo $content;
+	return $content;
+}
+
+//!!!7.6.9
+function showTooltips($content)
+{
+	global $table_prefix,$wpdb,$post;
+
+	do_action('action_before_showtooltips', $content);
+	remove_filter('the_title', 'wptexturize');
+	$content = apply_filters( 'filter_before_showtooltips',  $content);
+
+
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+
+	//6.9.3
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		return $content;
+	}
+	//end 6.9.3
+
+	$curent_post = get_post($post);
+
+	if (empty($curent_post->post_content))
+	{
+		$curent_content = '';
+	}
+	else
+	{
+		$curent_content = $curent_post->post_content;
+	}
+
+
+
+
+	$m_result = tooltips_get_option('tooltipsarray','post_title', 'DESC', 'LENGTH');
+
+	$m_keyword_result = '';
+	if (!(empty($m_result)))
+	{
+		$m_keyword_id = 0;
+		foreach ($m_result as $m_single)
+		{
+			$tooltip_post_id = $m_single['post_id'];
+			$tooltip_unique_id = $m_single['unique_id'];
+				
+			$get_post_meta_value_for_this_page = get_post_meta($tooltip_post_id, 'toolstipssynonyms', true);
+			$get_post_meta_value_for_this_page = trim($get_post_meta_value_for_this_page);
+				
+			$tooltsip_synonyms = false;
+			if (!(empty($get_post_meta_value_for_this_page)))
+			{
+				$tooltsip_synonyms = explode('|', $get_post_meta_value_for_this_page);
+			}
+
+
+			if ((!(empty($tooltsip_synonyms))) && (is_array($tooltsip_synonyms)) && (count($tooltsip_synonyms) > 0))
+			{
+					
+			}
+			else
+			{
+				$tooltsip_synonyms = array();
+				$tooltsip_synonyms[] = $m_single['keyword'];
+					
+			}
+
+			if ((!(empty($tooltsip_synonyms))) && (is_array($tooltsip_synonyms)) && (count($tooltsip_synonyms) > 0))
+			{
+				$tooltsip_synonyms[] = $m_single['keyword'];
+				$tooltsip_synonyms = array_unique($tooltsip_synonyms);
+					
+				foreach ($tooltsip_synonyms as $tooltsip_synonyms_single)
+				{
+					$m_keyword = $tooltsip_synonyms_single;
+
+
+					if (stripos($curent_content,$m_keyword) === false)
+					{
+							
+					}
+					else
+					{
+						$m_keyword_result .= '<script type="text/javascript">';
+						$m_content = $m_single['content'];
+
+						$m_content = do_shortcode($m_content);
+
+						$m_content = preg_quote($m_content,'/');
+						$m_content = str_ireplace('\\','',$m_content);
+						$m_content = str_ireplace("'","\'",$m_content);
+						$m_content = preg_replace('|\r\n|', '<br/>', $m_content);
+						$m_content = preg_replace('|\r|', '', $m_content);
+						$m_content = preg_replace('|\n|', '<br/>', $m_content);
+
+						if (!(empty($m_content)))
+						{
+								
+							//!!!start
+							$tooltipsPopupCreditLink =	'';
+							$enabletooltipsPopupCreditLinkInPopupWindow = get_option("enabletooltipsPopupCreditLinkInPopupWindow");
+								
+								
+							if ($enabletooltipsPopupCreditLinkInPopupWindow == 'YES')
+							{
+								$tooltipsPopupCreditLink =	'<div class="tooltipsPopupCreditLink" style="float:left;margin-top:4px;margin-left:2px;"><a href="https://tooltips.org/contact-us" target="_blank">'."Tooltip Support"."</a></div>";
+							}
+							else
+							{
+								$tooltipsPopupCreditLink =	'';
+							}
+								
+							$tooltiplinkintooltipboxstart = '<div class="tooltiplinkintooltipbox">';
+							$tooltiplinkintooltipboxclearfloat = '<div style="clear:both"></div>';
+							$tooltiplinkintooltipboxend = "</div>";
+								
+								
+							if ($enabletooltipsPopupCreditLinkInPopupWindow == 'YES')
+							{
+								$m_content = $m_content.$tooltiplinkintooltipboxstart.$tooltipsPopupCreditLink.$tooltiplinkintooltipboxclearfloat.$tooltiplinkintooltipboxend;
+							}
+							//!!!end
+								
+								
+							$m_title_in_tooltip = $m_keyword;
+							$m_keyword_result .= '//##'. " toolTips('.classtoolTips$m_keyword_id','$m_content'); ".'##]]';
+						}
+						$m_keyword_result .= '</script>';
+					}
+				}
+			}
+			$m_keyword_id++;
+		}
+	}
+
+	$content = $content.$m_keyword_result;
+	do_action('action_after_showtooltips', $content);
+	$content = apply_filters( 'filter_after_showtooltips',  $content);
+	add_filter('the_title', 'wptexturize');
+	return $content;
+}
+
+//!!! 7.6.9
+
+function showTooltipsInTag($content)
+{
+	global $table_prefix,$wpdb,$post;
+
+	do_action('action_before_showtooltipsintag', $content);
+	$content = apply_filters( 'filter_before_showtooltipsintag',  $content);
+	
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+	
+	//6.9.3
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		return $content;
+	}
+	//end 6.9.3
+	
+	$curent_content = $content;
+
+	$m_result = tooltips_get_option('tooltipsarray','post_title', 'DESC', 'LENGTH');
+	
+	$m_keyword_result = '';
+	if (!(empty($m_result)))
+	{
+		$m_keyword_id = 0;
+		foreach ($m_result as $m_single)
+		{
+			if (stripos($curent_content,$m_single['keyword']) === false)
+			{
+				
+			}
+			else 
+			{			
+				$m_keyword_result .= '<script type="text/javascript">';
+				$m_content = $m_single['content'];
+				$m_content = preg_quote($m_content,'/');
+				$m_content = str_ireplace('\\','',$m_content);
+				$m_content = str_ireplace("'","\'",$m_content);
+				$m_content = preg_replace('|\r\n|', '<br/>', $m_content);
+				$m_content = preg_replace('|\r|', '', $m_content);
+				$m_content = preg_replace('|\n|', '<br/>', $m_content);
+				
+				
+				if (!(empty($m_content)))
+				{
+					$m_keyword_result .= '//##'. " toolTips('.classtoolTips$m_keyword_id','$m_content'); ".'##]]';
+				}
+				$m_keyword_result .= '</script>';
+			}
+			$m_keyword_id++;
+		}
+	}
+	$content = $content.$m_keyword_result;
+
+	do_action('action_after_showtooltipsintag', $content);
+	$content = apply_filters( 'filter_after_showtooltipsintag',  $content);
+
+	return $content;
+}
+
+
+function showTooltipsInTitle($content)
+{
+	global $table_prefix,$wpdb,$post;
+
+	do_action('action_before_showtooltipsintag', $content);
+	$content = apply_filters( 'filter_before_showtooltipsintag',  $content);
+
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+	
+	//6.9.3
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		return $content;
+	}
+	//end 6.9.3
+
+	$curent_content = $content;
+
+	$m_result = tooltips_get_option('tooltipsarray','post_title', 'DESC', 'LENGTH');
+
+	$m_keyword_result = '';
+	if (!(empty($m_result)))
+	{
+		$m_keyword_id = 0;
+		foreach ($m_result as $m_single)
+		{
+			if (stripos($curent_content,$m_single['keyword']) === false)
+			{
+
+			}
+			else
+			{
+				$m_keyword_result .= '<script type="text/javascript">';
+				$m_content = $m_single['content'];
+				$m_content = preg_quote($m_content,'/');
+				$m_content = str_ireplace('\\','',$m_content);
+				$m_content = str_ireplace("'","\'",$m_content);
+				$m_content = preg_replace('|\r\n|', '<br/>', $m_content);
+				$m_content = preg_replace('|\r|', '', $m_content);
+				$m_content = preg_replace('|\n|', '<br/>', $m_content);
+
+
+				if (!(empty($m_content)))
+				{
+					$m_keyword_result .= '//##'. " toolTips('.classtoolTips$m_keyword_id','$m_content'); ".'##]]';
+				}
+				$m_keyword_result .= '</script>';
+			}
+			$m_keyword_id++;
+		}
+	}
+	$content = $content.$m_keyword_result;
+
+	do_action('action_after_showtooltipsintag', $content);
+	$content = apply_filters( 'filter_after_showtooltipsintag',  $content);
+
+	return $content;
+}
+
+function tooltipsInContent($content)
+{
+	global $table_prefix,$wpdb,$post;
+	
+	do_action('action_before_tooltipsincontent', $content);
+	$content = apply_filters( 'filter_before_tooltipsincontent',  $content);
+
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+	
+	//6.9.3
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		//return $content;
+	}
+	//end 6.9.3
+	
+	//!!!start
+	$post_id = 0;
+	if (is_object($post))
+	{
+		$post_id = $post->ID;
+	}
+	//!!!end
+	
+	$disableInHomePage = get_option("disableInHomePage");
+	
+	if ($disableInHomePage == 'NO')
+	{
+		if (is_home())
+		{
+			return $content;
+		}		
+	}
+	
+	$showOnlyInSingleCategory = get_option("showOnlyInSingleCategory");
+	
+	if ($showOnlyInSingleCategory != 0)
+	{
+		
+		$post_cats = wp_get_post_categories($post->ID);
+		if (in_array($showOnlyInSingleCategory,$post_cats))
+		{
+			
+		}
+		else 
+		{
+			return $content;
+		}
+	}	
+	
+	//!!!start
+	if ((isset($post->ID)) && (!(empty($post->ID))))
+	{
+		$disableTooltipsForGlossaryPage = disableTooltipsFreeForGlossaryPage($post_id);
+		if ($disableTooltipsForGlossaryPage == true)
+		{
+			return $content;
+		}		
+	}
+	//!!!end
+	
+	$onlyFirstKeyword = get_option("onlyFirstKeyword");
+	if 	($onlyFirstKeyword == false)
+	{
+		$onlyFirstKeyword = 'all';
+	}
+
+	$m_result = tooltips_get_option('tooltipsarray','post_title', 'DESC', 'LENGTH');
+	
+	if (!(empty($m_result)))
+	{
+		$m_keyword_id = 0;
+		foreach ($m_result as $m_single)
+		{
+		
+			$m_keyword = $m_single['keyword'];
+			$m_content = $m_single['content'];
+
+			$tooltip_post_id = $m_single['post_id'];
+			$tooltip_unique_id = $m_single['unique_id'];
+
+			$get_post_meta_value_for_this_page = get_post_meta($tooltip_post_id, 'toolstipssynonyms', true);
+			$get_post_meta_value_for_this_page = trim($get_post_meta_value_for_this_page);
+				
+			$tooltsip_synonyms = false;
+			if (!(empty($get_post_meta_value_for_this_page)))
+			{
+				$tooltsip_synonyms = explode('|', $get_post_meta_value_for_this_page);
+			}
+
+			if ((!(empty($tooltsip_synonyms))) && (is_array($tooltsip_synonyms)) && (count($tooltsip_synonyms) > 0))
+			{
+			
+			}
+			else
+			{
+				$tooltsip_synonyms = array();
+				$tooltsip_synonyms[] = $m_keyword;
+			
+			}
+				
+			if ((!(empty($tooltsip_synonyms))) && (is_array($tooltsip_synonyms)) && (count($tooltsip_synonyms) > 0))
+			{
+				$tooltsip_synonyms[] = $m_keyword;
+				$tooltsip_synonyms = array_unique($tooltsip_synonyms);
+				
+				foreach ($tooltsip_synonyms as $tooltsip_synonyms_single)
+				{
+					$m_keyword = $tooltsip_synonyms_single;
+					$m_keyword = trim($m_keyword);
+					//!!! $m_replace = "<span class=\"tooltipsall classtoolTips$m_keyword_id\" style=\"border-bottom:2px dotted #888;\">$m_keyword</span>";
+					//6.9.3
+					//$m_replace = "<span class=\"tooltipsall tooltipsincontent classtoolTips$m_keyword_id\">$m_keyword</span>";
+					//7.8.3
+					//7.9.3 $m_replace = "<span class='tooltipsall tooltipsincontent classtoolTips$m_keyword_id'>$m_keyword</span>";
+					$m_replace = "<span class='tooltipsall tooltipsincontent classtoolTips".esc_attr($m_keyword_id).">$m_keyword</span>";
+					
+					if (stripos($content,$m_keyword) === false)
+					{
+					
+					}
+					else
+					{
+						$m_keyword = str_replace('/','\/',$m_keyword); //!!! 6.2.9
+						
+						if ($onlyFirstKeyword == 'all')
+						{
+							$m_keyword = preg_quote($m_keyword,'/');
+							//!!!$content1 = preg_replace("/(\W)(".$m_keyword.")(?![^<|^\[]*[>|\]])(\W)/is","\\1"."<span class=\"tooltipsall classtoolTips$m_keyword_id\" style=\"border-bottom:2px dotted #888;\">"."\\2"."</span>"."\\3",$content);
+							//6.9.3
+							//$content1 = preg_replace("/(\W)(".$m_keyword.")(?![^<|^\[]*[>|\]])(\W)/is","\\1"."<span class=\"tooltipsall tooltipsincontent classtoolTips$m_keyword_id\">"."\\2"."</span>"."\\3",$content);
+							//7.4.1
+							//$content1 = preg_replace("/([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])(".$m_keyword.")(?![^<|^\[]*[>|\]])([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])/is","\\1"."<span class=\"tooltipsall tooltipsincontent classtoolTips$m_keyword_id\">"."\\2"."</span>"."\\3",$content);
+							//7.8.3
+							//7.9.3
+							//$content1 = preg_replace("/([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])(".$m_keyword.")(?![^<|^\[]*[>|\]])([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])/is","\\1"."<span class='tooltipsall tooltipsincontent classtoolTips$m_keyword_id'>"."\\2"."</span>"."\\3",$content);
+							$content1 = preg_replace("/([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])(".esc_attr($m_keyword).")(?![^<|^\[]*[>|\]])([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])/is","\\1"."<span class='tooltipsall tooltipsincontent classtoolTips".esc_attr($m_keyword_id)."'>"."\\2"."</span>"."\\3",$content);
+						}
+							
+						if ($onlyFirstKeyword == 'first')
+						{
+							$m_keyword = preg_quote($m_keyword,'/');
+							//!!!$content1 = preg_replace("/(\W)(".$m_keyword.")(?![^<|^\[]*[>|\]])(\W)/is","\\1"."<span class=\"tooltipsall classtoolTips$m_keyword_id\" style=\"border-bottom:2px dotted #888;\">"."\\2"."</span>"."\\3",$content,1);
+							//6.9.3
+							//$content1 = preg_replace("/(\W)(".$m_keyword.")(?![^<|^\[]*[>|\]])(\W)/is","\\1"."<span class=\"tooltipsall tooltipsincontent classtoolTips$m_keyword_id\">"."\\2"."</span>"."\\3",$content,1);
+							// 7.4.1
+							//$content1 = preg_replace("/([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])(".$m_keyword.")(?![^<|^\[]*[>|\]])([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])/is","\\1"."<span class=\"tooltipsall tooltipsincontent classtoolTips$m_keyword_id\">"."\\2"."</span>"."\\3",$content,1);
+							//7.8.3
+							//7.9.3
+							// $content1 = preg_replace("/([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])(".$m_keyword.")(?![^<|^\[]*[>|\]])([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])/is","\\1"."<span class='tooltipsall tooltipsincontent classtoolTips$m_keyword_id'>"."\\2"."</span>"."\\3",$content,1);
+							$content1 = preg_replace("/([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])(".esc_attr($m_keyword).")(?![^<|^\[]*[>|\]])([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])/is","\\1"."<span class='tooltipsall tooltipsincontent classtoolTips".esc_attr($m_keyword_id)."'>"."\\2"."</span>"."\\3",$content,1);
+						}
+						
+						if ($content1 == $content)
+						{
+							$content1 = " x98 ".$content." x98 ";
+							if ($onlyFirstKeyword == 'all')
+							{
+								$m_keyword = preg_quote($m_keyword,'/');
+								//!!! $content1 = preg_replace("/(\W)(".$m_keyword.")(?![^<|^\[]*[>|\]])(\W)/is","\\1"."<span class=\"tooltipsall classtoolTips$m_keyword_id\" style=\"border-bottom:2px dotted #888;\">"."\\2"."</span>"."\\3",$content1);
+								//6.9.3
+								//$content1 = preg_replace("/(\W)(".$m_keyword.")(?![^<|^\[]*[>|\]])(\W)/is","\\1"."<span class=\"tooltipsall tooltipsincontent classtoolTips$m_keyword_id\">"."\\2"."</span>"."\\3",$content1);
+								//7.4.1
+								//$content1 = preg_replace("/([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])(".$m_keyword.")(?![^<|^\[]*[>|\]])([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])/is","\\1"."<span class=\"tooltipsall tooltipsincontent classtoolTips$m_keyword_id\">"."\\2"."</span>"."\\3",$content1);
+								//7.8.3
+								//7.9.3
+								//$content1 = preg_replace("/([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])(".$m_keyword.")(?![^<|^\[]*[>|\]])([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])/is","\\1"."<span class='tooltipsall tooltipsincontent classtoolTips$m_keyword_id'>"."\\2"."</span>"."\\3",$content1);
+								$content1 = preg_replace("/([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])(".$m_keyword.")(?![^<|^\[]*[>|\]])([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])/is","\\1"."<span class='tooltipsall tooltipsincontent classtoolTips".esc_attr($m_keyword_id)."'>"."\\2"."</span>"."\\3",$content1);
+							}
+								
+							if ($onlyFirstKeyword == 'first')
+							{
+								$m_keyword = preg_quote($m_keyword,'/');
+								//!!! $content1 = preg_replace("/(\W)(".$m_keyword.")(?![^<|^\[]*[>|\]])(\W)/is","\\1"."<span class=\"tooltipsall classtoolTips$m_keyword_id\" style=\"border-bottom:2px dotted #888;\">"."\\2"."</span>"."\\3",$content1,1);
+								//6.9.3
+								//$content1 = preg_replace("/(\W)(".$m_keyword.")(?![^<|^\[]*[>|\]])(\W)/is","\\1"."<span class=\"tooltipsall tooltipsincontent classtoolTips$m_keyword_id\">"."\\2"."</span>"."\\3",$content1,1);
+								//7.4.1
+								//$content1 = preg_replace("/([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])(".$m_keyword.")(?![^<|^\[]*[>|\]])([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])/is","\\1"."<span class=\"tooltipsall tooltipsincontent classtoolTips$m_keyword_id\">"."\\2"."</span>"."\\3",$content1,1);
+								//7.8.3
+								//7.9.3
+								//$content1 = preg_replace("/([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])(".$m_keyword.")(?![^<|^\[]*[>|\]])([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])/is","\\1"."<span class='tooltipsall tooltipsincontent classtoolTips$m_keyword_id'>"."\\2"."</span>"."\\3",$content1,1);
+								$content1 = preg_replace("/([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])(".$m_keyword.")(?![^<|^\[]*[>|\]])([^A-Za-z0-9àâåäąæÀÂĄÄÅÆçćÇĆéèëêęÉÈÊËĘłŁñńÑŃîïÎÏòôöœóøÔŒÓÖØšśŚŠùûüÙÛÜÿŸžźżŹŻŽбвгдёжзийлпфцчщъыьэюяß])/is","\\1"."<span class='tooltipsall tooltipsincontent classtoolTips".esc_attr($m_keyword_id)."'>"."\\2"."</span>"."\\3",$content1,1);
+							}
+						
+							$content1 = trim($content1," x98 ");
+						}
+						//$m_check = "<span class=\"tooltipsall classtoolTips$m_keyword_id\" style=\"border-bottom:2px dotted #888;\">";
+						//7.8.3
+						//7.9.3
+						//$m_check = "<span class='tooltipsall classtoolTips$m_keyword_id' style='border-bottom:2px dotted #888;'>";
+						$m_check = "<span class='tooltipsall classtoolTips".esc_attr($m_keyword_id)."' style='border-bottom:2px dotted #888;'>";
+						if (stripos($content1, $m_check.$m_check) === false)
+						{
+							$content = $content1;
+						}
+						else
+						{
+							$content = $content;
+						}
+						
+					}
+				}
+				//!!! old $content = str_replace($m_single['keyword'], $tooltip_unique_id, $content);
+				//!!! 6.2.9 $content = preg_replace("/"."(".$m_single['keyword'].")(?![^@@@@]*[####])/s",'@@@@'.$tooltip_unique_id.'####'."\\2",$content); //!!!new
+				
+				$m_single_keyword = str_replace('/','\/',$m_single['keyword']); //!!! 6.2.9
+				// $content = preg_replace("/"."(".$m_single_keyword.")(?![^@@@@]*[####])/s",'@@@@'.$tooltip_unique_id.'####'."\\2",$content); //!!!new
+				//!!! 7.9.5 this is not same of pro
+				$content = preg_replace("/"."(".$m_single_keyword.")(?![^@@@@]*[%%%%])/s",'@@@@'.$tooltip_unique_id.'%%%%'."\\2",$content); //!!!new
+				
+			}
+							
+			$m_keyword_id++;
+		}
+		foreach ($m_result as $m_single)
+		{
+			$m_keyword = $m_single['keyword'];
+			$m_content = $m_single['content'];
+			$tooltip_post_id = $m_single['post_id'];
+			$tooltip_unique_id = $m_single['unique_id'];
+			$content = str_ireplace($tooltip_unique_id, $m_keyword , $content);
+		}		
+	}
+	
+	do_action('action_after_tooltipsincontent', $content);
+	$content = apply_filters( 'filter_after_tooltipsincontent',  $content);
+		
+	//!!!start
+	$content = str_replace('@@@@', '', $content);
+	$content = str_replace('####', '', $content);
+	//!!! 7.9.5 this is not same of pro
+	$content = str_replace('%%%%', '', $content);
+	//!!!end
+	$content = str_ireplace('//##', '', $content);
+	$content = str_ireplace('##]]', '', $content);	
+	
+	return $content;
+}
+
+function nextgenTooltips()
+{
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+	
+	//6.9.3
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		return '';
+	}
+	//end 6.9.3
+?>
+<script type="text/javascript">
+jQuery("document").ready(function()
+{
+	jQuery("body img").each(function()
+	{
+		if ((jQuery(this).parent("a").attr('title') != '' )  && (jQuery(this).parent("a").attr('title') != undefined ))
+		{
+			toolTips(jQuery(this).parent("a"),jQuery(this).parent("a").attr('title'));
+		}
+		else
+		{
+			var tempAlt = jQuery(this).attr('alt');
+			if (typeof(tempAlt) !== "undefined")
+			{
+				tempAlt = tempAlt.replace(' ', '');
+				if (tempAlt == '')
+				{
+
+				}
+				else
+				{
+					toolTips(jQuery(this),jQuery(this).attr('alt'));
+				}
+			}
+		}
+	}
+
+	);
+})
+</script>
+<?php
+}
+
+
 add_action('the_content','tooltipsInContent',$tooltipHookPriorityValue+1);
 add_action('wp_head', 'tooltipsHead');
-add_action('the_content','showTooltips',$tooltipHookPriorityValue);
-add_action('admin_head', 'tooltipsAdminHead');
+//!!! 7.6.9 add_action('the_content','showTooltips',$tooltipHookPriorityValue);
+//7.6.9
+$enableMoveInlineJsToFooter = get_option("enableMoveInlineJsToFooter");
+if ($enableMoveInlineJsToFooter == 'YES')
+{
+	add_action('wp_footer','showTooltipsAndLoadFromFooter',$tooltipHookPriorityValue);
+}
+else
+{
+	add_action('the_content','showTooltips',$tooltipHookPriorityValue);
+}
+
+ 
+
+//7.4.3
+function loadGlossaryStyleFree()
+{
+	$glossarynavtextdecoration = get_option("glossarynavtextdecoration");
+	if (empty($glossarynavtextdecoration))
+	{
+		$glossarynavtextdecoration = 'no';
+	}
+
+	if ($glossarynavtextdecoration == 'no')
+	{
+		?>
+		<style type="text/css">
+			.navitems a
+			{
+				text-decoration: none !important;
+			}
+		</style>
+		<?php 						
+	}
+}
+	
+//7.4.3
+add_action('wp_head', 'loadGlossaryStyleFree');
+
 
 $enableTooltipsForExcerpt = get_option("enableTooltipsForExcerpt");
 if ($enableTooltipsForExcerpt =='YES')
 {
-	add_action('the_excerpt','tooltipsInContent',$tooltipHookPriorityValue+1);
-	add_action('the_excerpt','showTooltips',$tooltipHookPriorityValue);	
+	// add_action('the_excerpt','tooltipsInContent',$tooltipHookPriorityValue+1);
+	//7.9.9 for some new wordpress block theme
+    add_action('get_the_excerpt','tooltipsInContent',$tooltipHookPriorityValue+1);
+	//end 7.9.9 
+	
+	//!!! 7.6.9 add_action('the_excerpt','showTooltips',$tooltipHookPriorityValue);
+	$enableMoveInlineJsToFooter = get_option("enableMoveInlineJsToFooter");
+	if ($enableMoveInlineJsToFooter == 'YES')
+	{
+		add_action('wp_footer','showTooltipsAndLoadFromFooter',$tooltipHookPriorityValue);
+	}
+	else 
+	{
+		// add_action('the_excerpt','showTooltips',$tooltipHookPriorityValue);
+		//7.9.9 for some new wordpress block theme
+	    add_action('get_the_excerpt','showTooltips',$tooltipHookPriorityValue);
+		//end 7.9.9
+	}
+	
 }
 
 $enableTooltipsForTags = get_option("enableTooltipsForTags");
@@ -739,6 +1431,15 @@ if ($enableTooltipsForTags =='YES')
 	add_action('the_tags','tooltipsInContent',$tooltipHookPriorityValue+1);
 	add_action('the_tags','showTooltipsInTag',$tooltipHookPriorityValue);
 }
+
+$enableTooltipsForCategoryTitle = get_option("enableTooltipsForCategoryTitle");
+if ($enableTooltipsForCategoryTitle =='YES')
+{
+	add_filter( 'get_the_archive_title','tooltipsInContent',$tooltipHookPriorityValue+1);
+	add_action('get_the_archive_title','showTooltipsInTitle',$tooltipHookPriorityValue);
+}
+
+
 
 $enableTooltipsForImageCheck = get_option("enableTooltipsForImage");
 if ($enableTooltipsForImageCheck == false)
@@ -750,107 +1451,6 @@ if ($enableTooltipsForImageCheck == 'YES')
 	add_action('wp_footer','nextgenTooltips');
 }
 
-
-function add_tooltips_post_type() {
-	global $wp_rewrite;
-	$catlabels = array(
-			'name'                          => 'Categories',
-			'singular_name'                 => 'Tooltips Categories',
-			'all_items'                     => 'All Tooltips',
-			'parent_item'                   => 'Parent Tooltips',
-			'edit_item'                     => 'Edit Tooltips',
-			'update_item'                   => 'Update Tooltips',
-			'add_new_item'                  => 'Add New Tooltips',
-			'new_item_name'                 => 'New Tooltips',
-	);
-	
-	$args = array(
-			'label'                         => 'Categories',
-			'labels'                        => $catlabels,
-			'public'                        => true,
-			'hierarchical'                  => true,
-			'show_ui'                       => true,
-			'show_in_nav_menus'             => true,
-			'args'                          => array( 'orderby' => 'term_order' ),
-			'rewrite'                       => array( 'slug' => 'tooltips_categories', 'with_front' => false ),
-			'query_var'                     => true
-	);
-	
-	register_taxonomy( 'tooltips_categories', 'tooltips', $args );
-	
-	
-  $labels = array(
-    'name' => __('Tooltips', 'wordpress-tooltips'),
-    'singular_name' => __('Tooltip', 'wordpress-tooltips'),
-    'add_new' => __('Add New', 'wordpress-tooltips'),
-    'add_new_item' => __('Add New Tooltip', 'wordpress-tooltips'),
-    'edit_item' => __('Edit Tooltip', 'wordpress-tooltips'),
-    'new_item' => __('New Tooltip', 'wordpress-tooltips'),
-    'all_items' => __('All Tooltips', 'wordpress-tooltips'),
-    'view_item' => __('View Tooltip', 'wordpress-tooltips'),
-    'search_items' => __('Search Tooltip', 'wordpress-tooltips'),
-    'not_found' =>  __('No Tooltip found', 'wordpress-tooltips'),
-    'not_found_in_trash' => __('No Tooltip found in Trash', 'wordpress-tooltips'), 
-    'menu_name' => __('Tooltips', 'wordpress-tooltips')
-  );
-
-  $enabGlossaryIndexPage =  get_option("enabGlossaryIndexPage");
-  if (empty($enabGlossaryIndexPage))
-  {
-  	$enabGlossaryIndexPage = 'YES';
-  }
-  
-  if ($enabGlossaryIndexPage == 'YES')
-  {
-  	$hasGlossaryIndex = true;
-  	$tooltipsGlossaryIndexPage = get_option('tooltipsGlossaryIndexPage');
-  	if (empty($tooltipsGlossaryIndexPage))
-  	{
-  		$glossarySlug =  'glossary';
-  	}
-  	else
-  	{
-  		$glossaryPost = get_post($tooltipsGlossaryIndexPage);
-  		if ( empty($glossaryPost->ID) )
-  		{
-  			$glossarySlug =  'glossary';
-  		}
-  		else
-  		{
-  			$glossarySlug = $glossaryPost->post_name;
-  		}
-  	}
-  
-  	 
-  	$hasGlossaryIndexRewrite =  array('slug' => $glossarySlug, 'with_front' => true, 'feeds' => true, 'pages' => true);
-  	 
-  	 
-  }
-  else
-  {
-  	$hasGlossaryIndex = false;
-  	$hasGlossaryIndexRewrite =  false;
-  }  
-  
-  $args = array(
-  		'labels' => $labels,
-  		'public' => $hasGlossaryIndex,
-  		'show_ui' => true,
-  		'show_in_menu' => true,
-  		'_builtin' =>  false,
-  		'query_var' => "tooltips",
-  		'rewrite'	=>  $hasGlossaryIndexRewrite,  		
-  		'capability_type' => 'post',
-  		'has_archive' => $hasGlossaryIndex,
-  		'hierarchical' => false,
-  		'menu_position' => null,
-  		'supports' => array( 'title', 'editor','author','custom-fields','thumbnail' )
-  );
-  
-  register_post_type('tooltips', $args);
-  $wp_rewrite->flush_rules();
-}
-add_action( 'init', 'add_tooltips_post_type' );
 
 function upgrade_check()
 {
@@ -876,9 +1476,11 @@ function upgrade_check()
 				wp_insert_post( $my_post );
 			}
 		}
-	
+	   //!!! start 7.9.7 for avoid jquery migrate problem
+		update_option("seletEnableJqueryMigrate", 'YES');
+	   //!!! end 7.9.7
 	}
-	update_option('ztooltipversion','6.4.7');
+	update_option('ztooltipversion','7.9.9');
 }
 add_action( 'init', 'upgrade_check');
 
@@ -940,7 +1542,18 @@ function showTooltipsInShorcode($content)
 	do_action('action_before_showtooltips', $content);
 	$content = apply_filters( 'filter_before_showtooltips',  $content);
 	
-
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+	
+	//6.9.3
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		return $content;
+	}
+	//end 6.9.3
+	
 	$curent_content = $content;
 
 	
@@ -1026,9 +1639,27 @@ function tooltips_wiki_reference($atts, $keyword = null)
 	'content' => "Proper Shortcode Usage is: <div>[tooltips keyword='wordpress' content = 'hello, wp']</div>",
 	), $atts ));
 
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+	
+	//6.9.3
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		return $keyword;
+	}
+	//end 6.9.3
+	
 	$m_keyword_result = '';
 	$keywordmd = md5(uniqid('',TRUE));
-	$m_replace = "<span class=\"tooltipsall tooltip_post_id_custom_$keywordmd classtoolTipsCustomShortCode\" style=\"border-bottom:2px dotted #888;\">".$keyword."</span>";
+	/*
+	 * $m_replace = "<span class=\"tooltipsall tooltip_post_id_custom_$keywordmd classtoolTipsCustomShortCode\" style=\"border-bottom:2px dotted #888;\">".$keyword."</span>";
+	*/
+	//7.8.3
+	//7.9.3
+	//$m_replace = "<span class='tooltipsall tooltip_post_id_custom_$keywordmd classtoolTipsCustomShortCode' style='border-bottom:2px dotted #888;'>".$keyword."</span>";
+	$m_replace = "<span class='tooltipsall tooltip_post_id_custom_".esc_attr($keywordmd)." classtoolTipsCustomShortCode' style='border-bottom:2px dotted #888;'>".$keyword."</span>";
 	$m_keyword_result .= $m_replace;
 
 	$m_keyword_result .= '<script type="text/javascript">';
@@ -1042,7 +1673,9 @@ function tooltips_wiki_reference($atts, $keyword = null)
 	
 	if (!(empty($m_content)))
 	{
-		$m_keyword_result .= " toolTips('.tooltip_post_id_custom_$keywordmd','$m_content'); ";
+	    //7.9.3
+		//$m_keyword_result .= " toolTips('.tooltip_post_id_custom_$keywordmd','$m_content'); ";
+	    $m_keyword_result .= " toolTips('.tooltip_post_id_custom_".esc_attr($keywordmd)."','$m_content'); ";
 	}
 	$m_keyword_result .= '</script>';
 
@@ -1067,9 +1700,29 @@ function tomas_one_tooltip_shortcode( $atts, $inputcontent = null )
 		$keyword = $inputcontent;
 	}
 	//!!!end
+	
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+	
+	//6.9.3
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		return $keyword;
+	}
+	//end 6.9.3
+	
+	
 	$m_keyword_result = '';
 	$keywordmd = md5(uniqid('',TRUE));
+	/*
 	$m_replace = "<span class=\"tooltipsall tooltip_post_id_custom_$keywordmd classtoolTipsCustomShortCode\" style=\"border-bottom:2px dotted #888;\">$keyword</span>";
+	*/
+	//7.8.3
+	//7.9.3
+	//$m_replace = "<span class='tooltipsall tooltip_post_id_custom_$keywordmd classtoolTipsCustomShortCode' style='border-bottom:2px dotted #888;'>$keyword</span>";
+	$m_replace = "<span class='tooltipsall tooltip_post_id_custom_".esc_attr($keywordmd)." classtoolTipsCustomShortCode' style='border-bottom:2px dotted #888;'>$keyword</span>";
 	$m_keyword_result .= $m_replace;
 
 	$m_keyword_result .= '<script type="text/javascript">';
@@ -1083,7 +1736,9 @@ function tomas_one_tooltip_shortcode( $atts, $inputcontent = null )
 	
 	if (!(empty($m_content)))
 	{
-		$m_keyword_result .= " toolTips('.tooltip_post_id_custom_$keywordmd','$m_content'); ";
+	    //7.9.3
+		//$m_keyword_result .= " toolTips('.tooltip_post_id_custom_$keywordmd','$m_content'); ";
+	    $m_keyword_result .= " toolTips('.tooltip_post_id_custom_".$keywordmd."','$m_content'); ";
 	}
 	$m_keyword_result .= '</script>';
 
@@ -1108,12 +1763,15 @@ function tooltips_plugin_action_links( $links, $file )
 {
 	if ( $file == plugin_basename( __FILE__ ))
 	{
+
+		$settings_link = '<i><a href="https://tooltips.org/features-of-wordpress-tooltips-plugin/" target="_blank">'.esc_html__( 'Pro Feature' , 'wordpress-tooltips').'</a></i>';
+		array_unshift($links, $settings_link);
 		
-		 $settings_link = '<i><a href="https://tooltips.org/features-of-wordpress-tooltips-plugin/" target="_blank">'.esc_html__( 'DEMOs' , 'wordpress-tooltips').'</a></i>';
-		 array_unshift($links, $settings_link);
-		 		
-		 $settings_link = '<a href="' . admin_url( 'edit.php?post_type=tooltips' ) . '">'.esc_html__( 'Settings' , 'wordpress-tooltips').'</a>';
-		 array_unshift($links, $settings_link);
+		$settings_link = '<i><a href="https://tooltips.org/wordpress-tooltip-plugin/wordpress-tooltips-demo" target="_blank">'.esc_html__( 'DEMOs' , 'wordpress-tooltips').'</a></i>';
+		array_unshift($links, $settings_link);
+		
+		$settings_link = '<a href="' . admin_url( 'edit.php?post_type=tooltips' ) . '">'.esc_html__( 'Settings' , 'wordpress-tooltips').'</a>';
+		array_unshift($links, $settings_link);
 	}
 
 	return $links;
@@ -1173,7 +1831,13 @@ function content_tooltips_keyword_synonyms_control_meta_box()
 	    <tr class="form-field">
 	        <td>
 	        	<p>Synonyms of the keyword</p>
-				<input type="text" id="toolstipssynonyms" name="toolstipssynonyms" value="<?php echo $get_post_meta_value_for_this_page;  ?>">
+	        	<?php 
+            	//7.9.3
+            	/*
+            	 * <input type="text" id="toolstipssynonyms" name="toolstipssynonyms" value="<?php echo $get_post_meta_value_for_this_page;  ?>">
+            	 */
+	           ?>
+				<input type="text" id="toolstipssynonyms" name="toolstipssynonyms" value="<?php echo esc_attr($get_post_meta_value_for_this_page);  ?>">
 				<p style="color:gray;font-size:12px;"><i>( separated by '|' )</i></p>
 	        </td>
 	    </tr>
@@ -1204,7 +1868,8 @@ function save_content_tooltips_keyword_synonyms_control_meta_box($post_id, $post
 	$get_post_meta_value_for_this_page = get_post_meta($current_page_id, 'toolstipssynonyms', true);
 
 	if(isset($_POST['toolstipssynonyms']) != "") {
-		$meta_box_checkbox_value = $_POST['toolstipssynonyms'];
+	    $meta_box_checkbox_value = sanitize_text_field($_POST['toolstipssynonyms']);
+	    //7.9.3 $meta_box_checkbox_value = $_POST['toolstipssynonyms'];
 		update_post_meta( $current_page_id, 'toolstipssynonyms', $meta_box_checkbox_value );
 	} else {
 		update_post_meta( $current_page_id, 'toolstipssynonyms', '' );
@@ -1223,11 +1888,17 @@ function tooltips_table_shortcode($atts)
 	$tooltipsarray = array();
 	$m_single = array();
 
+	$enabGlossaryIndexPage =  get_option("enabGlossaryIndexPage");
+	if (empty($enabGlossaryIndexPage))
+	{
+		$enabGlossaryIndexPage = 'YES';
+	}
+	
 	$return_content = '';
 	$return_content .= '<div class="tooltips_directory">';
 
 	$post_type = 'tooltips';
-	$sql = $wpdb->prepare( "SELECT ID, post_title, post_content FROM $wpdb->posts WHERE post_type=%s AND post_status='publish' order by post_title ASC",$post_type);
+	$sql = $wpdb->prepare( "SELECT ID, post_title, post_content, post_excerpt FROM $wpdb->posts WHERE post_type=%s AND post_status='publish' order by post_title ASC",$post_type);
 	$results = $wpdb->get_results( $sql );
 
 	if ((!(empty($results))) && (is_array($results)) && (count($results) >0))
@@ -1235,14 +1906,81 @@ function tooltips_table_shortcode($atts)
 		$m_single = array();
 		foreach ($results as $single)
 		{
+			//!!! version 7.5.1 remove glossary term by id from glossary page
+			$bulkremovetermfromglossarylist = '';
+			$bulkremovetermfromglossarylist = get_option("bulkremovetermfromglossarylist");
+			if (!(empty($bulkremovetermfromglossarylist)))
+			{
+				$patterns = '';
+				$replacements = '';
+				$bulkremovetermfromglossarylist = trim($bulkremovetermfromglossarylist);
+				$bulkremovetermfromglossarylistarray = explode(',', $bulkremovetermfromglossarylist);
+					
+				if ((!(empty($bulkremovetermfromglossarylistarray))) && (is_array($bulkremovetermfromglossarylistarray)) && (count($bulkremovetermfromglossarylistarray) > 0))
+				{
+					if (in_array($single->ID, $bulkremovetermfromglossarylistarray))
+					{
+						continue;
+					}
+				}
+			}
+			//!!! end version 7.5.1
+			
 			$return_content .= '<div class="tooltips_list">';
 			$return_content .= '<span class="tooltips_table_items">';
 			$return_content .= '<div class="tooltips_table">';
 			$return_content .= '<div class="tooltips_table_title">';
-			$return_content .=	$single->post_title;
+			// $return_content .=	$single->post_title;  // old 7.4.5
+			// 7.4.5
+			if ($enabGlossaryIndexPage == 'YES')
+			{
+				$return_content .=	'<a href="'.get_permalink($single->ID).'">'.$single->post_title.'</a>';
+			}
+			else
+			{
+				$return_content .=	$single->post_title;
+			}
+			
+			
 			$return_content .='</div>';
 			$return_content .= '<div class="tooltips_table_content">';
-			$return_content .=	$single->post_content;
+			//$return_content .=	$single->post_content;
+
+			//7.3.9 start
+			$glossaryExcerptOrContentSelect = get_option("glossaryExcerptOrContentSelect");
+			
+			/* before 7.5.1
+			if ($glossaryExcerptOrContentSelect == 'glossaryexcerpt')
+			{
+				//$return_content .= wp_trim_excerpt($single->post_content); 
+				$return_content .= wp_trim_excerpt('',$single->ID);
+			}
+			*/
+			// 7.5.1
+			if ($glossaryExcerptOrContentSelect == 'glossaryexcerpt')
+			{
+				$m_content =  wp_trim_excerpt('',$single->ID);
+				if (empty($single->post_excerpt))
+				{
+					$m_content =  wp_trim_excerpt('',$single->ID);
+				}
+				else
+				{
+					$m_content =  $single->post_excerpt;
+				}
+				$return_content .= $m_content;
+			}
+
+			if ($glossaryExcerptOrContentSelect == 'glossarycontent')
+			{
+				$return_content .= $single->post_content;
+			}
+			
+			if (empty($glossaryExcerptOrContentSelect))
+			{
+				$return_content .= $single->post_content;
+			}
+			//7.3.9 end
 			$return_content .='</div>';
 			$return_content .='</div>';
 			$return_content .='</span>';
@@ -1269,13 +2007,49 @@ function footernav()
 	if (empty($enableLanguageCustomization)) $choseLanguageForGlossary = 'en';
 	if ('NO' == $enableLanguageCustomization) $choseLanguageForGlossary = 'en';
 
+// 7.3.1
+	$glossaryNumbersOrNot =  get_option("glossaryNumbersOrNot");
+	if (empty($glossaryNumbersOrNot))
+	{
+		$glossaryNumbersOrNot = 'yes';
+	}
+	$glossaryNumbersOrNot = strtolower($glossaryNumbersOrNot);
+// end 7.3.1
+/*
+ * 7.9.3
+ * inboxs['language'] = "<?php echo $choseLanguageForGlossary; ?>";
+ */
 ?>
 <script type="text/javascript">
 var inboxs = new Array();
-inboxs['language'] = "<?php echo $choseLanguageForGlossary; ?>";
+inboxs['language'] = "<?php echo esc_attr($choseLanguageForGlossary); ?>";
 inboxs['navitemselectedsize'] = '18px';
 inboxs['selectors'] = '.tooltips_list > span';
-inboxs['number'] = 'yes';
+<?php  // before 7.3.1  inboxs['number'] = 'yes'; 
+//7.3.4
+//!!!start 7.6.5 
+$glossaryNavItemFontSize = get_option("glossaryNavItemFontSize");
+if (empty($glossaryNavItemFontSize))
+{
+	$glossaryNavItemFontSize = '12px';
+}
+else 
+{
+	$glossaryNavItemFontSize = $glossaryNavItemFontSize.'px';
+}
+/*
+ * 7.9.3
+ */
+?>
+inboxs['navitemdefaultsize'] = '<?php echo esc_attr($glossaryNavItemFontSize); ?>';
+<?php 
+//!!! end 7.6.5
+/*
+ * 7.9.3
+ * inboxs['number'] = "<?php echo $glossaryNumbersOrNot; ?>";
+ */
+?>
+inboxs['number'] = "<?php echo esc_attr($glossaryNumbersOrNot); ?>";
 <?php 
 if ($choseLanguageForGlossary == 'custom')
 {
@@ -1284,12 +2058,24 @@ if ($choseLanguageForGlossary == 'custom')
 	{
 		$glossaryLanguageCustomNavALL = 'ALL';
 	}
+	/*
+	 * 7.9.3
+	 * inboxs['wordofselectall'] = "<?php echo $glossaryLanguageCustomNavALL; ?>";
+	 */
 	?>
-	inboxs['wordofselectall'] = "<?php echo $glossaryLanguageCustomNavALL; ?>";
+	inboxs['wordofselectall'] = "<?php echo esc_attr($glossaryLanguageCustomNavALL); ?>";
 	<?php
 }
+//!!! old before 7.6.5 jQuery('.tooltips_directory').directory(inboxs);
+/*
+ * 7.9.3
+ * jQuery('.navitem').css('font-size','<?php echo $glossaryNavItemFontSize; ?>');
+ */
 ?>
-jQuery('.tooltips_directory').directory(inboxs);
+jQuery(document).ready(function () {
+	jQuery('.tooltips_directory').directory(inboxs); 
+	jQuery('.navitem').css('font-size','<?php echo esc_attr($glossaryNavItemFontSize); ?>');	
+})
 </script>
 <?php
 }
@@ -1314,12 +2100,24 @@ function rangesliderinit()
 	var tooltip_zindex_custom_values = [-1, 10, 100, 1000, 10000, 100000, 1000000];
 	jQuery(document).ready(function($) 
 	{
-		$('#tooltipZindexValue').ionRangeSlider({min: -1,max: 1000000,from: <?php echo $tooltipZindexValue; ?>,step:1000,grid: true,skin: "modern"});
+	<?php 
+	/*
+	 * 7.9.3
+	 * $('#tooltipZindexValue').ionRangeSlider({min: -1,max: 1000000,from: <?php echo $tooltipZindexValue; ?>,step:1000,grid: true,skin: "modern"});
+	 */
+	?>
+		$('#tooltipZindexValue').ionRangeSlider({min: -1,max: 1000000,from: <?php echo esc_attr($tooltipZindexValue); ?>,step:1000,grid: true,skin: "modern"});
 	});
 
 	jQuery(document).ready(function($) 
 	{
-		$('#tooltipHookPriorityValue').ionRangeSlider({min: 7,max: 100000,from: <?php echo $tooltipHookPriorityValue; ?>,step:1,grid: true,skin: "flat"});
+	<?php 
+	/*
+	 * 7.9.3
+	 * $('#tooltipHookPriorityValue').ionRangeSlider({min: 7,max: 100000,from: <?php echo $tooltipHookPriorityValue; ?>,step:1,grid: true,skin: "flat"});
+	 */
+	?>
+		$('#tooltipHookPriorityValue').ionRangeSlider({min: 7,max: 100000,from: <?php echo esc_attr($tooltipHookPriorityValue); ?>,step:1,grid: true,skin: "flat"});
 	});	
 	</script>
 	<?php
@@ -1367,7 +2165,8 @@ function tooltips_free_admin_css()
 {
 	wp_enqueue_style('tooltips_free_admin_css', plugin_dir_url( __FILE__ ) .'asset/admin/css/admin.css');
 
-	$current_edit_page = strtolower($_SERVER['REQUEST_URI']);
+	//7.9.3 $current_edit_page = strtolower($_SERVER['REQUEST_URI']);
+	$current_edit_page = strtolower(sanitize_url($_SERVER['REQUEST_URI']));
 	if (!(empty($current_edit_page)))
 	{
 		if (strpos($current_edit_page, 'tooltipsfaq') === false)
@@ -1424,3 +2223,214 @@ if ('no' == strtolower($selectsignificantdigitalsuperscripts))
 }
 //!!!end
 
+function tt_free_user_first_run_guide_bar()
+{
+	$is_user_first_run_guide_bar = get_option('user_first_run_guide_bar');
+	if (empty($is_user_first_run_guide_bar))
+	{
+		echo "<div class='notice tooltips-notice notice-info'><p>Thanks for installing <strong>Tooltips</strong>! Please check <a href='" . admin_url() . "edit.php?post_type=tooltips&page=tooltipsfaq' target='_blank'>Tooltip Knowledge Base</a> and <a href='" . admin_url() . "post-new.php?post_type=tooltips' target='_blank'>Create First Tooltip</a>, it will starting work automatically. Here is <a href='" . admin_url() . "edit.php?post_type=tooltips&page=tooltipglobalsettings' target='_blank'>Setting Panel</a>, Any question or feature request please contact <a href='https://tooltips.org/support-ticket/'  target='_blank'>Support</a> :)</p></div>";
+		update_option('user_first_run_guide_bar','yes');
+	}
+}
+
+add_action( 'admin_notices', 'tt_free_user_first_run_guide_bar' );
+
+
+
+function tomas_tooltip_by_id_shortcode_free( $atts, $content = null )
+{
+
+	//7.5.7
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+	
+	//if (tooltips_pro_disable_tooltip_in_mobile_free())
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		return '';
+	}
+
+
+	$keyword = '';
+	extract(shortcode_atts( array(
+			'tooltip_id' => __("Proper Shortcode Usage is: <div>[tooltip_by_id tooltip_id='1']</div>",'wordpress-tooltips'),
+	), $atts ));
+
+
+	$tooltip_id = (INT) $tooltip_id;
+
+	if (!(is_int($tooltip_id)))
+	{
+		return false;
+	}
+
+	$tooltip_id_post = tooltips_get_by_id_free($tooltip_id);
+
+	if ($tooltip_id_post == false)
+	{
+		return false;
+	}
+
+	if ((!(empty($tooltip_id_post))) && (is_array($tooltip_id_post)) && (count($tooltip_id_post) >0))
+	{
+		$keyword = $tooltip_id_post['keyword'];
+		$content = $tooltip_id_post['content'];
+	}
+
+
+	$m_keyword_result = '';
+	$keywordmd = md5(uniqid('',TRUE));
+    //7.9.3
+	//$m_replace = "<span class='tooltipsall tooltip_post_id_custom_$keywordmd classtoolTipsCustomShortCode'>$keyword</span>";
+	$m_replace = "<span class='tooltipsall tooltip_post_id_custom_". esc_attr($keywordmd) ." classtoolTipsCustomShortCode'>$keyword</span>";
+	$m_keyword_result .= $m_replace;
+
+	$m_keyword_result .= '<script type="text/javascript">';
+	$m_keyword_result .= 'jQuery("document").ready(function(){';
+
+	$m_content = $content;
+
+	$m_content = str_ireplace('\\','',$m_content);
+	$m_content = str_ireplace("'","\'",$m_content);
+
+	$m_content = preg_replace('/([^>])(\r\n)/is', "\\1".'<br/>', $m_content);
+	$m_content = preg_replace('/([>])(\r\n)/is', "\\1".'', $m_content);
+
+	if (!(empty($m_content)))
+	{
+		$m_keyword_result .= '//##'. " toolTips('.tooltip_post_id_custom_$keywordmd','$m_content'); ".'##]]';
+	}
+
+	$m_keyword_result .= '});';  
+	$m_keyword_result .= '</script>';
+
+	return $m_keyword_result;
+}
+
+add_shortcode('tooltip_by_id', 'tomas_tooltip_by_id_shortcode_free');
+
+
+function tooltips_get_by_id_free($tooltip_id)
+{
+	global $wpdb;
+	$tooltipsarray = false;
+	$m_single = array();
+	if (empty($tooltip_id))
+	{
+		return false;
+	}
+
+
+	$post_type = 'tooltips';
+
+	$sql = $wpdb->prepare( "SELECT ID, post_title, post_content FROM $wpdb->posts WHERE post_type=%s AND post_status='publish' AND ID=%s",$post_type,$tooltip_id);
+	$results = $wpdb->get_row( $sql,ARRAY_A );
+
+	if ((!(empty($results))) && (is_array($results)) && (count($results) >0))
+	{
+		$tooltipsarray = array();
+		$tooltipsarray['keyword'] = $results['post_title'];
+		$tooltipsarray['content'] = $results['post_content'];
+		$tooltipsarray['post_id'] = $results['ID'];
+		$tooltipsarray['unique_id'] = tooltips_unique_id();
+	}
+	return $tooltipsarray;
+}
+
+
+function tooltips_unique_id_free()
+{
+	$tooltips_unique_id = md5(uniqid(mt_rand(),1));
+	return $tooltips_unique_id;
+}
+
+
+function disabletooltipforclassandidsfree()
+{
+	$disabletooltipforclassandids = get_option("disabletooltipforclassandids");
+	if (!(empty($disabletooltipforclassandids)))
+	{
+		$patterns = '';
+		$replacements = '';
+		$disabletooltipforclassandids = trim($disabletooltipforclassandids);
+		$disabletooltipforclassandidsarray = explode(',', $disabletooltipforclassandids);
+		if ((!(empty($disabletooltipforclassandidsarray))) && (is_array($disabletooltipforclassandidsarray)) && (count($disabletooltipforclassandidsarray) > 0))
+		{
+			echo '<script type="text/javascript">';
+			foreach ($disabletooltipforclassandidsarray as $disabletooltipforclassandidsSingle)
+			{
+				$disabletooltipforclassandidsSingle = trim($disabletooltipforclassandidsSingle);
+				?>
+				jQuery(document).ready(function () {
+					jQuery('<?php echo $disabletooltipforclassandidsSingle;?> .tooltipsall').each
+					(function()
+					{
+					$disabletooltipforclassandidSinglei = jQuery(this).html();
+					jQuery(this).replaceWith($disabletooltipforclassandidSinglei);
+					})
+				})
+				<?php 
+			}
+			echo '</script>';
+		}			
+	}
+
+}
+add_action('wp_footer','disabletooltipforclassandidsfree');
+
+function loadTooltipsStyleFree()
+{
+	$tooltips_pro_disable_tooltip_in_mobile_free = '';
+	$tooltips_pro_disable_tooltip_in_mobile_free = tooltips_pro_disable_tooltip_in_mobile_free();
+	
+	if ($tooltips_pro_disable_tooltip_in_mobile_free)
+	{
+		return '';
+	}
+
+	$glossaryIndexPageTermFontSize = get_option("glossaryIndexPageTermFontSize"); //!!!
+	
+	
+	$toolstipsFontSize = '';
+	$toolstipsFontSize = get_option("toolstipsFontSize");
+	if (!(empty($toolstipsFontSize)))
+	{
+		$toolstipsFontSize = $toolstipsFontSize.'px';
+		/*
+		 * 7.9.3
+		 * font-size:<?php echo $toolstipsFontSize; ?> !important;
+		 */
+?>
+		<style type="text/css">	
+		.qtip-content
+		{
+			font-size:<?php echo esc_attr($toolstipsFontSize); ?> !important;
+		}
+		</style>
+<?php 		
+	}
+	
+	if (!(empty($glossaryIndexPageTermFontSize)))
+	{
+	    /*
+	     * 7.9.3
+	     * font-size: <?php echo $glossaryIndexPageTermFontSize.'px';  ?> !important;
+	     */
+	    ?>
+						<style type="text/css">
+							.tooltips_table_title span
+							{
+							font-size: <?php echo esc_attr($glossaryIndexPageTermFontSize).'px';  ?> !important;
+							}
+						</style>
+					<?php 						
+	}
+}
+
+add_action('wp_head', 'loadTooltipsStyleFree');
+
+$hidecountnumberitem = get_option("hidecountnumberitem");
+if (('yes' == strtolower($hidecountnumberitem)) || ('no' == strtolower($selectsignificantdigitalsuperscripts)))
+{
+    require_once('rules/glossarysuperscripts.php');
+}

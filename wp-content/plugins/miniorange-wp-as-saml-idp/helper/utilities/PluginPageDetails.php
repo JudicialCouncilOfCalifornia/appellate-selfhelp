@@ -13,20 +13,35 @@ class PluginPageDetails
         $this->_description = $_description;
     }
 
-    
+    /**
+     * The page title
+     * @var string  $_pageTitle
+     */
     public $_pageTitle;
 
-    
+    /**
+     * The menuSlug
+     * @var string  $_menuSlug
+     */
     public $_menuSlug;
 
 
-    
+    /**
+     * The menu title
+     * @var string  $_menuTitle
+     */
     public $_menuTitle;
 
 
-    
+    /**
+     * Tab Name
+     * @var String $_tabName
+     */
     public $_tabName;
 
-    
+    /**
+     * Tab Description
+     * @var string $_description
+     */
     public $_description;
 }

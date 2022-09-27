@@ -16,16 +16,23 @@ final class ReadRequestHandler extends BaseHandler
 {
     use Instance;
 
-    
+    /** @var ProcessRequestHandler $requestProcessHandler*/
     private $requestProcessHandler;
 
-    
+    /** Private constructor to prevent direct object creation */
     private function __construct()
     {
         $this->requestProcessHandler = ProcessRequestHandler::instance();
     }
 
-    
+    /**
+     * @param array $REQUEST
+     * @param array $GET
+     * @param $type
+     * @throws \IDP\Exception\NotRegisteredException
+     * @throws \IDP\Exception\InvalidServiceProviderException
+     * @throws \IDP\Exception\InvalidSSOUserException
+     */
     public function _read_request(array $REQUEST, array $GET, $type)
 	{
 		if(MSI_DEBUG) MoIDPUtility::mo_debug("Reading SAML Request");
@@ -46,20 +53,31 @@ final class ReadRequestHandler extends BaseHandler
 		}
 	}
 
-    
+    /**
+     * @param WsFedRequest $wsFedRequestObject
+     * @param $relayState
+     * @throws \IDP\Exception\InvalidSSOUserException
+     */
     public function mo_idp_process_ws_fed_request(WsFedRequest $wsFedRequestObject, $relayState)
 	{
-		if(MSI_DEBUG) MoIDPUtility::mo_debug($wsFedRequestObject); 		$this->checkIfValidPlugin();
+		if(MSI_DEBUG) MoIDPUtility::mo_debug($wsFedRequestObject); // display ws-fed request
+		$this->checkIfValidPlugin();
 		$this->requestProcessHandler->mo_idp_authorize_user($relayState,$wsFedRequestObject);
 	}
 
-    
+    /**
+     * @param AuthnRequest $authnRequest
+     * @param $relayState
+     * @throws \IDP\Exception\InvalidSSOUserException
+     * @throws InvalidServiceProviderException
+     */
     private function mo_idp_process_assertion_request(AuthnRequest $authnRequest, $relayState)
 	{
-        
+        /** @global \IDP\Helper\Database\MoDbQueries $dbIDPQueries */
 		global $dbIDPQueries;
 
-		if(MSI_DEBUG) MoIDPUtility::mo_debug($authnRequest); 
+		if(MSI_DEBUG) MoIDPUtility::mo_debug($authnRequest); //Display AuthnRequest Values
+
 		$issuer = $authnRequest->getIssuer();
 		$acs 	= $authnRequest->getAssertionConsumerServiceURL();
 
@@ -89,7 +107,10 @@ final class ReadRequestHandler extends BaseHandler
 		$this->requestProcessHandler->mo_idp_authorize_user($relayState,$authnRequest);
 	}
 
-    
+    /**
+     * @param $sp
+     * @throws InvalidServiceProviderException
+     */
     public function checkIfValidSP($sp)
 	{
 		if(MoIDPUtility::isBlank($sp)) {
@@ -98,9 +119,19 @@ final class ReadRequestHandler extends BaseHandler
 	}
 
 
-    
+    /*
+     | -----------------------------------------------------------------------------------------------
+     | FREE PLUGIN SPECIFIC FUNCTIONS
+     | -----------------------------------------------------------------------------------------------
+     */
 
-    
+    /**
+     * This function checks the version of the SAML request made.
+     * Makes sure the SAML request is a valid SAML 2.0 request.
+     *
+     * @param string $spCertificate refers to the certificate saved in SAML configuration
+     * @param array  $signatureData refers to the Signature Data in the SAML request
+     */
     public function validateSignatureInRequest($spCertificate, $signatureData)
     {
         return;
