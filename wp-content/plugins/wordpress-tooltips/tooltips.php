@@ -3,7 +3,7 @@
 Plugin Name: Tooltips
 Plugin URI:  https://tooltips.org/features-of-wordpress-tooltips-plugin/
 Description: Wordpress Tooltips,You can add text,image,link,video,radio in tooltips, add tooltips in gallery. More amazing features? Do you want to customize a beautiful style for your tooltips? One Minute, Check <a href='https://tooltips.org/features-of-wordpress-tooltips-plugin/' target='_blank'> Features of WordPress Tooltips Pro</a>.
-Version: 7.9.9
+Version: 8.1.1
 Author: Tomas | <a href='https://tooltips.org/wordpress-tooltip-plugin/wordpress-tooltip-plugin-document/' target='_blank'>Docs</a> | <a href='https://tooltips.org/faq/' target='_blank'>FAQ</a> | <a href='https://tooltips.org/contact-us' target='_blank'>Premium Support</a> 
 Author URI: https://tooltips.org/wordpress-tooltip-plugin/wordpress-tooltips-demo/
 Text Domain: wordpress-tooltips
@@ -928,6 +928,11 @@ function showTooltips($content)
 							$m_keyword_result .= '//##'. " toolTips('.classtoolTips$m_keyword_id','$m_content'); ".'##]]';
 						}
 						$m_keyword_result .= '</script>';
+						//8.0.9
+						$m_bulletscreen_result = show_bullet_screen_for_one_tooltips_free($tooltip_post_id,$m_keyword_id,'content');
+						$m_keyword_result .= $m_bulletscreen_result;
+						
+						//end 8.0.9
 					}
 				}
 			}
@@ -1358,10 +1363,20 @@ jQuery("document").ready(function()
 <?php
 }
 
-
-add_action('the_content','tooltipsInContent',$tooltipHookPriorityValue+1);
+$disableTooltipandEnableGlossary = get_option('disableTooltipandEnableGlossary');
+if ($disableTooltipandEnableGlossary == 'YES')
+{
+    
+}
+else
+{
+    add_action('the_content','tooltipsInContent',$tooltipHookPriorityValue+1);
+}
+// before 8.1.1 add_action('the_content','tooltipsInContent',$tooltipHookPriorityValue+1);
 add_action('wp_head', 'tooltipsHead');
 //!!! 7.6.9 add_action('the_content','showTooltips',$tooltipHookPriorityValue);
+/*
+ * before 8.1.1
 //7.6.9
 $enableMoveInlineJsToFooter = get_option("enableMoveInlineJsToFooter");
 if ($enableMoveInlineJsToFooter == 'YES')
@@ -1372,8 +1387,26 @@ else
 {
 	add_action('the_content','showTooltips',$tooltipHookPriorityValue);
 }
-
- 
+*/
+//8.1.1
+$disableTooltipandEnableGlossary = get_option('disableTooltipandEnableGlossary');
+if ($disableTooltipandEnableGlossary == 'YES')
+{
+    
+}
+else
+{
+    $enableMoveInlineJsToFooter = get_option("enableMoveInlineJsToFooter");
+    if ($enableMoveInlineJsToFooter == 'YES')
+    {
+        add_action('wp_footer','showTooltipsAndLoadFromFooter',$tooltipHookPriorityValue);
+    }
+    else
+    {
+        add_action('the_content','showTooltips',$tooltipHookPriorityValue);
+    }
+}
+//end 8.1.1
 
 //7.4.3
 function loadGlossaryStyleFree()
@@ -1400,7 +1433,7 @@ function loadGlossaryStyleFree()
 //7.4.3
 add_action('wp_head', 'loadGlossaryStyleFree');
 
-
+/* before 8.1.1
 $enableTooltipsForExcerpt = get_option("enableTooltipsForExcerpt");
 if ($enableTooltipsForExcerpt =='YES')
 {
@@ -1422,8 +1455,53 @@ if ($enableTooltipsForExcerpt =='YES')
 	    add_action('get_the_excerpt','showTooltips',$tooltipHookPriorityValue);
 		//end 7.9.9
 	}
-	
 }
+*/
+// start 8.1.1
+$enableTooltipsForExcerpt = get_option("enableTooltipsForExcerpt");
+if ($enableTooltipsForExcerpt =='YES')
+{
+    // add_action('the_excerpt','tooltipsInContent',$tooltipHookPriorityValue+1);
+    //7.9.9 for some new wordpress block theme
+    //before 8.1.1  add_action('get_the_excerpt','tooltipsInContent',$tooltipHookPriorityValue+1);
+    $disableTooltipandEnableGlossary = get_option('disableTooltipandEnableGlossary');
+
+    //start 8.1.1
+    if ($disableTooltipandEnableGlossary == 'YES')
+    {
+        
+    }
+    else
+    {
+        add_action('get_the_excerpt','tooltipsInContent',$tooltipHookPriorityValue+1);
+    }
+    //end 8.1.1
+    //end 7.9.9
+    
+    //!!! 7.6.9 add_action('the_excerpt','showTooltips',$tooltipHookPriorityValue);
+    $enableMoveInlineJsToFooter = get_option("enableMoveInlineJsToFooter");
+    //start 8.1.1
+    if ($disableTooltipandEnableGlossary == 'YES')
+    {
+        
+    }
+    else
+    {
+        if ($enableMoveInlineJsToFooter == 'YES')
+        {
+            add_action('wp_footer','showTooltipsAndLoadFromFooter',$tooltipHookPriorityValue);
+        }
+        else
+        {
+            // add_action('the_excerpt','showTooltips',$tooltipHookPriorityValue);
+            //7.9.9 for some new wordpress block theme
+            add_action('get_the_excerpt','showTooltips',$tooltipHookPriorityValue);
+            //end 7.9.9
+        }
+    }
+    //end 8.1.1
+}
+//end 8.1.1
 
 $enableTooltipsForTags = get_option("enableTooltipsForTags");
 if ($enableTooltipsForTags =='YES')
@@ -1480,7 +1558,7 @@ function upgrade_check()
 		update_option("seletEnableJqueryMigrate", 'YES');
 	   //!!! end 7.9.7
 	}
-	update_option('ztooltipversion','7.9.9');
+	update_option('ztooltipversion','8.1.1');
 }
 add_action( 'init', 'upgrade_check');
 
@@ -2434,3 +2512,63 @@ if (('yes' == strtolower($hidecountnumberitem)) || ('no' == strtolower($selectsi
 {
     require_once('rules/glossarysuperscripts.php');
 }
+
+
+function tooltips_bullet_free_screen_control_meta_box()
+{
+    global $post;
+    
+    if ($post->post_type == 'tooltips')
+    {
+        add_meta_box("tooltips_bullet_free_screen_control_meta_box_id", __( 'Bullet Screen of this tooltip', 'wordpress-tooltips' ), 'content_tooltips_bullet_free_screen_control_meta_box', null, "side", "high", null);
+    }
+}
+
+function content_tooltips_bullet_free_screen_control_meta_box()
+{
+    global $post;
+    $current_page_id = get_the_ID();
+    $get_post_meta_value_for_this_page = get_post_meta($current_page_id, 'toolstipbulletscreentag', true);
+    global $wpdb;
+    
+    ?>
+	<table cellspacing="2" cellpadding="5" style="width: 100%;" class="form-table">
+	    <tbody>
+	    <tr class="form-field">
+	        <td>
+	        	<p>
+				<?php
+					echo __("Bullet Screen Words", "wordpress-tooltips");
+				?>	        	
+	        	</p>
+				<input type="text" id="toolstipbulletscreentag" name="toolstipbulletscreentag" value="<?php echo $get_post_meta_value_for_this_page;  ?>">
+				<p style="color:gray;font-size:12px;"><i># separated by comma </i></p>
+				
+				<p style="color:gray;font-size:12px;"><i># what is <a href='https://tooltips.org/bullet-screen'>Bullet Screen</a> ?</i></p>
+	        </td>
+	    </tr>
+	    </tbody>
+	</table>
+	<?php
+}
+
+function save_content_tooltips_bullet_free_screen_control_meta_box($post_id, $post, $update)
+{
+	global $post;
+
+	$current_page_id = get_the_ID();
+
+	$get_post_meta_value_for_this_page = get_post_meta($current_page_id, 'toolstipbulletscreentag', true);
+
+
+	if(isset($_POST['toolstipbulletscreentag']) != "") {
+		$meta_box_checkbox_value = $_POST['toolstipbulletscreentag'];
+		update_post_meta( $current_page_id, 'toolstipbulletscreentag', $meta_box_checkbox_value );
+	} else {
+		update_post_meta( $current_page_id, 'toolstipbulletscreentag', '' );
+	}
+}
+
+
+add_action( 'add_meta_boxes',  'tooltips_bullet_free_screen_control_meta_box' );
+add_action( 'save_post', 'save_content_tooltips_bullet_free_screen_control_meta_box' , 10, 3);
