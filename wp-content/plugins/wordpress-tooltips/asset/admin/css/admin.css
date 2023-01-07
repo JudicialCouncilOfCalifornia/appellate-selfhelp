@@ -14,6 +14,7 @@ span.questionlanguagecustomizationaddon, span.questionlanguageforglossary, span.
 , span.questiondisabletooltipmobile, span.spanquestionglossarysearchable, span.spanquestioncategorytitle
 , span.questionglossarynumbersornot, span.questiondisabletooltipforclassandids, span.questionfontsize, span.questionmovejstofooter
 , span.questionEnableJqueryMigrate, span.questionglossaryfontsize, span.spanhidecountnumberitemforglossary
+, span.questiondisableTooltipandEnableGlossary
 {
   cursor: pointer;
   display: inline-block;
@@ -36,7 +37,7 @@ span.questionlanguagecustomizationaddon:hover, span.questionlanguageforglossary:
 , span.questiondisabletooltipsforglossary:hover, , span.questiondisabletooltipmobile:hover, span.spanquestionglossarysearchable:hover
 , span.spanquestioncategorytitle:hover, span.questionglossarynumbersornot:hover, span.questiondisabletooltipforclassandids:hover
 , span.questionfontsize:hover, span.questionmovejstofooter:hover,  span.questionEnableJqueryMigrate:hover, span.questionglossaryfontsize:hover
-, span.spanhidecountnumberitemforglossary:hover
+, span.spanhidecountnumberitemforglossary:hover, span.questiondisableTooltipandEnableGlossary:hover
 {
 	background-color: #21759b; 
 }
@@ -44,6 +45,7 @@ span.questionlanguagecustomizationaddon:hover, span.questionlanguageforglossary:
 div.tooltiplanguagecustomizationaddon, div.tooltipforoceanwp, div.glossaryremovenavbaringlossarypage, div.divclasstooltipentiresite
 , div.tooltipdisabletooltipmobile, div.glossarysearchablediv, div.divtooltipforcategorytitle, div.tooltip28, div.tooltipmovejstofooter
 , div.divEnableJqueryMigrate, div.divquestionglossaryfontsize, div.divhidecountnumberitemforglossary
+, div.divdisableTooltipandEnableGlossary
 {
   text-align: left;
   left: 25px;
@@ -59,7 +61,8 @@ top: -20px;
 }
 .tooltiplanguagecustomizationaddon:before, .tooltipforoceanwp:before , .divclasstooltipentiresite:before, .divtooltipforcategorytitle:before
 , .tooltipdisabletooltipmobile:before, .divtooltipforcategorytitle:before, .tooltip28:before, .tooltipmovejstofooter:before
-, .divEnableJqueryMigrate:before, .divquestionglossaryfontsize:before, div.divhidecountnumberitemforglossary:before
+, .divEnableJqueryMigrate:before, .divquestionglossaryfontsize:before, .divhidecountnumberitemforglossary:before
+, .divdisableTooltipandEnableGlossary:before
 {
   border-color: transparent #21759b transparent transparent;
   border-right: 6px solid #21759b;
@@ -78,6 +81,7 @@ top: -20px;
 .tooltiplanguagecustomizationaddon p,  .tooltipforoceanwp p , .divclasstooltipentiresite p, .tooltipdisabletooltipmobile p
 , .divtooltipforcategorytitle p, .tooltip28 p, .tooltipmovejstofooter p, .divEnableJqueryMigrate p
 , .divEnableJqueryMigrate p, .divquestionglossaryfontsize p, div.divhidecountnumberitemforglossary p
+, .divdisableTooltipandEnableGlossary p
 {
   margin: 10px;
  line-height:16px;

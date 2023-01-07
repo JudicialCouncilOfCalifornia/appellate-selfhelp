@@ -348,6 +348,22 @@ function tooltipGlobalSettings()
 	
 	$seletEnableJqueryMigrate = get_option('seletEnableJqueryMigrate');
 	//end 7.7.3
+	
+	//!!! start 8.1.1
+	if (isset($_POST['disableTooltipandEnableGlossarySubmit']))
+	{
+	    if (isset($_POST['disableTooltipandEnableGlossary']))
+	    {
+	        $enableAsyncTooltip = sanitize_text_field($_POST['disableTooltipandEnableGlossary']);
+	        update_option("disableTooltipandEnableGlossary",$enableAsyncTooltip);
+	        $disableTooltipandEnableGlossary = get_option("disableTooltipandEnableGlossary");
+	    }
+	    
+	    $tooltipsMessageProString =  __( 'Changes saved', 'wordpress-tooltips' );
+	    tooltipsMessage($tooltipsMessageProString);
+	}
+	$disableTooltipandEnableGlossary = get_option("disableTooltipandEnableGlossary");
+	//!!! end 8.1.1
 ?>
 <div style='margin:20px 5px 10px 5px;'>
 	<div style='float:left;margin-right:10px;'>
@@ -1495,6 +1511,66 @@ $questiontip = '<div class="divtooltipforcategorytitle"><p>Enable tooltips effec
 			</div>
 		</div>
 <?php //!!! end 7.7.3 ?>		
+		<div style="clear:both"></div>
+		<br />
+<?php //!!! start 8.1.1 ?>
+<div style='clear:both'></div>		
+		<div class="wrap">
+			<div id="dashboard-widgets-wrap">
+			    <div id="dashboard-widgets" class="metabox-holder">
+					<div id="post-body">
+						<div id="dashboard-widgets-main-content">
+							<div class="postbox-container" style="width:98%;">
+								<div class="postbox">
+									<h3 class='hndle' style='padding: 10px 0px;'><span>
+										<?php 
+										echo __( "Disable Tooltips Functionality on Front-End and Allow Glossary Functionality<i>(in general, you do not need to set this option)</i>", "wordpress-tooltips");
+										 ?>
+									</span>
+									</h3>
+								
+									<div class="inside" style='padding-left:5px;'>
+										<form id="toolstipsform" name="toolstipsform" action="" method="POST">
+										<table id="toolstipstable" width="100%" style="font-size: 11px;">
+
+										<tr style="text-align:left;">
+										
+										<td width="30%"  style="text-align:left;">
+										<?php 
+    										$admin_tip_content = __('Opt to disable tooltips functions on front-end, but allow glossary functions, or enable tooltips functions and enable glossary functions',  "wordpress-tooltips");
+										    $disableTooltipandEnableGlossary = get_option('disableTooltipandEnableGlossary');
+											$addtipto = 'span.questiondisableTooltipandEnableGlossary';
+											$questiontip = '<div class="divdisableTooltipandEnableGlossary"><p>'.$admin_tip_content.'</p></div>';
+											$tipadsorbent = '.questiondisableTooltipandEnableGlossary';
+											$adminTip = showAdminTip($addtipto,$questiontip,'div.divdisableTooltipandEnableGlossary',$tipadsorbent);
+											echo $adminTip;
+
+											echo __( 'Disable Tooltips and Enable Glossary:', 'wordpress-tooltips' ).' <span class="questiondisableTooltipandEnableGlossary">?</span>';
+										?>
+										</td>
+										<td width="60%"  style="text-align:left;padding-right:30px;">
+										<select id="disableTooltipandEnableGlossary" name="disableTooltipandEnableGlossary" style="width:300px;">
+										<option id="disableTooltipandEnableGlossaryOption" value="NO" <?php if ($disableTooltipandEnableGlossary == 'NO') echo "selected";   ?>>   <?php echo __( 'NO,Enable Tooltip and Enable Glossary', 'wordpress-tooltips' ); ?> </option>
+										<option id="disableTooltipandEnableGlossaryOption" value="YES" <?php if ($disableTooltipandEnableGlossary == 'YES') echo "selected";   ?>> <?php echo __( 'Yes,Disable Tooltip and Enable Glossary', 'wordpress-tooltips' ); ?> </option>
+										</select> 
+										</td>
+										<td width="10%"  style="text-align:left;">
+										<input type="submit" class="button-primary" id="disableTooltipandEnableGlossarySubmit" name="disableTooltipandEnableGlossarySubmit" value="<?php  echo __( ' Update Now ', 'wordpress-tooltips' ); ?>">
+										</td>
+										</tr>
+
+										</table>
+										</form>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+<?php //!!! end 8.1.1 ?>		
 <?php //!!! end 7.6.9 ?>
 <?php /* //!!! start 7.7.1 ?>
 <div style='clear:both'></div>		
@@ -2088,4 +2164,92 @@ function showAdminTip($addtipto,$tip,$placeclass,$tipadsorbent)
 	
 }
 
+//8.0.9
+function show_bullet_screen_for_one_tooltips_free($tooltip_post_id,$m_keyword_id,$type)
+{
 
+    if (tooltips_pro_disable_tooltip_in_mobile_free())
+    {
+        return '';
+    }
+    
+    $m_bulletscreen_result = '';
+    $get_post_meta_bulletscreen_value_for_this_page = get_post_meta ( $tooltip_post_id, 'toolstipbulletscreentag', true );
+    
+    $tooltsip_get_post_meta_bulletscreen_value_for_this_page = '';
+    if (! (empty ( $get_post_meta_bulletscreen_value_for_this_page ))) {
+        $tooltsip_get_post_meta_bulletscreen_value_for_this_page = explode ( ',', $get_post_meta_bulletscreen_value_for_this_page );
+    }
+    
+    
+    if ((!(empty($tooltsip_get_post_meta_bulletscreen_value_for_this_page))) && (is_array($tooltsip_get_post_meta_bulletscreen_value_for_this_page)) && (count($tooltsip_get_post_meta_bulletscreen_value_for_this_page) > 0))
+    {
+        $tooltsip_get_post_meta_bulletscreen_value_for_this_page = array_filter($tooltsip_get_post_meta_bulletscreen_value_for_this_page);
+    }
+    //end 16.0.2
+    
+    if ((! (empty ( $tooltsip_get_post_meta_bulletscreen_value_for_this_page ))) && (is_array ( $tooltsip_get_post_meta_bulletscreen_value_for_this_page )) && (count ( $tooltsip_get_post_meta_bulletscreen_value_for_this_page ) > 0))
+    {
+        $bulletsSpeed =	get_option("bulletsSpeed");
+        if (empty($bulletsSpeed))
+        {
+            $bulletsSpeed = '2500';
+        }
+        $bulletsShowSelect = get_option("bulletsShowSelect");
+        //$bulletsClassName = get_option("bulletsClassName");
+        $bulletsClassName = 'bulletsClassName';
+        $bulletsScreenWordsColor = get_option("bulletsScreenWordsColor");
+        $bulletsOpacity = get_option("bulletsOpacity");
+        $bulletsFontSize = get_option("bulletsFontSize");
+        
+        if (empty($bulletsShowSelect))
+        {
+            $bulletsShowSelect = 'mouseout';
+        }
+        
+        if (empty($bulletsScreenWordsColor))
+        {
+            $bulletsScreenWordsColor = '#bf316f';
+        }
+        
+        if ((strpos($bulletsScreenWordsColor,'#')) === false)
+        {
+            $bulletsScreenWordsColor = '#'.$bulletsScreenWordsColor;
+        }
+        
+        if (empty($bulletsOpacity))
+        {
+            $bulletsOpacity = '1';
+        }
+        
+        if (empty($bulletsFontSize))
+        {
+            $bulletsFontSize = '24px';
+        }
+        
+        if ((strpos($bulletsFontSize,'px')) === false)
+        {
+            $bulletsFontSize = $bulletsFontSize.'px';
+        }
+        
+        $m_bulletscreen_result = '<script type="text/javascript">';
+        $m_bulletscreen_result .= 'jQuery("document").ready(function(){';  //!!!
+        $m_bulletscreen_result .= " if (typeof(bulletscreentoolTips$m_keyword_id$type) == 'undefined')";
+        $m_bulletscreen_result .= '{';
+        $m_bulletscreen_result .= " var bulletscreentoolTips$m_keyword_id$type  = " . json_encode ( $tooltsip_get_post_meta_bulletscreen_value_for_this_page ) . ' ; ';
+        $m_content = '';
+        $m_bulletscreen_result .= "var bulletscreenindex$m_keyword_id$type = 0;";
+        $m_bulletscreen_result .= 'jQuery(document).ready(function($) {';
+        $m_bulletscreen_result .= "	$('.classtoolTips$m_keyword_id').".$bulletsShowSelect."(function(e) {";
+        $m_bulletscreen_result .= "		var x = e.pageX,";
+        $m_bulletscreen_result .= '		y = e.pageY;';
+        $m_bulletscreen_result .= " bulletscreenindex$m_keyword_id$type = (bulletscreenindex$m_keyword_id$type + 1) % bulletscreentoolTips$m_keyword_id$type.length;";
+        $m_bulletscreen_result .= ' $("<span class=\'bulletscreenfortoolTips\' />")' . ".text(bulletscreentoolTips$m_keyword_id$type" . "[bulletscreenindex$m_keyword_id$type])." . 'css({"z-index": "555555","top": y - 10,"left": x+10,"color": "'.$bulletsScreenWordsColor.'","font-size": "'.$bulletsFontSize.'",  "font-weight": "bolder","position": "absolute"}).appendTo("body").animate({"top": y - 380,"opacity": '.$bulletsOpacity.'},'.$bulletsSpeed.',function() {this.remove();});});});';
+        $m_bulletscreen_result .= '}';
+        $m_bulletscreen_result .= '});';  //!!!
+        $m_bulletscreen_result .= ' </script>';
+        
+    }
+    return $m_bulletscreen_result;
+}
+//end 8.0.9
