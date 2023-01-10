@@ -2136,6 +2136,11 @@ body :focus {
 	height: 10px
 }
 
+/* Tooltip plugin underline customization available to pro version only */
+.tooltipsincontent {
+	border-bottom-color: initial !important;
+}
+
 body .tooltipsall:hover {
 	color: #093691!important
 }
