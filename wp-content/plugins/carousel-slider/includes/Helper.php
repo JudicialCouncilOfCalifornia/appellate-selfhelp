@@ -13,6 +13,54 @@ defined( 'ABSPATH' ) || exit;
  * Helper class
  */
 class Helper extends ViewHelper {
+	/**
+	 * Get global settings
+	 *
+	 * @var array
+	 */
+	protected static $global_settings = [];
+
+	/**
+	 * Get placeholder image source.
+	 *
+	 * Retrieve the source of the placeholder image.
+	 *
+	 * @return string The source of the default placeholder image used by Elementor.
+	 */
+	public static function get_placeholder_image_src(): string {
+		return apply_filters(
+			'carousel_slider/placeholder_image_src',
+			CAROUSEL_SLIDER_ASSETS . '/static-images/placeholder.svg'
+		);
+	}
+
+	/**
+	 * Is Elementor plugin active?
+	 *
+	 * @return bool
+	 */
+	public static function is_elementor_active(): bool {
+		return class_exists( \Elementor\Plugin::class );
+	}
+
+	/**
+	 * Is Divi builder active?
+	 *
+	 * @return bool
+	 */
+	public static function is_divi_builder_active(): bool {
+		return ( defined( 'ET_BUILDER_THEME' ) && ET_BUILDER_THEME ) ||
+			   class_exists( \ET_Builder_Plugin::class );
+	}
+
+	/**
+	 * Is WPBakery Page Builder active?
+	 *
+	 * @return bool
+	 */
+	public static function is_wp_bakery_page_builder_active(): bool {
+		return defined( 'WPB_VC_VERSION' );
+	}
 
 	/**
 	 * Check if pro version is active.
@@ -60,6 +108,50 @@ class Helper extends ViewHelper {
 	}
 
 	/**
+	 * Get total sliders count
+	 *
+	 * @return int
+	 */
+	public static function get_sliders_count(): int {
+		global $wpdb;
+		$result = (array) $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT COUNT( * ) AS num_posts FROM {$wpdb->posts} WHERE post_type = %s",
+				CAROUSEL_SLIDER_POST_TYPE
+			),
+			ARRAY_A
+		);
+
+		return isset( $result['num_posts'] ) ? intval( $result['num_posts'] ) : 0;
+	}
+
+	/**
+	 * Get global settings
+	 *
+	 * @return array
+	 */
+	public static function get_global_settings(): array {
+		if ( empty( static::$global_settings ) ) {
+			$default_args = apply_filters(
+				'carousel_slider/global_options/default_args',
+				[
+					'load_scripts'                        => 'optimized',
+					'slider_js_package'                   => 'owl.carousel',
+					'show_structured_data'                => '1',
+					'woocommerce_shop_loop_item_template' => 'v1-compatibility',
+					'breakpoints_width'                   => [],
+				]
+			);
+			$options      = get_option( 'carousel_slider_settings', [] );
+			$options      = is_array( $options ) ? $options : [];
+
+			static::$global_settings = wp_parse_args( $options, $default_args );
+		}
+
+		return static::$global_settings;
+	}
+
+	/**
 	 * Get setting
 	 *
 	 * @param string $key The setting key.
@@ -68,15 +160,43 @@ class Helper extends ViewHelper {
 	 * @return mixed|null
 	 */
 	public static function get_setting( string $key, $default = null ) {
-		$default_options = [
-			'load_scripts'                        => 'optimized',
-			'show_structured_data'                => '1',
-			'woocommerce_shop_loop_item_template' => 'v1-compatibility',
-		];
-		$settings        = (array) get_option( 'carousel_slider_settings' );
-		$settings        = wp_parse_args( $settings, $default_options );
+		$settings = self::get_global_settings();
 
 		return $settings[ $key ] ?? $default;
+	}
+
+	/**
+	 * Get breakpoint width
+	 *
+	 * @param string $prefix The breakpoint prefix.
+	 *
+	 * @return int
+	 */
+	public static function get_breakpoint_width( string $prefix ): int {
+		$defaults    = [
+			'xs'  => 300,
+			'sm'  => 576,
+			'md'  => 768,
+			'lg'  => 1024,
+			'xl'  => 1280,
+			'2xl' => 1536,
+		];
+		$breakpoints = self::get_setting( 'breakpoints_width' );
+		$breakpoints = is_array( $breakpoints ) ? $breakpoints : [];
+		$breakpoints = wp_parse_args( $breakpoints, $defaults );
+
+		return isset( $breakpoints[ $prefix ] ) && is_int( $breakpoints[ $prefix ] ) ? $breakpoints[ $prefix ] : 0;
+	}
+
+	/**
+	 * Check if we are using swiper
+	 *
+	 * @return bool
+	 */
+	public static function is_using_swiper(): bool {
+		$is_swiper = 'swiper' === self::get_setting( 'slider_js_package' );
+
+		return apply_filters( 'carousel_slider/is_using_swiper', $is_swiper );
 	}
 
 	/**
@@ -132,7 +252,7 @@ class Helper extends ViewHelper {
 			],
 		];
 
-		if ( self::show_pro_features() ) {
+		if ( self::show_pro_features() || self::is_pro_active() ) {
 			$slider_types['product-carousel-pro'] = [
 				'label'   => __( 'Product Carousel (Advance)', 'carousel-slider' ),
 				'enabled' => self::is_woocommerce_active() && self::is_pro_active(),
@@ -399,5 +519,24 @@ class Helper extends ViewHelper {
 	 */
 	public static function print_unescaped_internal_string( string $string ) {
 		echo $string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Get slider ids from content
+	 *
+	 * @param string $content The content to be tested.
+	 *
+	 * @return array|int[]
+	 */
+	public static function get_slider_ids_from_content( string $content ): array {
+		$slider_ids = [];
+		if ( false === strpos( $content, '[carousel_slide' ) ) {
+			return $slider_ids;
+		}
+		if ( preg_match_all( '/(\[carousel_slide)\s*.*id=(\'?\"?)(?P<slider_id>\d+)(\'?\"?)\s*.*(\])/', $content, $matches ) ) {
+			$slider_ids = array_map( 'intval', $matches['slider_id'] );
+		}
+
+		return $slider_ids;
 	}
 }

@@ -84,8 +84,13 @@ class Frontend {
 			return;
 		}
 
-		wp_enqueue_style( 'carousel-slider-frontend' );
-		wp_enqueue_script( 'carousel-slider-frontend' );
+		if ( Helper::is_using_swiper() ) {
+			wp_enqueue_style( 'carousel-slider-frontend-v2' );
+			wp_enqueue_script( 'carousel-slider-frontend-v2' );
+		} else {
+			wp_enqueue_style( 'carousel-slider-frontend' );
+			wp_enqueue_script( 'carousel-slider-frontend' );
+		}
 	}
 
 	/**
@@ -122,7 +127,7 @@ class Frontend {
 		add_action(
 			'wp_footer',
 			function () {
-				echo Assets::get_style_loader_script(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				Helper::print_unescaped_internal_string( Assets::get_style_loader_script() );
 			},
 			0
 		);

@@ -7,6 +7,7 @@
 
 namespace CarouselSlider\Admin;
 
+use CarouselSlider\Abstracts\SliderSetting;
 use CarouselSlider\Helper;
 use CarouselSlider\Supports\MetaBoxForm;
 use WP_Post;
@@ -57,18 +58,33 @@ class MetaBox {
 		}
 
 		if ( wp_verify_nonce( $_POST['_carousel_slider_nonce'] ?? '', 'carousel_slider_nonce' ) ) {
+			$slider_type = get_post_meta( $post_id, '_slide_type', true );
 
-			foreach ( $_POST['carousel_slider'] as $key => $val ) {
-				if ( is_array( $val ) ) {
-					$val = implode( ',', $val );
-				}
-
-				update_post_meta( $post_id, $key, sanitize_text_field( $val ) );
+			if ( apply_filters( 'carousel_slider/save_common_settings', true ) ) {
+				$settings = new SliderSetting( $post_id, false );
+				$settings->get_slider_type();
+				$settings->read_http_post_variables( $_POST['carousel_slider'] );
+				$settings->write_metadata();
 			}
 
 			update_post_meta( $post_id, '_carousel_slider_version', CAROUSEL_SLIDER_VERSION );
 
-			do_action( 'carousel_slider/save_slider', $post_id, $_POST );
+			/**
+			 * Fires once a post has been saved.
+			 *
+			 * @param int $post_id Slider post ID.
+			 * @param array $_POST User submitted data.
+			 */
+			do_action( "carousel_slider/save_slider/{$slider_type}", $post_id, $_POST );
+
+			/**
+			 * Fires once a post has been saved.
+			 *
+			 * @param int $post_id Slider post ID.
+			 * @param array $_POST User submitted data.
+			 * @param string $slider_type Slider type.
+			 */
+			do_action( 'carousel_slider/save_slider', $post_id, $_POST, $slider_type );
 		}
 	}
 
@@ -100,7 +116,7 @@ class MetaBox {
 		$slide_types = Helper::get_slide_types();
 
 		$meta_boxes = [
-			'carousel-slider-meta-boxes'          => [
+			'carousel-slider-meta-boxes' => [
 				'title'    => sprintf(
 				/* translators: 1 - Slider type label */
 					__( 'Carousel Slider : %s', 'carousel-slider' ),
@@ -110,34 +126,16 @@ class MetaBox {
 				'context'  => 'normal',
 				'priority' => 'high',
 			],
-			'carousel-slider-usages-info'         => [
-				'title'    => __( 'Usage (Shortcode)', 'carousel-slider' ),
+			'carousel-slider-settings'   => [
+				'title'    => __( 'Slider Settings', 'carousel-slider' ),
+				'callback' => [ $this, 'carousel_slider_settings' ],
+				'context'  => 'normal',
+				'priority' => 'low',
+			],
+			'carousel-slider-usages'     => [
+				'title'    => __( 'Usage', 'carousel-slider' ),
 				'callback' => [ $this, 'usages_callback' ],
-				'priority' => 'high',
-			],
-			'carousel-slider-general-settings'    => [
-				'title'    => __( 'General Settings', 'carousel-slider' ),
-				'callback' => [ $this, 'general_settings_callback' ],
-			],
-			'carousel-slider-navigation-settings' => [
-				'title'    => __( 'Navigation Settings', 'carousel-slider' ),
-				'callback' => [ $this, 'navigation_settings_callback' ],
-			],
-			'carousel-slider-pagination-settings' => [
-				'title'    => __( 'Pagination Settings', 'carousel-slider' ),
-				'callback' => [ $this, 'pagination_settings_callback' ],
-			],
-			'carousel-slider-autoplay-settings'   => [
-				'title'    => __( 'Autoplay Settings', 'carousel-slider' ),
-				'callback' => [ $this, 'autoplay_settings_callback' ],
-			],
-			'carousel-slider-color-settings'      => [
-				'title'    => __( 'Color Settings', 'carousel-slider' ),
-				'callback' => [ $this, 'color_settings_callback' ],
-			],
-			'carousel-slider-responsive-settings' => [
-				'title'    => __( 'Responsive Settings', 'carousel-slider' ),
-				'callback' => [ $this, 'responsive_settings_callback' ],
+				'priority' => 'low',
 			],
 		];
 		foreach ( $meta_boxes as $id => $meta_box ) {
@@ -146,42 +144,36 @@ class MetaBox {
 				$meta_box['title'],
 				$meta_box['callback'],
 				CAROUSEL_SLIDER_POST_TYPE,
-				$meta_box['context'] ?? 'side',
-				$meta_box['priority'] ?? 'low'
+				'normal',
+				'low'
 			);
 		}
 	}
 
 	/**
-	 * Submit div html
+	 * Render short code meta box content
 	 *
-	 * @param WP_Post $post The post object.
-	 *
-	 * @return void
+	 * @param WP_Post $post The WP_Post object.
 	 */
-	public function carousel_slider_submitdiv( $post ) {
-		$slide_type   = get_post_meta( $post->ID, '_slide_type', true );
-		$preview_link = esc_url( get_preview_post_link( $post ) );
-		$btn_text     = empty( $slide_type ) ? __( 'Next', 'carousel-slider' ) : __( 'Update', 'carousel-slider' );
+	public function usages_callback( WP_Post $post ) {
+		$shortcode    = sprintf( '[carousel_slide id="%s"]', absint( $post->ID ) );
+		$shortcode_in = sprintf( 'echo do_shortcode( \'[carousel_slide id="%s"]\' );', absint( $post->ID ) );
+		ob_start();
 		?>
-		<div id="major-publishing-actions">
-			<?php if ( ! empty( $slide_type ) ) { ?>
-				<div id="delete-action">
-					<a href="<?php echo esc_url( $preview_link ); ?>"
-					   target="wp-preview-<?php echo esc_attr( $post->ID ); ?>" id="post-preview" class="preview">
-						<?php esc_html_e( 'Preview Changes', 'carousel-slider' ); ?>
-					</a>
-					<input type="hidden" name="wp-preview" id="wp-preview" value="">
-				</div>
-			<?php } ?>
-			<div id="publishing-action">
-				<input name="original_publish" type="hidden" id="original_publish" value="Publish">
-				<input type="submit" name="publish" id="publish" class="button button-primary button-large"
-					   value="<?php echo esc_attr( $btn_text ); ?>">
+		<div class="shapla-columns">
+			<div class="shapla-column is-6-tablet">
+				<strong><?php esc_html_e( 'Shortcode:', 'carousel-slider' ); ?></strong>
+				<div
+					class="input-copy-to-clipboard"><?php Helper::print_unescaped_internal_string( $shortcode ); ?></div>
 			</div>
-			<div class="clear"></div>
+			<div class="shapla-column is-6-tablet">
+				<strong><?php esc_html_e( 'Template Include:', 'carousel-slider' ); ?></strong>
+				<div
+					class="input-copy-to-clipboard"><?php Helper::print_unescaped_internal_string( $shortcode_in ); ?></div>
+			</div>
 		</div>
 		<?php
+		Helper::print_unescaped_internal_string( ob_get_clean() );
 	}
 
 	/**
@@ -232,6 +224,41 @@ class MetaBox {
 	}
 
 	/**
+	 * Get slider settings
+	 *
+	 * @return void
+	 */
+	public function carousel_slider_settings() {
+		$sections = MetaBoxConfig::get_sections_settings();
+		$fields   = MetaBoxConfig::get_fields_settings();
+
+		$html  = '<div class="shapla-section shapla-tabs shapla-tabs--normal">';
+		$html .= '<div class="shapla-tab-inner">';
+		$html .= '<ul class="shapla-nav shapla-clearfix">';
+		foreach ( $sections as $section ) {
+			$html .= '<li><a href="#' . esc_attr( $section['id'] ) . '">' . esc_html( $section['label'] ) . '</a></li>';
+		}
+		$html .= '</ul>';
+		foreach ( $sections as $section ) {
+			$html .= '<div id="' . esc_attr( $section['id'] ) . '" class="shapla-tab tab-content">';
+
+			$section_html = '';
+			foreach ( $fields as $field ) {
+				if ( $field['section'] === $section['id'] ) {
+					$section_html .= MetaBoxForm::field( $field );
+				}
+			}
+
+			$html .= apply_filters( 'carousel_slider/admin/' . $section['hook'], $section_html );
+			$html .= '</div>';
+		}
+		$html .= '</div>';
+		$html .= '</div>';
+
+		Helper::print_unescaped_internal_string( $html );
+	}
+
+	/**
 	 * Load meta box content
 	 *
 	 * @param WP_Post $post The WP_Post object.
@@ -242,391 +269,10 @@ class MetaBox {
 		$slide_type = get_post_meta( $post->ID, '_slide_type', true );
 		$slide_type = array_key_exists( $slide_type, Helper::get_slide_types() ) ? $slide_type : 'image-carousel';
 
+		do_action( 'carousel_slider/meta_box_content/' . $slide_type, $post->ID );
 		/**
-		 * Allow third part plugin to add custom fields
+		 * Allow third-party plugin to add custom fields
 		 */
 		do_action( 'carousel_slider/meta_box_content', $post->ID, $slide_type );
-	}
-
-	/**
-	 * General settings
-	 */
-	public function general_settings_callback() {
-		$form = new MetaBoxForm();
-		ob_start();
-		$form->image_sizes(
-			[
-				'id'          => '_image_size',
-				'label'       => esc_html__( 'Carousel Image size', 'carousel-slider' ),
-				'description' => sprintf(
-				/* translators: 1: setting media page link start, 2: setting media page link end */
-					esc_html__( 'Choose "original uploaded image" for full size image or your desired image size for carousel image. You can change the default size for thumbnail, medium and large from %1$s Settings >> Media %2$s.', 'carousel-slider' ),
-					'<a target="_blank" href="' . admin_url( 'options-media.php' ) . '">',
-					'</a>'
-				),
-				'context'     => 'side',
-			]
-		);
-		$form->number(
-			array(
-				'id'      => '_margin_right',
-				'class'   => 'widefat',
-				'name'    => esc_html__( 'Item Spacing.', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Space between two slide. Enter 10 for 10px', 'carousel-slider' ),
-				'std'     => Helper::get_default_setting( 'margin_right' ),
-				'context' => 'side',
-			)
-		);
-		$form->number(
-			array(
-				'id'      => '_stage_padding',
-				'class'   => 'widefat',
-				'name'    => esc_html__( 'Stage Padding', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Add left and right padding on carousel slider stage wrapper.', 'carousel-slider' ),
-				'std'     => '0',
-				'context' => 'side',
-			)
-		);
-		$form->switch(
-			[
-				'id'          => '_lazy_load_image',
-				'label'       => esc_html__( 'Lazy Loading', 'carousel-slider' ),
-				'description' => esc_html__( 'Enable image with lazy loading.', 'carousel-slider' ),
-				'default'     => Helper::get_default_setting( 'lazy_load_image' ),
-				'context'     => 'side',
-			]
-		);
-		$form->switch(
-			array(
-				'id'          => '_infinity_loop',
-				'label'       => esc_html__( 'Infinity loop', 'carousel-slider' ),
-				'description' => esc_html__( 'Enable or disable loop(circular) of carousel.', 'carousel-slider' ),
-				'default'     => 'on',
-				'context'     => 'side',
-			)
-		);
-		$form->switch(
-			array(
-				'id'          => '_auto_width',
-				'label'       => esc_html__( 'Auto Width', 'carousel-slider' ),
-				'description' => esc_html__( 'Set item width according to its content width. Use width style on item to get the result you want. ', 'carousel-slider' ),
-				'default'     => 'off',
-				'context'     => 'side',
-			)
-		);
-
-		Helper::print_unescaped_internal_string(
-			apply_filters( 'carousel_slider/admin/metabox_general_settings', ob_get_clean(), $form )
-		);
-	}
-
-	/**
-	 * Render short code meta box content
-	 *
-	 * @param WP_Post $post The WP_Post object.
-	 */
-	public function usages_callback( WP_Post $post ) {
-		ob_start();
-		?>
-		<p>
-			<strong>
-				<?php esc_html_e( 'Copy the following shortcode and paste in post or page where you want to show.', 'carousel-slider' ); ?>
-			</strong>
-		</p>
-		<input type="text" onmousedown="this.clicked = 1;"
-			   onfocus="if (!this.clicked) this.select(); else this.clicked = 2;"
-			   onclick="if (this.clicked === 2) this.select(); this.clicked = 0;"
-			   value="[carousel_slide id='<?php echo absint( $post->ID ); ?>']"
-			   style="background-color: #f1f1f1; width: 100%; padding: 8px;"
-		>
-		<?php
-		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	}
-
-	/**
-	 * Navigation settings callback
-	 *
-	 * @return void
-	 */
-	public function navigation_settings_callback() {
-		$form = new MetaBoxForm();
-		ob_start();
-		$form->select(
-			[
-				'type'    => 'select',
-				'id'      => '_nav_button',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Show Arrow Nav', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Choose when to show arrow navigator.', 'carousel-slider' ),
-				'options' => [
-					'off'    => esc_html__( 'Never', 'carousel-slider' ),
-					'on'     => esc_html__( 'Mouse Over', 'carousel-slider' ),
-					'always' => esc_html__( 'Always', 'carousel-slider' ),
-				],
-				'std'     => 'on',
-				'context' => 'side',
-			]
-		);
-		$form->text(
-			[
-				'type'    => 'text',
-				'id'      => '_slide_by',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Arrow Steps', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Steps to go for each navigation request. Write -1 to slide by page.', 'carousel-slider' ),
-				'std'     => 1,
-				'context' => 'side',
-			]
-		);
-		$form->select(
-			[
-				'id'      => '_arrow_position',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Arrow Position', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Choose where to show arrow. Inside slider or outside slider.', 'carousel-slider' ),
-				'options' => [
-					'outside' => esc_html__( 'Outside', 'carousel-slider' ),
-					'inside'  => esc_html__( 'Inside', 'carousel-slider' ),
-				],
-				'std'     => 'outside',
-				'context' => 'side',
-			]
-		);
-		$form->number(
-			[
-				'id'      => '_arrow_size',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Arrow Size', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Enter arrow size in pixels.', 'carousel-slider' ),
-				'std'     => 48,
-				'context' => 'side',
-			]
-		);
-
-		Helper::print_unescaped_internal_string(
-			apply_filters( 'carousel_slider/admin/metabox_navigation_settings', ob_get_clean(), $form )
-		);
-	}
-
-	/**
-	 * Pagination setting callback
-	 *
-	 * @return void
-	 */
-	public function pagination_settings_callback() {
-		$form = new MetaBoxForm();
-		ob_start();
-		$form->select(
-			[
-				'id'      => '_dot_nav',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Show Bullet Nav', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Choose when to show bullet navigator.', 'carousel-slider' ),
-				'options' => [
-					'off'   => esc_html__( 'Never', 'carousel-slider' ),
-					'on'    => esc_html__( 'Always', 'carousel-slider' ),
-					'hover' => esc_html__( 'Mouse Over', 'carousel-slider' ),
-				],
-				'std'     => 'off',
-				'context' => 'side',
-			]
-		);
-		$form->select(
-			[
-				'id'      => '_bullet_position',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Bullet Position', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Choose where to show bullets.', 'carousel-slider' ),
-				'options' => [
-					'left'   => esc_html__( 'Left', 'carousel-slider' ),
-					'center' => esc_html__( 'Center', 'carousel-slider' ),
-					'right'  => esc_html__( 'Right', 'carousel-slider' ),
-				],
-				'std'     => 'center',
-				'context' => 'side',
-			]
-		);
-		$form->number(
-			[
-				'id'      => '_bullet_size',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Bullet Size', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Enter bullet size in pixels.', 'carousel-slider' ),
-				'std'     => 10,
-				'context' => 'side',
-			]
-		);
-		$form->select(
-			[
-				'id'      => '_bullet_shape',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Bullet Shape', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Choose bullet nav shape.', 'carousel-slider' ),
-				'options' => [
-					'square' => esc_html__( 'Square', 'carousel-slider' ),
-					'circle' => esc_html__( 'Circle', 'carousel-slider' ),
-				],
-				'std'     => 'circle',
-				'context' => 'side',
-			]
-		);
-
-		Helper::print_unescaped_internal_string(
-			apply_filters( 'carousel_slider/admin/metabox_pagination_settings', ob_get_clean(), $form )
-		);
-	}
-
-	/**
-	 * Autoplay settings
-	 */
-	public function autoplay_settings_callback() {
-		$form = new MetaBoxForm();
-		ob_start();
-		$form->switch(
-			[
-				'id'      => '_autoplay',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'AutoPlay', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Choose whether slideshow should play automatically.', 'carousel-slider' ),
-				'default' => 'on',
-				'context' => 'side',
-			]
-		);
-		$form->switch(
-			[
-				'id'      => '_autoplay_pause',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Pause On Hover', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Pause automatic play on mouse hover.', 'carousel-slider' ),
-				'std'     => 'on',
-				'context' => 'side',
-			]
-		);
-		$form->number(
-			[
-				'id'      => '_autoplay_timeout',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Autoplay Timeout', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Automatic play interval timeout in millisecond.', 'carousel-slider' ),
-				'std'     => 5000,
-				'context' => 'side',
-			]
-		);
-		$form->number(
-			[
-				'id'      => '_autoplay_speed',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Autoplay Speed', 'carousel-slider' ),
-				'desc'    => esc_html__( 'Automatic play speed in millisecond.', 'carousel-slider' ),
-				'std'     => 500,
-				'context' => 'side',
-			]
-		);
-
-		Helper::print_unescaped_internal_string(
-			apply_filters( 'carousel_slider/admin/metabox_autoplay_settings', ob_get_clean(), $form )
-		);
-	}
-
-	/**
-	 * Metabox color settings callback
-	 *
-	 * @return void
-	 */
-	public function color_settings_callback() {
-		$form = new MetaBoxForm();
-		ob_start();
-		$form->color(
-			[
-				'id'      => '_nav_color',
-				'name'    => esc_html__( 'Arrows & Dots Color', 'carousel-slider' ),
-				'std'     => Helper::get_default_setting( 'nav_color' ),
-				'context' => 'side',
-			]
-		);
-		$form->color(
-			[
-				'id'      => '_nav_active_color',
-				'name'    => esc_html__( 'Arrows & Dots Hover Color', 'carousel-slider' ),
-				'std'     => Helper::get_default_setting( 'nav_active_color' ),
-				'context' => 'side',
-			]
-		);
-
-		Helper::print_unescaped_internal_string(
-			apply_filters( 'carousel_slider/admin/metabox_color_settings', ob_get_clean(), $form )
-		);
-	}
-
-	/**
-	 * Renders the meta box.
-	 */
-	public function responsive_settings_callback() {
-		$form = new MetaBoxForm();
-		ob_start();
-		$form->number(
-			[
-				'id'      => '_items',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Columns', 'carousel-slider' ),
-				'desc'    => esc_html__( 'The number of items you want to see on the Extra Large Desktop Layout (Screens size greater than 1921 pixels DP)', 'carousel-slider' ),
-				'std'     => 4,
-				'context' => 'side',
-			]
-		);
-		$form->number(
-			[
-				'id'      => '_items_desktop',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Columns : Desktop', 'carousel-slider' ),
-				'desc'    => esc_html__( 'The number of items you want to see on the Desktop Layout (Screens size from 1200 pixels DP to 1920 pixels DP)', 'carousel-slider' ),
-				'std'     => 4,
-				'context' => 'side',
-			]
-		);
-		$form->number(
-			[
-				'id'      => '_items_small_desktop',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Columns : Small Desktop', 'carousel-slider' ),
-				'desc'    => esc_html__( 'The number of items you want to see on the Small Desktop Layout (Screens size from 993 pixels DP to 1199 pixels DP)', 'carousel-slider' ),
-				'std'     => 3,
-				'context' => 'side',
-			]
-		);
-		$form->number(
-			[
-				'id'      => '_items_portrait_tablet',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Columns : Tablet', 'carousel-slider' ),
-				'desc'    => esc_html__( 'The number of items you want to see on the Tablet Layout (Screens size from 768 pixels DP to 992 pixels DP)', 'carousel-slider' ),
-				'std'     => 2,
-				'context' => 'side',
-			]
-		);
-		$form->number(
-			[
-				'id'      => '_items_small_portrait_tablet',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Columns : Small Tablet', 'carousel-slider' ),
-				'desc'    => esc_html__( 'The number of items you want to see on the Small Tablet Layout(Screens size from 600 pixels DP to 767 pixels DP)', 'carousel-slider' ),
-				'std'     => 2,
-				'context' => 'side',
-			]
-		);
-		$form->number(
-			[
-				'id'      => '_items_portrait_mobile',
-				'class'   => 'small-text',
-				'name'    => esc_html__( 'Columns : Mobile', 'carousel-slider' ),
-				'desc'    => esc_html__( 'The number of items you want to see on the Mobile Layout (Screens size from 320 pixels DP to 599 pixels DP)', 'carousel-slider' ),
-				'std'     => 1,
-				'context' => 'side',
-			]
-		);
-
-		Helper::print_unescaped_internal_string(
-			apply_filters( 'carousel_slider/admin/metabox_responsive_settings', ob_get_clean(), $form )
-		);
 	}
 }

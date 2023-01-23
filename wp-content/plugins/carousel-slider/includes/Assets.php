@@ -164,6 +164,9 @@ class Assets {
 				'src'  => static::get_assets_url( 'js/frontend.js' ),
 				'deps' => [ 'jquery' ],
 			],
+			'carousel-slider-frontend-v2'        => [
+				'src' => static::get_assets_url( 'js/frontend-v2.js' ),
+			],
 		];
 	}
 
@@ -176,6 +179,9 @@ class Assets {
 		return [
 			'carousel-slider-frontend'           => [
 				'src' => static::get_assets_url( 'css/frontend.css' ),
+			],
+			'carousel-slider-frontend-v2'        => [
+				'src' => static::get_assets_url( 'css/frontend-v2.css' ),
 			],
 			'carousel-slider-admin'              => [
 				'src'  => static::get_assets_url( 'css/admin.css' ),

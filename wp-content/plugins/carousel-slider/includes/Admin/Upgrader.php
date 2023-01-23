@@ -5,7 +5,7 @@
  * @package CarouselSlider
  */
 
-namespace CarouselSlider;
+namespace CarouselSlider\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
