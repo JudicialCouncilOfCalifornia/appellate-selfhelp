@@ -7,8 +7,19 @@ use CarouselSlider\Supports\Validate;
 
 /**
  * Setting class
+ *
+ * @method bool should_shuffle_images()
+ * @method bool should_show_title()
+ * @method bool should_show_caption()
+ * @method bool should_show_lightbox()
  */
 class Setting extends SliderSetting {
+	/**
+	 * Is data read from server?
+	 *
+	 * @var bool
+	 */
+	protected $extra_data_read = false;
 
 	/**
 	 * Get image ids
@@ -39,15 +50,21 @@ class Setting extends SliderSetting {
 	}
 
 	/**
-	 * Default properties
+	 * Read extra metadata
 	 *
-	 * @inerhitDoc
+	 * @return void
 	 */
-	public static function props(): array {
-		$parent_props = parent::props();
-		$extra_props  = self::extra_props();
-
-		return wp_parse_args( $extra_props, $parent_props );
+	public function read_extra_metadata() {
+		if ( $this->extra_data_read ) {
+			return;
+		}
+		foreach ( self::extra_props() as $attribute => $config ) {
+			$value = get_post_meta( $this->get_slider_id(), $config['id'], true );
+			$value = ! empty( $value ) ? $value : $config['default'];
+			$value = $this->prepare_item_for_response( $config['type'], $value );
+			$this->set_prop( $attribute, $value );
+		}
+		$this->extra_data_read = true;
 	}
 
 	/**
@@ -58,34 +75,34 @@ class Setting extends SliderSetting {
 	public static function extra_props(): array {
 		return [
 			'image_ids'      => [
-				'meta_key' => '_wpdh_image_ids',
-				'type'     => 'int[]',
-				'default'  => '',
+				'id'      => '_wpdh_image_ids',
+				'type'    => 'int[]',
+				'default' => '',
 			],
 			'shuffle_images' => [
-				'meta_key' => '_shuffle_images',
-				'type'     => 'bool',
-				'default'  => 'no',
+				'id'      => '_shuffle_images',
+				'type'    => 'bool',
+				'default' => 'no',
 			],
 			'image_target'   => [
-				'meta_key' => '_image_target',
-				'type'     => 'string',
-				'default'  => '_self',
+				'id'      => '_image_target',
+				'type'    => 'string',
+				'default' => '_self',
 			],
 			'show_title'     => [
-				'meta_key' => '_show_attachment_title',
-				'type'     => 'bool',
-				'default'  => 'off',
+				'id'      => '_show_attachment_title',
+				'type'    => 'bool',
+				'default' => 'off',
 			],
 			'show_caption'   => [
-				'meta_key' => '_show_attachment_caption',
-				'type'     => 'bool',
-				'default'  => 'off',
+				'id'      => '_show_attachment_caption',
+				'type'    => 'bool',
+				'default' => 'off',
 			],
 			'show_lightbox'  => [
-				'meta_key' => '_image_lightbox',
-				'type'     => 'bool',
-				'default'  => 'off',
+				'id'      => '_image_lightbox',
+				'type'    => 'bool',
+				'default' => 'off',
 			],
 		];
 	}

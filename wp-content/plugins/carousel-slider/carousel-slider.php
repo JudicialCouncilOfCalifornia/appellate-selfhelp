@@ -3,15 +3,15 @@
  * Plugin Name: Carousel Slider
  * Plugin URI: https://sayfulislam.com/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
  * Description: <strong>Carousel Slider</strong> allows you to create beautiful, touch enabled, responsive carousels and sliders. It let you create SEO friendly Image carousel from Media Library or from custom URL, Video carousel using Youtube and Vimeo video, Post carousel, Hero banner slider and various types of WooCommerce products carousels.
- * Version: 2.1.1
+ * Version: 2.2.0
  * Author: Sayful Islam
  * Author URI: https://sayfulislam.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  * Requires PHP: 7.0
  * Requires at least: 5.6
- * Tested up to: 6.0
+ * Tested up to: 6.1
  *
  * WC requires at least: 3.0
- * WC tested up to: 6.5
+ * WC tested up to: 7.2
  *
  * Text Domain: carousel-slider
  *
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Carousel_Slider' ) ) {
 		 *
 		 * @var string
 		 */
-		private $version = '2.1.1';
+		private $version = '2.2.0';
 
 		/**
 		 * Minimum PHP version required
@@ -118,7 +118,21 @@ if ( ! class_exists( 'Carousel_Slider' ) ) {
 			define( 'CAROUSEL_SLIDER_PATH', dirname( CAROUSEL_SLIDER_FILE ) );
 			define( 'CAROUSEL_SLIDER_URL', plugins_url( '', CAROUSEL_SLIDER_FILE ) );
 			define( 'CAROUSEL_SLIDER_ASSETS', CAROUSEL_SLIDER_URL . '/assets' );
-			define( 'CAROUSEL_SLIDER_PRO_PROMOTION', false );
+			$this->define_constant( 'CAROUSEL_SLIDER_PRO_PROMOTION', false );
+		}
+
+		/**
+		 * Define constant if not defined
+		 *
+		 * @param string $constant_name The constant name.
+		 * @param mixed  $value The constant value.
+		 *
+		 * @return void
+		 */
+		public function define_constant( string $constant_name, $value ) {
+			if ( ! defined( $constant_name ) ) {
+				define( $constant_name, $value );
+			}
 		}
 
 		/**

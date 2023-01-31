@@ -2,6 +2,7 @@
 
 namespace CarouselSlider\Admin;
 
+use CarouselSlider\Helper;
 use CarouselSlider\Supports\SettingApi\DefaultSettingApi;
 use Exception;
 
@@ -102,17 +103,44 @@ class Setting {
 					'carousel-slider'
 				),
 				'options'     => [
-					'always'           => __( 'Always', 'carousel-slider' ),
 					'optimized'        => __( 'Optimized (recommended)', 'carousel-slider' ),
 					'optimized-loader' => __( 'Optimized with style loader', 'carousel-slider' ),
+					'always'           => __( 'Always', 'carousel-slider' ),
 				],
 				'panel'       => 'general',
+				'priority'    => 10,
+			]
+		);
+		$settings->add_field(
+			[
+				'id'          => 'slider_js_package',
+				'type'        => 'radio',
+				'default'     => 'owl.carousel',
+				'name'        => __( 'Slider JavaScript package', 'carousel-slider' ),
+				'description' => __(
+					'<strong>Swiper</strong>, is the most modern mobile touch slider without any third party dependencies.
+ 					<strong>Owl Carousel 2</strong> was great but now it is <strong>PRETTY MUCH DEAD</strong> as there is
+ 					no development after Nov 12, 2018',
+					'carousel-slider'
+				),
+				'choices'     => [
+					[
+						'value' => 'owl.carousel',
+						'label' => __( 'Owl Carousel 2 + Magnific Popup', 'carousel-slider' ),
+					],
+					[
+						'value' => 'swiper',
+						'label' => __( 'Swiper (experimental)', 'carousel-slider' ),
+					],
+				],
+				'panel'       => 'general',
+				'priority'    => 20,
 			]
 		);
 		$settings->add_field(
 			[
 				'id'          => 'show_structured_data',
-				'type'        => 'checkbox',
+				'type'        => 'switch',
 				'default'     => 'on',
 				'name'        => __( 'Show Structured Data', 'carousel-slider' ),
 				'description' => __(
@@ -121,8 +149,26 @@ class Setting {
 					'carousel-slider'
 				),
 				'panel'       => 'general',
+				'priority'    => 30,
 			]
 		);
+
+		$choices = [
+			[
+				'value' => 'wc-default',
+				'label' => __( 'WooCommerce Default (recommended)', 'carousel-slider' ),
+			],
+			[
+				'value' => 'v1-compatibility',
+				'label' => __( 'Compatibility mode (with version 1)', 'carousel-slider' ),
+			],
+		];
+		if ( Helper::is_pro_active() ) {
+			$choices[] = [
+				'value' => 'template-parser',
+				'label' => __( 'Custom Template (pro)', 'carousel-slider' ),
+			];
+		}
 		$settings->add_field(
 			[
 				'id'          => 'woocommerce_shop_loop_item_template',
@@ -141,13 +187,32 @@ class Setting {
 						'carousel-slider'
 					),
 				],
-				'options'     => [
-					'wc-default'       => __( 'WooCommerce Default (recommended)', 'carousel-slider' ),
-					'v1-compatibility' => __( 'Compatibility mode (with version 1)', 'carousel-slider' ),
-					'template-parser'  => __( 'Custom Template (pro)', 'carousel-slider' ),
-				],
+				'choices'     => $choices,
 				'panel'       => 'woocommerce',
 			]
 		);
+	}
+
+	/**
+	 * Get modules choices
+	 *
+	 * @return array
+	 */
+	public function get_modules_choices(): array {
+		$slider_types   = Helper::get_slider_types();
+		$module_choices = [];
+		foreach ( $slider_types as $value => $option ) {
+			$choice = [
+				'value' => $value,
+				'label' => isset( $option['pro'] ) && true === $option['pro'] ?
+					sprintf( '%s - pro', $option['label'] ) : $option['label'],
+			];
+			if ( isset( $option['enabled'] ) && false === $option['enabled'] ) {
+				$choice['readonly'] = true;
+			}
+			$module_choices[] = $choice;
+		}
+
+		return $module_choices;
 	}
 }

@@ -171,7 +171,7 @@ abstract class BaseField implements FieldInterface {
 				if ( empty( $value ) && 'value' !== $key ) {
 					return null;
 				}
-				if ( in_array( $key, array( 'required', 'checked', 'multiple' ), true ) && $value ) {
+				if ( in_array( $key, array( 'required', 'checked', 'multiple', 'disabled' ), true ) && $value ) {
 					return $key;
 				}
 

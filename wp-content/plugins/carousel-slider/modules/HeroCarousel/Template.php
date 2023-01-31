@@ -22,6 +22,7 @@ class Template extends AbstractTemplate {
 		return wp_parse_args(
 			[
 				'_slide_type'                  => 'hero-banner-slider',
+				'_type_of_slider'              => 'slider',
 				// Responsive Settings.
 				'_items_portrait_mobile'       => '1',
 				'_items_small_portrait_tablet' => '1',
@@ -56,9 +57,9 @@ class Template extends AbstractTemplate {
 	/**
 	 * Hero Slider Content Settings
 	 *
-	 * @param int   $index The index number.
-	 * @param int   $image_id Image id.
-	 * @param array $args Additional arguments.
+	 * @param  int   $index  The index number.
+	 * @param  int   $image_id  Image id.
+	 * @param  array $args  Additional arguments.
 	 *
 	 * @return array
 	 */
@@ -115,8 +116,8 @@ class Template extends AbstractTemplate {
 	/**
 	 * Create hero carousel with random images
 	 *
-	 * @param string $slider_title The slider title.
-	 * @param array  $args Additional arguments.
+	 * @param  string $slider_title  The slider title.
+	 * @param  array  $args  Additional arguments.
 	 *
 	 * @return int The post ID on success. The value 0 on failure.
 	 */
@@ -149,6 +150,9 @@ class Template extends AbstractTemplate {
 		foreach ( $images_ids as $index => $images_id ) {
 			$content[] = self::get_content( $index, $images_id );
 		}
+
+		$content = array_values( $content );
+
 		update_post_meta( $post_id, '_content_slider', $content );
 
 		return $post_id;
