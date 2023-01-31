@@ -298,7 +298,7 @@ FAQs can be found here: https://tooltips.org/features-of-wordpress-tooltips-plug
 15. Video Tooltips
 
 == Changelog ==
-= Version 8.1.1 =
+= Version 8.1.5 =
 please check change log at:
 >[wordpress tooltip change log:](https://tooltips.org/change-log-of-wordpress-tooltips-free-plugin/)  
 

@@ -3,13 +3,13 @@
 Plugin Name: Tooltips
 Plugin URI:  https://tooltips.org/features-of-wordpress-tooltips-plugin/
 Description: Wordpress Tooltips,You can add text,image,link,video,radio in tooltips, add tooltips in gallery. More amazing features? Do you want to customize a beautiful style for your tooltips? One Minute, Check <a href='https://tooltips.org/features-of-wordpress-tooltips-plugin/' target='_blank'> Features of WordPress Tooltips Pro</a>.
-Version: 8.1.1
+Version: 8.1.5
 Author: Tomas | <a href='https://tooltips.org/wordpress-tooltip-plugin/wordpress-tooltip-plugin-document/' target='_blank'>Docs</a> | <a href='https://tooltips.org/faq/' target='_blank'>FAQ</a> | <a href='https://tooltips.org/contact-us' target='_blank'>Premium Support</a> 
 Author URI: https://tooltips.org/wordpress-tooltip-plugin/wordpress-tooltips-demo/
 Text Domain: wordpress-tooltips
 License: GPLv3 or later
 */
-/*  Copyright 2011 - 2022 Tomas Zhu
+/*  Copyright 2011 - 2023 Tomas Zhu
  This program comes with ABSOLUTELY NO WARRANTY;
  https://www.gnu.org/licenses/gpl-3.0.html
  https://www.gnu.org/licenses/quick-guide-gplv3.html
@@ -832,9 +832,10 @@ function showTooltips($content)
 		$curent_content = $curent_post->post_content;
 	}
 
-
-
-
+	//8.1.3 try to support shortcode in post content
+	$curent_content = $content;
+	//end 8.1.3
+	
 	$m_result = tooltips_get_option('tooltipsarray','post_title', 'DESC', 'LENGTH');
 
 	$m_keyword_result = '';
@@ -1558,7 +1559,7 @@ function upgrade_check()
 		update_option("seletEnableJqueryMigrate", 'YES');
 	   //!!! end 7.9.7
 	}
-	update_option('ztooltipversion','8.1.1');
+	update_option('ztooltipversion','8.1.5');
 }
 add_action( 'init', 'upgrade_check');
 
@@ -1804,6 +1805,8 @@ function tomas_one_tooltip_shortcode( $atts, $inputcontent = null )
 	$m_keyword_result .= $m_replace;
 
 	$m_keyword_result .= '<script type="text/javascript">';
+	//8.1.5
+	$m_keyword_result .= 'jQuery("document").ready(function(){';  //!!!
 	$m_content = $content;
 
 	$m_content = preg_quote($m_content,'/');
@@ -1818,6 +1821,8 @@ function tomas_one_tooltip_shortcode( $atts, $inputcontent = null )
 		//$m_keyword_result .= " toolTips('.tooltip_post_id_custom_$keywordmd','$m_content'); ";
 	    $m_keyword_result .= " toolTips('.tooltip_post_id_custom_".$keywordmd."','$m_content'); ";
 	}
+	//8.1.5
+	$m_keyword_result .= '});';  //!!!
 	$m_keyword_result .= '</script>';
 
 	return $m_keyword_result;
@@ -2572,3 +2577,35 @@ function save_content_tooltips_bullet_free_screen_control_meta_box($post_id, $po
 
 add_action( 'add_meta_boxes',  'tooltips_bullet_free_screen_control_meta_box' );
 add_action( 'save_post', 'save_content_tooltips_bullet_free_screen_control_meta_box' , 10, 3);
+
+/*
+//!!! 8.1.5
+function disabletooltipforglossaryfree()
+{
+    $tooltipforleftcolumnglossarytable = get_option("tooltipforleftcolumnglossarytable");
+    $tooltipforrightcolumnglossarytable = get_option("tooltipforrightcolumnglossarytable");
+    
+    if ((empty($tooltipforleftcolumnglossarytable)) || ($tooltipforleftcolumnglossarytable == 'NO'))
+    {
+        {
+            echo '<script type="text/javascript">';
+            
+            
+            // $disabletooltipforclassandidsSingle = trim($disabletooltipforclassandidsSingle);
+            //!!! 15.3.4 disabletooltipforclassandidSinglei = jQuery(this).html();
+            ?>
+			jQuery(document).ready(function () {
+				jQuery('.tooltips_table_items .tooltips_table_title .tooltipsall').each
+				(function()
+				{
+				disabletooltipforclassandidSinglei = jQuery(this).text();
+				jQuery(this).replaceWith(disabletooltipforclassandidSinglei);
+				})
+			})
+			<?php 
+			echo '</script>';
+		}
+	}
+}
+add_action('wp_footer','disabletooltipforglossaryfree');
+*/
