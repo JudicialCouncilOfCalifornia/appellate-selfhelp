@@ -405,7 +405,7 @@ function tooltips_free_howto_setting()
 	
 	$tooltips_free_how_to_bar_content = '';
 	$tooltips_free_how_to_bar_content .= '<div style="padding: 30px 20px 20px 20px;">';
-	$tooltips_free_how_to_bar_content .= '<h2>How to Get Support From Our Official Site: tooltips.org?</h2>';
+	$tooltips_free_how_to_bar_content .= '<h2>How to Creat a Support Ticket From Our Official Site: tooltips.org?</h2>';
 	$tooltips_free_how_to_bar_content .= '<p>';
 	$tooltips_free_how_to_bar_content .= 'Please submit ticket at: '. '<a href="https://tooltips.org/support-ticket/" target="_blank">'. 'Support Ticket'.'</a>';
 	$tooltips_free_how_to_bar_content .= '</p>';
@@ -417,6 +417,20 @@ function tooltips_free_howto_setting()
 	$tooltips_free_how_to_bar_content .= '</p>';	
 	$tooltips_free_how_to_bar_content .= '</div>';
 
+	tooltips_free_howto_setting_panel ( $tooltips_free_default_how_to_bar_id,$tooltips_free_how_to_bar_title,$tooltips_free_how_to_bar_content );
+
+	//8.0.1
+	$tooltips_free_default_how_to_bar_id = 'tooltips_knowledge_20220927';
+	$tooltips_free_how_to_bar_title = 'Where is the Support Forum?';
+	
+	$tooltips_free_how_to_bar_content = '';
+	$tooltips_free_how_to_bar_content .= '<div style="padding: 30px 20px 20px 20px;">';
+	$tooltips_free_how_to_bar_content .= '<h2>Where is the Support Forum?</h2>';
+	$tooltips_free_how_to_bar_content .= '<p>';
+	$tooltips_free_how_to_bar_content .= 'The support forum has been reopened at: '. '<a href="https://tooltips.org/forums/" target="_blank">'. 'Support Forum'.'</a>';
+	$tooltips_free_how_to_bar_content .= '</p>';
+	$tooltips_free_how_to_bar_content .= '</div>';
+	
 	tooltips_free_howto_setting_panel ( $tooltips_free_default_how_to_bar_id,$tooltips_free_how_to_bar_title,$tooltips_free_how_to_bar_content );
 	
 //!!!start
