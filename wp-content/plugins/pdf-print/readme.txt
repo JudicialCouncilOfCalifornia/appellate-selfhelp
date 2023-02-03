@@ -1,10 +1,10 @@
-=== PDF & Print by BestWebSoft - WordPress Posts and Pages PDF Generator Plugin ===
+﻿=== PDF & Print by BestWebSoft ===
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: generate pdf, add pdf button, add print button, pdf plugin, pdf pages, print pages, generate pdf content, generate post pdf, pdf print, pdf print plugin, pdf custom post type, pdf content
-Requires at least: 5.6
-Tested up to: 6.1
-Stable tag: 2.3.1
+Requires at least: 4.0
+Tested up to: 5.2.4
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ Generate documents with custom styles and useful data for archiving, sharing, or
 
 [View Demo](https://bestwebsoft.com/demo-for-pdf-print/?ref=readme)
 
-https://www.youtube.com/watch?v=hJdWI8xkAI0
+http://www.youtube.com/watch?v=EM6AEkD9M_s
 
 = Free Features =
 
@@ -56,6 +56,7 @@ https://www.youtube.com/watch?v=hJdWI8xkAI0
 	* Bottom
 * Customize document styles
 * Create PDF that fully copies the page
+* Add custom code via plugin settings page
 * Compatible with latest WordPress version
 * Incredibly simple settings for fast setup without modifying code
 * Detailed step-by-step documentation and videos
@@ -91,10 +92,8 @@ https://www.youtube.com/watch?v=hJdWI8xkAI0
 > 	* Landscape
 > * Set custom images for buttons
 > * Disable PDF & Print buttons for certain pages and/or post types
-> * Disable PDF & Print buttons for certain users and/or roles types [NEW]
 > * Change default PDF file name
 > * Prevent search engines from indexing links in documents
-> * Add custom code via plugin settings page
 > * Configure all subsites on the network
 > * Get answer to your support question within one business day ([Support Policy](https://bestwebsoft.com/support-policy/))
 >
@@ -104,20 +103,15 @@ If you have a feature suggestion or idea you'd like to see in the plugin, we'd l
 
 = Documentation & Videos =
 
-* [[Doc] User Guide](https://bestwebsoft.com/documentation/pdf-print/pdf-print-user-guide/)
-* [[Doc] Installation](https://bestwebsoft.com/documentation/how-to-install-a-wordpress-product/how-to-install-a-wordpress-plugin/)
-* [[Doc] Purchase](https://bestwebsoft.com/documentation/how-to-purchase-a-wordpress-plugin/how-to-purchase-wordpress-plugin-from-bestwebsoft/)
-* [[Video] User Guide](https://www.youtube.com/watch?v=Pec-6dDiou0)
+* [[Doc] Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
+* [[Doc] Purchase](https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/)
+* [[Doc] How to Use](https://docs.google.com/document/d/1B9ntY5f6E8WoKY3AfuRA2Shk6z2gYPTzwZ8PnLKURoY/)
 * [[Video] Purchase, Installation, Configuration Tutorial](https://www.youtube.com/watch?v=K6aT6Ew9J0g)
-* [[Video] Installation Instruction](https://www.youtube.com/watch?v=E3w9ID3p2-A)
+* [[Video] Installation Instruction](http://www.youtube.com/watch?v=E3w9ID3p2-A)
 
 = Help & Support =
 
 Visit our Help Center if you have any questions, our friendly Support Team is happy to help - <https://support.bestwebsoft.com/>
-
-= Affiliate Program =
-
-Earn 20% commission by selling the premium WordPress plugins and themes by BestWebSoft — [https://bestwebsoft.com/affiliate/](https://bestwebsoft.com/affiliate/?utm_source=plugin&utm_medium=readme&utm_campaign=affiliate_program)
 
 = Translation =
 
@@ -137,9 +131,9 @@ Some of these translations are not complete. We are constantly adding new featur
 2. Activate the plugin via the 'Plugins' menu in WordPress.
 3. Plugin settings are located in "PDF & Print".
 
-View a [Step-by-step Instruction on PDF & Print Installation](https://bestwebsoft.com/documentation/how-to-install-a-wordpress-product/how-to-install-a-wordpress-plugin/)
+View a [Step-by-step Instruction on PDF & Print Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
 
-https://www.youtube.com/watch?v=E3w9ID3p2-A
+http://www.youtube.com/watch?v=E3w9ID3p2-A
 
 == Frequently Asked Questions ==
 
@@ -187,59 +181,37 @@ Go to the Settings page and unmark checkbox 'Print Shortcodes'.
 
 = How can I change the content pdf/print document? =
 
-You can use following filters if "Full Page PDF" option is disabled:
-
-- in order to change main content of pdf/print document
+- in order to change main content of pdf/print document you can use following filter:
 
 `add_filter( 'bwsplgns_get_pdf_print_content', {your_function} );`
-
-- in order to change top running title
-
-`add_filter( 'bwsplgns_top_running_title', {your_function} );`
-
-- in order to change bottom running title
-
-`add_filter( 'bwsplgns_bottom_running_title', {your_function} );`
 
 - in order to change the title of pdf/print document
 
 `add_filter( 'bwsplgns_get_pdf_print_title', {your_function}, 10, 2 );`
 
-For example, go to the plugin settings page -> "Custom Code" tab, mark "Activate custom PHP code." checkbox in the "PHP" section and add the following code:
+For example, add the following code to the 'functions.php' file of your theme:
 
 `add_filter(
-    'bwsplgns_get_pdf_print_content',
-    function( $content ) {
-        $my_content   = '<p>Lorem ipsum dolor sit amet</p>';
-        $more_content = '<p>Donec fringilla libero ac sapien</p>';
+	'bwsplgns_get_pdf_print_content',
+	function( $content ) {
+		$my_content   = '<p>Lorem ipsum dolor sit amet</p>';
+		$more_content = '<p>Donec fringilla libero ac sapien</p>';
 
-        /* if you want add some data before to the main content */
-        return $my_content . $content;
+		/* if you want add some data before to the main content */
+		return $my_content . $content;
 
-        /* if you want add some data after the main content */
-        return $content . $my_content;
+		/* if you want add some data after the main content */
+		return $content . $my_content;
 
-        /* if you want add some data both sides the main content */
-        return $my_content . $content . $more_content;
+		/* if you want add some data both sides the main content */
+		return $my_content . $content . $more_content;
 
-        /* if you want add some data instead of the main content */
-        return $my_content;
-    }
+		/* if you want add some data instead of the main content */
+		return $my_content;
+	}
 );`
 
 For more information about WordPress filters see [here](https://codex.wordpress.org/Function_Reference/add_filter).
-
-If "Full Page PDF" option is enabled please use `beforeImageToPdf()` and `afterImageToPdf()` JavaScript functions for changing PDF document.
-For example, go to the plugin settings page -> "Custom Code" tab, mark "Activate custom JavaScript code." checkbox in the "JavaScript" section and add the following code:
-
-`function beforeImageToPdf() {
-    document.getElementById("site-header").style.display = "none";
-}
-function afterImageToPdf() {
-    document.getElementById("site-header").style.display = "block";
-}`
-
-Replace "site-header" on the id of the element you need to hide.
 
 = How can I add different styles to PDF and Print pages? =
 
@@ -309,23 +281,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 1. the link to the page where the problem occurs
 2. the name of the plugin and its version. If you are using a pro version - your order number.
 3. the version of your WordPress installation
-4. copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://bestwebsoft.com/documentation/admin-panel-issues/system-status/)
-
-= Can I remove content added by shortcodes? =
-
-To remove the shortcode, please use 'bwsplgns_pdf_print_remove_shortcodes' hook:
-
-1. Go to the plugin settings page;
-2. Open "Custom Code" tab, mark "Activate custom PHP code." checkbox in the "PHP" section;
-3. Add the following code (as example):
-
-`function pdf_print_remove_shortcodes( $shortcodes_array ) {
-    $shortcodes_array[] = 'bestwebsoft_contact_form';
-    return $shortcodes_array;
-}
-add_filter( 'bwsplgns_pdf_print_remove_shortcodes', 'pdf_print_remove_shortcodes' );`
-
-Replace `bestwebsoft_contact_form` with your shortcode.
+4. copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/)
 
 == Screenshots ==
 
@@ -338,82 +294,6 @@ Replace `bestwebsoft_contact_form` with your shortcode.
 7. Settings page (Output tab) for the PDF&Print in admin panel.
 
 == Changelog ==
-
-= V2.3.1 - 27.04.2022 =
-* Update : BWS Panel section update.
-* Bugfix : Remove "Written by" from Author has been fixed.
-* Pro : PHP 8 Multisite issue has been fixed.
-* Pro : Some issues with Advanced Custom Fields has been fixed.
-* Bugfix : Sup tags styles for PDF fix.
-* Bugfix : Default PDF File Name option fix.
-* Bugfix : Fixes for Twenty Twenty-Two theme.
-* Bugfix : Issue with updating MPDF library has been fixed.
-* Update : All functionality was updated for WordPress 5.9.
-
-
-= V2.3.0 - 24.12.2021 =
-* Pro : Ability to exclude specific users and roles
-* Bugfix : The issue with excerpt display has been fixed.
-* Update : All functionality was updated for WordPress 5.8.2.
-* Update : BWS Panel section was updated.
-
-= V2.2.9 - 23.08.2021 =
-* Update : All functionality was updated for WordPress 5.8.
-* Bugfix: The bug with mPDF library loading has been fixed.
-* Pro : Ability to add shortcodes to the PDF file name.
-* Pro : Ability to remove "written by" in the author output.
-* Pro : Added drag and drop function to change the order of the additional elements.
-
-= V2.2.8 - 06.07.2021 =
-* Bugfix : The issue with generate templates has been fixed.
-* Update : BWS Panel section was updated.
-* Update : Video Guide has been added.
-
-= V2.2.7 - 11.06.2021 =
-* Pro : The bug with field type Group with Advanced Custom Fields has been fixed.
-* Pro : The bug with a large number of pages in the site tree was fixed.
-* Bugfix : The bug with mPDF library update to version 8.0.8. has been fixed.
-* Update : All functionality was updated for WordPress 5.7.2.
-
-= V2.2.6 - 14.05.2021 =
-* Bugfix : The compatibility with Divi builder was improved.
-* Update : The mPDF library has been updated to version 8.0.8.
-* Pro : The bug with Print button has been fixed.
-
-= V2.2.5 - 13.04.2021 =
-* Bugfix : JS errors were fixed.
-* Update : Functionality of plugin's scripts adding has been changed so that they will be added only on pages where the PDF & Print buttons will be displayed.
-
-= V2.2.4 - 31.03.2021 =
-* Bugfix : The bug with incorrect definition of post types on the search page has been fixed.
-* Bugfix : The bug with generating pdf file in Gutenberg editor has been fixed.
-* Bugfix : The bug with generating pdf file with the Default CSS option enabled has been fixed.
-* Bugfix : The bug with PDF button for widget has been fixed.
-* Bugfix : The bug with pdf file generation when the "Full Page PDF" option is enabled has been fixed.
-* NEW : Ability to add PDF & Print buttons to the home page is enabled.
-* NEW : An ability to show/hide author and date for post in the pdf/print document was added.
-* Update : BWS Panel section was updated.
-* Update : All functionality was updated for WordPress 5.7.
-* Pro : The bug with Compatibility with Advanced Custom Fields has been fixed.
-* Pro : Ability to add headers and footers to the contents of a PDF & Print document when the "Full Page PDF" option is enabled.
-
-= V2.2.3 - 30.09.2020 =
-* NEW : Shortcode to force a page break.
-* NEW : Ability to generate a PDF without links (ability to remove links from document).
-* Update : BWS Panel section was updated.
-* Update : All functionality was updated for WordPress 5.5.1.
-
-= V2.2.2 - 17.08.2020 =
-* NEW : Ability to change PDF & Print document's content when "Full Page PDF" option is enabled.
-* Update : All functionality was updated for WordPress 5.5.
-* Update : BWS Panel section was updated.
-* Bugfix : The bug with hiding PDF & Print buttons for all users has been fixed.
-* Pro : Ability to add the title of a post to Headers & Footers.
-* Pro : Ability to place Custom Fields Data before page/post title.
-
-= V2.2.1 - 27.02.2020 =
-* Update : All functionality was updated for WordPress 5.3.2.
-* Update : BWS menu has been updated.
 
 = V2.2.0 - 15.10.2019 =
 * Bugfix : The bug with mPDF library update to version 7.1.5 has been fixed.
@@ -617,52 +497,6 @@ Replace `bestwebsoft_contact_form` with your shortcode.
 * NEW : Added the ability to output PDF and Print buttons on the type of page.
 
 == Upgrade Notice ==
-
-= V2.3.1 =
-* Bugs fixed.
-
-= V2.3.0 =
-* New features added.
-* The compatibility with new WordPress version updated.
-* Functionality improved.
-* Bugs fixed.
-
-= V2.2.9 =
-* New features added.
-* The compatibility with new WordPress version updated.
-* Bugs fixed.
-
-= V2.2.8 =
-* Bugs fixed.
-
-= V2.2.7 =
-* Bugs fixed.
-
-= V2.2.6 =
-* Bugs fixed.
-
-= V2.2.5 =
-* Functionality improved.
-* Bugs fixed.
-
-= V2.2.4 =
-* Usability improved.
-* Functionality improved.
-* Bugs fixed.
-
-= V2.2.3 =
-* Usability improved.
-* Functionality improved.
-
-= V2.2.2 =
-* Usability improved.
-* Functionality improved.
-* Bugs fixed.
-
-= V2.2.1 =
-* Usability improved.
-* Functionality improved.
-* Bugs fixed.
 
 = V2.2.0 =
 * Functionality improved.

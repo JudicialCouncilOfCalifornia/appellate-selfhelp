@@ -2,121 +2,122 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pdf-print-pro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-20 16:34+0300\n"
-"PO-Revision-Date: 2019-05-20 16:35+0300\n"
+"POT-Creation-Date: 2019-02-06 12:40+0200\n"
+"PO-Revision-Date: 2019-08-08 15:11+0300\n"
 "Last-Translator: BestWebSoft team <wp@bestwebsoft.com>\n"
 "Language-Team: bestwebsoft <plugin@bestwebsoft.com>\n"
-"Language: ru_RU\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.2.2\n"
+"X-Generator: Poedit 2.2.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: includes/class-pdfprnt-settings.php:26 pdf-print.php:40 pdf-print.php:727
-#: pdf-print.php:743
+#: includes/class-pdfprnt-settings.php:26 pdf-print.php:40 pdf-print.php:720
+#: pdf-print.php:736
 msgid "Settings"
-msgstr "Настройки"
+msgstr "Instellingen"
 
 #: includes/class-pdfprnt-settings.php:27
 msgid "Output"
-msgstr "Вывод"
+msgstr "Output"
 
 #: includes/class-pdfprnt-settings.php:28
 msgid "Display"
-msgstr "Отображение"
+msgstr "Weergave"
 
 #: includes/class-pdfprnt-settings.php:29
 msgid "Misc"
-msgstr "Разное"
+msgstr "Overige"
 
 #: includes/class-pdfprnt-settings.php:30
 msgid "Custom Fields"
-msgstr "Пользовательские поля"
+msgstr "Aangepaste velden"
 
 #: includes/class-pdfprnt-settings.php:31
 msgid "Custom Code"
-msgstr "Пользовательский код"
+msgstr "Aangepaste code"
 
 #: includes/class-pdfprnt-settings.php:32
 msgid "License Key"
-msgstr "Лицензионный ключ"
+msgstr "Licentiesleutel"
 
-#: includes/class-pdfprnt-settings.php:55 pdf-print.php:381
+#: includes/class-pdfprnt-settings.php:55 pdf-print.php:380
 msgid "PDF"
 msgstr "PDF"
 
-#: includes/class-pdfprnt-settings.php:56 pdf-print.php:386
+#: includes/class-pdfprnt-settings.php:56 pdf-print.php:385
 msgid "Print"
 msgstr "Print"
 
 #: includes/class-pdfprnt-settings.php:63
 msgid "Search results"
-msgstr "Результаты поиска"
+msgstr "Zoekresultaten"
 
 #: includes/class-pdfprnt-settings.php:64
 msgid "Archives"
-msgstr "Архивы"
+msgstr "Archieven"
 
 #: includes/class-pdfprnt-settings.php:72
 msgid "Top Left"
-msgstr "Сверху слева"
+msgstr "Linksboven"
 
 #: includes/class-pdfprnt-settings.php:73
 msgid "Top Right"
-msgstr "Сверху справа"
+msgstr "Rechtsboven"
 
 #: includes/class-pdfprnt-settings.php:74
 msgid "Bottom Left"
-msgstr "Снизу слева"
+msgstr "Linksonder"
 
 #: includes/class-pdfprnt-settings.php:75
 msgid "Bottom Right"
-msgstr "Снизу справа"
+msgstr "Rechtsonder"
 
 #: includes/class-pdfprnt-settings.php:76
 msgid "Top & Bottom Left"
-msgstr "Сверху и снизу слева"
+msgstr "Top & linksonder"
 
 #: includes/class-pdfprnt-settings.php:77
 msgid "Top & Bottom Right"
-msgstr "Сверху и снизу справа"
+msgstr "Top & rechtsonder"
 
 #: includes/class-pdfprnt-settings.php:81 includes/pro_banners.php:144
 msgid "None"
-msgstr "Не использовать"
+msgstr "Geen"
 
 #: includes/class-pdfprnt-settings.php:82
 #: includes/class-pdfprnt-settings.php:93 includes/pro_banners.php:226
 msgid "Default"
-msgstr "По умолчанию"
+msgstr "Standaard"
 
 #: includes/class-pdfprnt-settings.php:86
 msgid "Top"
-msgstr "Сверху"
+msgstr "Boven"
 
 #: includes/class-pdfprnt-settings.php:87
 msgid "Bottom"
-msgstr "Снизу"
+msgstr "Onderkant"
 
 #: includes/class-pdfprnt-settings.php:88
 msgid "Left"
-msgstr "Слева"
+msgstr "Links"
 
 #: includes/class-pdfprnt-settings.php:89
 msgid "Right"
-msgstr "Справа"
+msgstr "Rechts"
 
 #: includes/class-pdfprnt-settings.php:94
 msgid "Current theme"
-msgstr "Текущая тема"
+msgstr "Huidige thema"
 
 #: includes/class-pdfprnt-settings.php:119
 msgid "Please enable JavaScript in your browser."
-msgstr "Пожалуйста, включите JavaScript в вашем браузере."
+msgstr "Activeer Javascript in je browser A.U.B."
 
 #: includes/class-pdfprnt-settings.php:121
 #, php-format
@@ -124,12 +125,12 @@ msgid ""
 "Pdf&Print plugin requires PHP %s or higher. Please contact your hosting "
 "provider to upgrade PHP version."
 msgstr ""
-"Для плагина Pdf&Print требуется PHP версии %s или выше. Пожалуйста, "
-"свяжитесь с вашим хостинг-провайдером, чтобы обновить версию PHP."
+"PDF & Print plugin vereist PHP %s of hoger. Neem contact op met uw hosting "
+"provider om PHP-versie te upgraden."
 
 #: includes/class-pdfprnt-settings.php:136
 msgid "Warning: Not enough permissions for the folder"
-msgstr "Внимание: не хватает прав на папку"
+msgstr "Let op: niet genoeg machtigingen voor de map"
 
 #: includes/class-pdfprnt-settings.php:137
 #, php-format
@@ -137,738 +138,726 @@ msgid ""
 "Please check and change permissions for your plugins folder (for folders - "
 "755, for files - 644). For more info, please see %s and %s."
 msgstr ""
-"Пожалуйста, проверьте и измените права для папки с плагинами (для папок - "
-"755, для файлов - 644). Для более подробной информации смотрите %s и %s."
+"Controleer en wijzig de machtigingen voor uw plugins map (voor mappen-755, "
+"voor bestanden-644). Zie %s en %s voor meer informatie."
 
 #: includes/class-pdfprnt-settings.php:138
 msgid "Changing File Permissions"
-msgstr "Изменение прав для файлов"
+msgstr "Bestandsmachtigingen wijzigen"
 
 #: includes/class-pdfprnt-settings.php:139
 #: includes/class-pdfprnt-settings.php:166
 #: includes/class-pdfprnt-settings.php:178
-#: includes/class-pdfprnt-settings.php:557 pdf-print.php:745 pdf-print.php:773
+#: includes/class-pdfprnt-settings.php:544 pdf-print.php:738 pdf-print.php:766
 msgid "FAQ"
 msgstr "FAQ"
 
 #: includes/class-pdfprnt-settings.php:152
 #, php-format
 msgid "The folder %s was removed."
-msgstr "Папка %s была удалена."
+msgstr "De map %s is verwijderd."
 
 #: includes/class-pdfprnt-settings.php:159
 #, php-format
 msgid "Some fonts were removed from %s folder."
-msgstr "Некоторые шрифты из папки %s были удалены."
+msgstr "Sommige lettertypen zijn verwijderd uit de map %s."
 
-#: includes/class-pdfprnt-settings.php:165 pdf-print.php:772
+#: includes/class-pdfprnt-settings.php:165 pdf-print.php:765
 #, php-format
 msgid "It is necessary to reload fonts. For more info, please see %s."
 msgstr ""
-"Вам необходимо перезагрузить шрифты. Более подробную информацию смотрите %s."
+"Het is noodzakelijk om lettertypen te herladen. Voor meer info, zie %s."
 
 #: includes/class-pdfprnt-settings.php:177
 #, php-format
 msgid "It is necessary to reload fonts. For more info, please see %s"
-msgstr ""
-"Вам необходимо перезагрузить шрифты. Более подробную информацию смотрите %s"
+msgstr "Het is noodzakelijk om lettertypen te herladen. Voor meer info, zie %s"
 
 #: includes/class-pdfprnt-settings.php:198
 msgid ""
 "The new version of the mPDF library which compatible with PHP V7.x.x is "
 "available now! Go to the Misc tab and upgrade the mPDF library."
 msgstr ""
-"Новая версия mPDF библеотеки которая совместима с PHP V7,x,x уже доступна! "
-"Перейдите во вкладку Разное и обновите mPDF библеотеку."
+"De nieuwe versie van de mPDF Library die compatibel is met PHP v7. x. x is "
+"nu beschikbaar! Ga naar het tabblad Diversen en upgrade de mPDF Library."
 
-#: includes/class-pdfprnt-settings.php:301
+#: includes/class-pdfprnt-settings.php:297
 msgid "You have entered too much text in the \"edit styles\" field."
-msgstr "Вы ввели слишком большое значение в поле редактирования стилей."
+msgstr "Je hebt te veel tekst ingevoerd in het veld ' stijlen bewerken '."
 
-#: includes/class-pdfprnt-settings.php:318
+#: includes/class-pdfprnt-settings.php:314
 msgid "Settings saved."
-msgstr "Настройки сохранены."
+msgstr "Instellingen opgeslagen."
 
-#: includes/class-pdfprnt-settings.php:324 pdf-print.php:39 pdf-print.php:40
-#: pdf-print.php:278
+#: includes/class-pdfprnt-settings.php:320 pdf-print.php:39 pdf-print.php:40
+#: pdf-print.php:277
 msgid "PDF & Print Settings"
-msgstr "Настройки PDF & Print"
+msgstr "PDF & afdrukinstellingen"
 
-#: includes/class-pdfprnt-settings.php:329
+#: includes/class-pdfprnt-settings.php:325
 msgid "Add Button to"
-msgstr "Добавить кнопки в"
+msgstr "Knop toevoegen aan"
 
-#: includes/class-pdfprnt-settings.php:345
+#: includes/class-pdfprnt-settings.php:341
 msgid ""
 "Follow the instruction in order to add PDF & Print button to custom post or "
 "page template."
 msgstr ""
-"Следуйте инструкциям, чтобы добавить кнопки PDF & Print в пользовательскую "
-"запись или шаблон страницы."
+"Volg de instructies om PDF & Print knop toe te voegen aan aangepaste post of "
+"pagina sjabloon."
+
+#: includes/class-pdfprnt-settings.php:341
+msgid "Learn More"
+msgstr "Meer Weten"
 
 #: includes/class-pdfprnt-settings.php:345
-msgid "Learn More"
-msgstr "Узнать больше"
-
-#: includes/class-pdfprnt-settings.php:349
 msgid "Buttons Position"
-msgstr "Позиция кнопок"
+msgstr "Knoppen positie"
+
+#: includes/class-pdfprnt-settings.php:353
+msgid "Select buttons position in the content (default is Top Right)."
+msgstr "Selecteer knoppen positie in de inhoud (standaard rechtsboven)."
 
 #: includes/class-pdfprnt-settings.php:357
-msgid "Select buttons position in the content (default is Top Right)."
-msgstr "Выберите положение кнопок в контенте (по умолчанию сверху справа)"
-
-#: includes/class-pdfprnt-settings.php:361
 msgid "Button Image"
-msgstr "Изображения кнопок"
+msgstr "Knopafbeelding"
 
-#: includes/class-pdfprnt-settings.php:373
+#: includes/class-pdfprnt-settings.php:369
 msgid "Default Image"
-msgstr "Изображение по умолчанию"
+msgstr "Standaard afbeelding"
 
-#: includes/class-pdfprnt-settings.php:384
+#: includes/class-pdfprnt-settings.php:380
 msgid "Button Title"
-msgstr "Заголовки кнопок"
+msgstr "Knop Titel"
+
+#: includes/class-pdfprnt-settings.php:393
+msgid "Print Preview Window"
+msgstr "Afdrukvoorbeeld Venster"
 
 #: includes/class-pdfprnt-settings.php:397
-msgid "Print Preview Window"
-msgstr "Предварительный просмотр кнопки Print"
-
-#: includes/class-pdfprnt-settings.php:401
 msgid "Enable to display print preview window with advanced settings."
 msgstr ""
-"Включите, чтобы отображать окна предварительного просмотра печати с "
-"расширенными настройками."
+"Activeer om het venster afdrukvoorbeeld weer te geven met geavanceerde "
+"instellingen."
+
+#: includes/class-pdfprnt-settings.php:405
+msgid "Print Shortcodes"
+msgstr "Print shortcodes"
 
 #: includes/class-pdfprnt-settings.php:409
-msgid "Print Shortcodes"
-msgstr "Обработка шорткодов"
-
-#: includes/class-pdfprnt-settings.php:413
 msgid ""
 "Enable to print shortcodes with data generated by other plugins "
 "(recommended)."
 msgstr ""
-"Включите, чтобы выводить данные при помощи шорткодов других плагинов "
-"(рекомендуется)."
+"Laat toe om shortcodes met gegevens te drukken die door andere plugins "
+"worden geproduceerd (geadviseerd)."
+
+#: includes/class-pdfprnt-settings.php:414
+msgid "Link Annotations"
+msgstr "Aantekeningen koppelen"
 
 #: includes/class-pdfprnt-settings.php:418
-msgid "Link Annotations"
-msgstr "Маркировка ссылки"
-
-#: includes/class-pdfprnt-settings.php:422
 msgid "Enable to remove hover link styles in PDF document."
-msgstr "Включите, чтобы убрать стили ссылки при наведении в PDF документе."
+msgstr "Activeer om hover link stijlen te verwijderen in PDF-document."
+
+#: includes/class-pdfprnt-settings.php:423
+msgid "Download or Open"
+msgstr "Downloaden of Openen"
 
 #: includes/class-pdfprnt-settings.php:427
-msgid "Download or Open"
-msgstr "Скачать или открыть"
-
-#: includes/class-pdfprnt-settings.php:431
 msgid "Download PDF"
-msgstr "Скачать PDF"
+msgstr "Download PDF"
 
-#: includes/class-pdfprnt-settings.php:434
+#: includes/class-pdfprnt-settings.php:430
 msgid "Open PDF"
-msgstr "Открыть PDF"
+msgstr "Open PDF"
 
-#: includes/class-pdfprnt-settings.php:440
+#: includes/class-pdfprnt-settings.php:436
 msgid "Enable Buttons for"
-msgstr "Включить кнопки для"
+msgstr "Schakel knoppen in voor"
 
-#: includes/class-pdfprnt-settings.php:444 includes/pro_banners.php:276
+#: includes/class-pdfprnt-settings.php:440 includes/pro_banners.php:276
 msgid "All"
-msgstr "Всех"
+msgstr "Alle"
 
-#: includes/class-pdfprnt-settings.php:456
+#: includes/class-pdfprnt-settings.php:452
 msgid "Unauthorized"
-msgstr "Неавторизованный"
+msgstr "Niet-geautoriseerd"
 
-#: includes/class-pdfprnt-settings.php:467
+#: includes/class-pdfprnt-settings.php:463
 msgid "Document Output Settings"
-msgstr "Настройки вывода документа"
+msgstr "Document Output Instellingen"
 
-#: includes/class-pdfprnt-settings.php:473
-msgid "Full Page PDF"
-msgstr "PDF всей страницы"
-
-#: includes/class-pdfprnt-settings.php:477
-msgid ""
-"Enable to create PDF layout to mirror what is shown on screen, including "
-"fonts (work only with javascript)."
-msgstr ""
-"Включите, чтобы создать PDF, который отображает всю информацию на странице, "
-"включая шрифты (работает только с JavaScript)."
-
-#: includes/class-pdfprnt-settings.php:482
+#: includes/class-pdfprnt-settings.php:469
 msgid "PDF Page Size"
-msgstr "Размер PDF страницы"
+msgstr "PDF Pagina Formaat"
 
-#: includes/class-pdfprnt-settings.php:496
+#: includes/class-pdfprnt-settings.php:483
 msgid "Margins"
-msgstr "Отступы"
+msgstr "Marges"
+
+#: includes/class-pdfprnt-settings.php:490
+msgid "px"
+msgstr "px"
+
+#: includes/class-pdfprnt-settings.php:499
+msgid "Additional Elements"
+msgstr "Extra elementen"
+
+#: includes/class-pdfprnt-settings.php:502 includes/pro_banners.php:305
+#: includes/pro_banners.php:395 pdf-print.php:1569
+msgid "Title"
+msgstr "Titel"
 
 #: includes/class-pdfprnt-settings.php:503
-msgid "px"
-msgstr "пикс"
-
-#: includes/class-pdfprnt-settings.php:512
-msgid "Additional Elements"
-msgstr "Дополнительные элементы"
-
-#: includes/class-pdfprnt-settings.php:515 includes/pro_banners.php:305
-#: includes/pro_banners.php:395 pdf-print.php:1591
-msgid "Title"
-msgstr "Название"
-
-#: includes/class-pdfprnt-settings.php:516
 msgid "Featured image"
-msgstr "Изображение записи"
+msgstr "Uitgelichte afbeelding"
 
-#: includes/class-pdfprnt-settings.php:521
+#: includes/class-pdfprnt-settings.php:508
 msgid "Featured Image Size"
-msgstr "Размер изображения записи"
+msgstr "Afmeting Uitgelichte afbeelding"
 
-#: includes/class-pdfprnt-settings.php:539
+#: includes/class-pdfprnt-settings.php:526
 msgid "Additional Fonts"
-msgstr "Дополнительные шрифты"
+msgstr "Extra lettertypen"
 
-#: includes/class-pdfprnt-settings.php:546
+#: includes/class-pdfprnt-settings.php:533
 msgid "Reload Fonts"
-msgstr "Перезагрузить шрифты"
+msgstr "Lettertypen her-inladen"
 
-#: includes/class-pdfprnt-settings.php:548
+#: includes/class-pdfprnt-settings.php:535
 msgid "Load Fonts"
-msgstr "Загрузить шрифты"
+msgstr "Lettertypen inladen"
 
-#: includes/class-pdfprnt-settings.php:554
+#: includes/class-pdfprnt-settings.php:541
 msgid "Additional fonts were loaded successfully"
-msgstr "Дополнительные шрифты были успешно загружены"
+msgstr "Extra lettertypen zijn met succes geladen"
 
-#: includes/class-pdfprnt-settings.php:557
+#: includes/class-pdfprnt-settings.php:544
 msgid ""
 "If you have some problems with your internet connection, please, try to load "
 "additional fonts manually. For more info, please see"
 msgstr ""
-"Если у Вас проблемы с интернет соединением, пожалуйста, попробуйте загрузить "
-"шрифты вручную. Более подробную информацию смотрите"
+"Als u problemen hebt met uw internetverbinding, probeer dan handmatig extra "
+"lettertypen te laden. Voor meer info, zie"
 
-#: includes/class-pdfprnt-settings.php:559
+#: includes/class-pdfprnt-settings.php:546
 msgid "Load additional fonts required for PDF file(-s)."
-msgstr "Загрузить необходимые дополнительные шрифты для PDF файла(-ов)."
+msgstr "Laad extra lettertypen vereist voor PDF-bestand (-s)."
 
-#: includes/class-pdfprnt-settings.php:563
-#: includes/class-pdfprnt-settings.php:679
+#: includes/class-pdfprnt-settings.php:550
+#: includes/class-pdfprnt-settings.php:666
 msgid "WARNING"
-msgstr "Внимание"
+msgstr "WAARSCHUIWING"
 
-#: includes/class-pdfprnt-settings.php:563
+#: includes/class-pdfprnt-settings.php:550
 msgid ""
 "ZipArchive Class is not installed on your server. It is impossible to load "
 "additional fonts."
 msgstr ""
-"Класс ZipArchive не установнен на вашем сервере. Невозможно загрузить "
-"дополнительные шрифты."
+"ZipArchive klasse is niet geïnstalleerd op uw server. Het is onmogelijk om "
+"extra fonts te laden."
 
-#: includes/class-pdfprnt-settings.php:568
+#: includes/class-pdfprnt-settings.php:555
 msgid "Default CSS"
-msgstr "CSS по умолчанию"
+msgstr "Standaard CSS"
 
-#: includes/class-pdfprnt-settings.php:579
+#: includes/class-pdfprnt-settings.php:566
 msgid "Custom CSS"
-msgstr "Пользовательский CSS"
+msgstr "Aangepaste CSS"
 
-#: includes/class-pdfprnt-settings.php:584
+#: includes/class-pdfprnt-settings.php:571
 msgid "Enable to add custom CSS code to documents."
-msgstr "Включите, чтобы добавить пользовательский CSS код в документы."
+msgstr "Inschakelen om aangepaste CSS-code toe te voegen aan documenten."
 
-#: includes/class-pdfprnt-settings.php:596
+#: includes/class-pdfprnt-settings.php:583
 msgid "Display Settings"
-msgstr "Настройки отображения"
+msgstr "Weergave instellingen"
 
-#: includes/class-pdfprnt-settings.php:604
+#: includes/class-pdfprnt-settings.php:591
 msgid "Custom Fields Settings"
-msgstr "Настройки пользовательских полей"
+msgstr "Aangepaste Veld Instellingen"
 
-#: includes/class-pdfprnt-settings.php:619
+#: includes/class-pdfprnt-settings.php:606
 msgid "PDF&Print Shortcode"
-msgstr "Шорткод кнопок PDF&Print"
+msgstr "PDF & Print shortcode"
 
-#: includes/class-pdfprnt-settings.php:622
+#: includes/class-pdfprnt-settings.php:609
 msgid "Add PDF&Print buttons to a widget."
-msgstr "Добавьте кнопки PDF&Print в виджет."
+msgstr "Voeg PDF & Print knoppen toe aan een widget."
 
-#: includes/class-pdfprnt-settings.php:622
+#: includes/class-pdfprnt-settings.php:609
 msgid "Navigate to Widgets"
-msgstr "Перейти к Виджетам"
+msgstr "Navigeer naar widgets"
 
-#: includes/class-pdfprnt-settings.php:625
+#: includes/class-pdfprnt-settings.php:612
 msgid "Add PDF button to your posts or pages using the following shortcode:"
 msgstr ""
-"Добавляйте кнопки PDF на ваши записи, страницы, пользовательские типы "
-"записей или виджеты с помощью данного шорткода:"
+"Voeg PDF-knop om uw berichten of pagina's met behulp van de volgende "
+"shortcode:"
 
-#: includes/class-pdfprnt-settings.php:629
+#: includes/class-pdfprnt-settings.php:616
 msgid "Add Print button to your posts or pages using the following shortcode:"
 msgstr ""
-"Добавляйте кнопки Print на ваши записи, страницы, пользовательские типы "
-"записей или виджеты с помощью данного шорткода:"
+"Voeg Print knop om uw berichten of pagina's met behulp van de volgende "
+"shortcode:"
 
-#: includes/class-pdfprnt-settings.php:633
+#: includes/class-pdfprnt-settings.php:620
 msgid ""
 "Add PDF&Print buttons to your posts or pages using the following shortcode:"
 msgstr ""
-"Добавляйте кнопки PDF&Print на ваши записи, страницы, пользовательские типы "
-"записей или виджеты с помощью данного шорткода:"
+"Voeg PDF & Print knoppen om uw berichten of pagina's met behulp van de "
+"volgende shortcode:"
 
-#: includes/class-pdfprnt-settings.php:645 includes/pro_banners.php:21
+#: includes/class-pdfprnt-settings.php:632 includes/pro_banners.php:21
 msgid "Close"
-msgstr "Закрыть"
+msgstr "Sluiten"
 
-#: includes/class-pdfprnt-settings.php:669
+#: includes/class-pdfprnt-settings.php:656
 msgid "Upgrade the mPDF library"
-msgstr "Обновите библиотеку mPDF"
+msgstr "De mPDF-bibliotheek bijwerken"
 
-#: includes/class-pdfprnt-settings.php:673
+#: includes/class-pdfprnt-settings.php:660
 msgid "Upgrade"
-msgstr "Обновить"
+msgstr "Bijwerken"
 
-#: includes/class-pdfprnt-settings.php:677
+#: includes/class-pdfprnt-settings.php:664
 msgid "This will upgrade the mPDF library to version 7.1.5."
-msgstr "Это обновит mPDF библиотеку до версии 7.1.5."
+msgstr "Dit zal de mPDF bibliotheek aan versie 7.1.5 bevorderen."
 
-#: includes/class-pdfprnt-settings.php:679
+#: includes/class-pdfprnt-settings.php:666
 msgid ""
 "ZipArchive сlass is not installed on your server. It is impossible to "
 "upgrade the mPDF library."
 msgstr ""
-"Класс ZipArchive не установнен на вашем сервере. Невозможно обновить mPDF "
-"библиотеку."
+"ZipArchive сlass is niet geïnstalleerd op uw server. Het is onmogelijk om de "
+"mPDF bibliotheek te upgraden."
 
 #: includes/pro_banners.php:18
 msgid "This options is available in Pro version of the plugin"
-msgstr "Эти опции доступны в Pro версии плагина"
+msgstr "Deze opties zijn beschikbaar in de Pro-versie van de plugin"
 
-#: includes/pro_banners.php:27 pdf-print.php:48 pdf-print.php:324
+#: includes/pro_banners.php:27 pdf-print.php:48 pdf-print.php:323
 msgid "Upgrade to Pro"
-msgstr "Обновить до Pro"
+msgstr "Upgrade naar Pro"
 
 #: includes/pro_banners.php:44 includes/pro_banners.php:85
 msgid "Custom"
-msgstr "Пользовательское"
+msgstr "Aangepast"
 
 #: includes/pro_banners.php:62
 msgid "Search Engine Visibility"
-msgstr "Видимость поисковым системам"
+msgstr "Zoekmachine zichtbaarheid"
 
 #: includes/pro_banners.php:65
 msgid "Enable to disallow search engines from indexing PDF & Print pages."
 msgstr ""
-"Включите, чтобы запретить индексирование страниц PDF & Print поисковыми "
-"системами."
+"Enable om zoekmachines te verbieden van het indexeren van PDF & Print "
+"pagina's."
 
 #: includes/pro_banners.php:81
 msgid "Default PDF File Name"
-msgstr "Название PDF файла по умолчанию"
+msgstr "Standaard PDF-bestandsnaam"
 
 #: includes/pro_banners.php:84
 msgid "Post/page slug"
-msgstr "Слаг записи/страницы"
+msgstr "Post/pagina slak"
 
 #: includes/pro_banners.php:90
 msgid "Layout"
-msgstr "Ориентация"
+msgstr "Opmaak"
 
 #: includes/pro_banners.php:93
 msgid "Portrait"
-msgstr "Портретная"
+msgstr "Staand"
 
 #: includes/pro_banners.php:93
 msgid "Landscape"
-msgstr "Альбомная"
+msgstr "Liggend"
 
 #: includes/pro_banners.php:124
 msgid "WooCommerce Product Details"
-msgstr "Детали Продукта WooCommerce"
+msgstr "WooCommerce Productdetails"
 
 #: includes/pro_banners.php:127
 msgid "Short Description"
-msgstr "Краткое описание"
+msgstr "Korte omschrijving"
 
 #: includes/pro_banners.php:128
 msgid "Price"
-msgstr "Цена"
+msgstr "Prijs"
 
 #: includes/pro_banners.php:129
 msgid "SKU"
-msgstr "Артикул"
+msgstr "SKU"
 
 #: includes/pro_banners.php:130
 msgid "Gallery"
-msgstr "Галерея продукта"
+msgstr "Fotogalerij"
 
 #: includes/pro_banners.php:131
 msgid "Rating"
-msgstr "Рейтинг"
+msgstr "Beoordeling"
 
 #: includes/pro_banners.php:132
 msgid "Stock"
-msgstr "Наличие"
+msgstr "Voorraad"
 
 #: includes/pro_banners.php:133
 msgid "Variations"
-msgstr "Вариации продукта"
+msgstr "Variaties"
 
 #: includes/pro_banners.php:134
 msgid "Categories"
-msgstr "Категории"
+msgstr "Categorieën"
 
 #: includes/pro_banners.php:135
 msgid "Tags"
-msgstr "Метки"
+msgstr "Tags"
 
 #: includes/pro_banners.php:136
 msgid "Additional information"
-msgstr "Дополнительная информация"
+msgstr "Aanvullende informatie"
 
 #: includes/pro_banners.php:141
 msgid "Watermark Protection"
-msgstr "Водяной знак"
+msgstr "Watermerk bescherming"
 
 #: includes/pro_banners.php:145
 msgid "Text"
-msgstr "Текст"
+msgstr "Tekst"
 
 #: includes/pro_banners.php:149
 msgid "Image"
-msgstr "Изображение"
+msgstr "Afbeelding"
 
 #: includes/pro_banners.php:154
 msgid "Watermark Opacity"
-msgstr "Степень прозрачности водяного знака"
+msgstr "Watermark Opaciteit"
 
 #: includes/pro_banners.php:166
 msgid "Prevent Copying"
-msgstr " Защита от копирования"
+msgstr "Kopiëren Voorkomen"
 
 #: includes/pro_banners.php:170
 msgid "Enable to prevent PDF files from being copied."
-msgstr "Включите, чтобы запретить пользователю копировать содержимое PDF файла"
+msgstr "Activeer om te voorkomen dat PDF bestanden worden gekopieerd."
 
 #: includes/pro_banners.php:175
 msgid "Show Advanced Custom Fields"
-msgstr "Показывать Advanced Custom Fields"
+msgstr "Geavanceerde Aangepaste Velden Weergeven"
 
 #: includes/pro_banners.php:179
 msgid "Enable to show all Advanced Custom Fields."
-msgstr "Включите, что бы отображать все Advanced Custom Fields."
+msgstr "Inschakelen om alle geavanceerde aangepaste velden weer te geven."
 
 #: includes/pro_banners.php:189
 msgid ""
 "Please choose the necessary post types (or single pages) where PDF & Print "
 "buttons will be displayed"
 msgstr ""
-"Пожалуйста, выберите необходимые типы записей (или отдельные страницы), где "
-"будут отображены кнопки PDF & Print"
+"Kies de nodige post types (of enkele pagina's) waar PDF & Print knoppen "
+"zullen worden weergegeven"
 
 #: includes/pro_banners.php:193
 msgid "Show URL"
-msgstr "Отображать URL"
+msgstr "URL weergeven"
 
 #: includes/pro_banners.php:203
 msgid "Available Registered Post Types:"
-msgstr "Доступные зарегистрированные типы записей:"
+msgstr "Beschikbare Geregistreerde Post Types:"
 
 #: includes/pro_banners.php:206
 msgid ""
 "Add custom fields and custom data before/after PDF & Print document's content"
 msgstr ""
-"Добавить пользовательские поля и пользовательские данные перед/после "
-"контента документа"
+"Voeg aangepaste velden en aangepaste gegevens voor/na PDF & Print "
+"documentinhoud"
 
 #: includes/pro_banners.php:209
 msgid "Posts"
-msgstr "Записи"
+msgstr "Berichten"
 
 #: includes/pro_banners.php:213
 msgid "Data Before Content"
-msgstr "Данные перед контентом"
+msgstr "Gegevens Voor Inhoud"
 
 #: includes/pro_banners.php:217
 msgid "Data After Content"
-msgstr "Данные после контента"
+msgstr "Gegevens Na Inhoud"
 
 #: includes/pro_banners.php:222
 msgid "Custom Fields Displaying"
-msgstr "Отображение пользовательских полей"
+msgstr "Aangepasten Velden Weergeven"
 
 #: includes/pro_banners.php:228
 msgid ""
 "custom fields are shown by default; you can hide them using \"Do not show "
 "PDF & Print Custom fields\" option"
 msgstr ""
-"пользовательские поля отображаются по умолчанию; Вы можете скрыть их, "
-"используя опцию \"Не показывать пользовательские поля PDF & Print\""
+"aangepaste velden worden standaard weergegeven. u ze verbergen met behulp "
+"van niet tonen PDF & Print aangepaste velden optie"
 
 #: includes/pro_banners.php:233
 msgid "Force Hide"
-msgstr "Принудительно скрыть"
+msgstr "Verbergen Forceren"
 
 #: includes/pro_banners.php:235
 msgid ""
 "custom fields are hidden regardless the \"Do not show PDF & Print Custom "
 "fields\" option"
 msgstr ""
-"пользовательские поля скрыты независимо от того, отменена опция \"Не "
-"показывать пользовательские поля PDF & Print\" или нет"
+"aangepaste velden zijn verborgen, ongeacht de optie ' geen PDF-& afdrukken "
+"aangepaste velden weergeven '"
 
 #: includes/pro_banners.php:240
 msgid "Force Show"
-msgstr "Принудительно отобразить"
+msgstr "Zien Laten Forceren"
 
 #: includes/pro_banners.php:242
 msgid ""
 "custom fields are shown regardless the \"Do not show PDF & Print Custom "
 "fields\" option"
 msgstr ""
-"пользовательские поля отображаются независимо от того, отменена опция \"Не "
-"показывать пользовательские поля PDF & Print\" или нет"
+"aangepaste velden worden weergegeven, ongeacht de optie ' geen PDF-& "
+"afdrukken van aangepaste velden weergeven '"
 
 #: includes/pro_banners.php:249
 msgid "Clear all \"Do not show PDF & Print Custom fields\" options"
-msgstr ""
-"Очистить значения опций \"Не показывать пользовательские поля PDF & Print\""
+msgstr "Wis alle \"niet tonen PDF & Print aangepaste velden\" opties"
 
 #: includes/pro_banners.php:252
 msgid "Clear Options"
-msgstr "Очистить"
+msgstr "Opties wissen"
 
 #: includes/pro_banners.php:254
 msgid ""
 "This will clear all \"Do not show PDF & Print Custom Fields\" options for "
 "all Posts."
 msgstr ""
-"Эта опция очистит все опции «Не показывать пользовательские поля PDF & "
-"Print» для всех Записей."
+"Dit zal duidelijk alle \"Don't show PDF & Print Custom fields\" opties voor "
+"alle berichten."
 
 #: includes/pro_banners.php:260
 msgid "Pages"
-msgstr "Страницы"
+msgstr "Pagina's"
 
 #: includes/pro_banners.php:261
 msgid "Products"
-msgstr "Продукты"
+msgstr "Producten"
 
 #: includes/pro_banners.php:277 includes/pro_banners.php:288
 #: includes/pro_banners.php:326 includes/pro_banners.php:349
 #: includes/pro_banners.php:372 includes/pro_banners.php:414
 msgid "Trash"
-msgstr "Корзина"
+msgstr "Prullenbak"
 
 #: includes/pro_banners.php:280
 msgid "search"
-msgstr "поиск"
+msgstr "zoeken"
 
 #: includes/pro_banners.php:287 includes/pro_banners.php:413
 msgid "Bulk Actions"
-msgstr "Массовые действия"
+msgstr "Bulk acties"
 
 #: includes/pro_banners.php:293 includes/pro_banners.php:419
 msgid "items"
-msgstr "элементы"
+msgstr "items"
 
 #: includes/pro_banners.php:301
 msgid "Select All"
-msgstr "Выбрать Всё"
+msgstr "Alles Selecteren"
 
 #: includes/pro_banners.php:311 includes/pro_banners.php:339
 #: includes/pro_banners.php:362 includes/pro_banners.php:385
 #: includes/pro_banners.php:403
 msgid "Date Added"
-msgstr "Дата создания"
+msgstr "Datum toegevoegd"
 
 #: includes/pro_banners.php:325 includes/pro_banners.php:348
 #: includes/pro_banners.php:371
 msgid "Edit"
-msgstr "Редактировать"
+msgstr "Bewerken"
 
 #: includes/pro_banners.php:439
 msgid "Enter Title"
-msgstr "Новый заголовок"
+msgstr "Titel Invoeren"
 
 #: includes/pro_banners.php:443
 msgid "Header"
-msgstr "Верхний колонтитул"
+msgstr "Kop"
 
 #: includes/pro_banners.php:466 includes/pro_banners.php:516
 msgid "Available shortcodes"
-msgstr "Доступные шорткоды"
+msgstr "Beschikbare shortcodes"
 
 #: includes/pro_banners.php:468 includes/pro_banners.php:518
 msgid "Current page number (for PDF only)"
-msgstr "Номер текущей страницы (только для PDF)"
+msgstr "Huidig paginanummer (alleen voor PDF)"
 
 #: includes/pro_banners.php:471 includes/pro_banners.php:521
 msgid "Number of all pages in the document (for PDF only)"
-msgstr "Количество всех страниц в документе (только для PDF)"
+msgstr "Aantal pagina's in het document (alleen voor PDF)"
 
 #: includes/pro_banners.php:474 includes/pro_banners.php:524
 msgid "Link to the page where the document was generated"
-msgstr "Ссылка на страницу, где был создан документ"
+msgstr "Link naar de pagina waar het document is gegenereerd"
 
 #: includes/pro_banners.php:477 includes/pro_banners.php:527
 msgid "Current date"
-msgstr "Текущая дата"
+msgstr "Huidige datum"
 
 #: includes/pro_banners.php:480 includes/pro_banners.php:530
 msgid "The date when the post was created"
-msgstr "Дата создания записи"
+msgstr "De datum waarop het bericht is gemaakt"
 
 #: includes/pro_banners.php:480 includes/pro_banners.php:530
 msgid ""
 "this shortcode will be replaced to the current date on search or archive "
 "pages"
 msgstr ""
-"на страницах поиска или архивов этот шорткод будет заменен на текущую дату"
+"deze shortcode zal worden vervangen door de huidige datum op de zoek-of "
+"archiefpagina's"
 
 #: includes/pro_banners.php:483 includes/pro_banners.php:533
 msgid ""
 "You can specify your own DateTime format for {DATE} and {POSTDATE} "
 "shortcodes. For example"
 msgstr ""
-"Вы можете указать собственный формат даты для шорткодов {DATE} или "
-"{POSTDATE}. Например"
+"Je kunt je eigen DateTime formaat specificeren voor {DATE} en {POSTDATE} "
+"shortcodes. Bijvoorbeeld"
 
 #: includes/pro_banners.php:485 includes/pro_banners.php:535
 msgid "or"
-msgstr "или"
+msgstr "of"
 
 #: includes/pro_banners.php:486 includes/pro_banners.php:536
 msgid "Read more about date and time formatting"
-msgstr "Подробнее о форматировании даты и времени"
+msgstr "Lees meer over datum-en tijdnotatie"
 
 #: includes/pro_banners.php:488 includes/pro_banners.php:538
 msgid "Author of the post"
-msgstr "Автор записи"
+msgstr "Auteur van het bericht"
 
 #: includes/pro_banners.php:488 includes/pro_banners.php:538
 msgid "for single posts or pages only"
-msgstr "только для записей и страниц"
+msgstr "enkel voor berichten of pagina's"
 
 #: includes/pro_banners.php:493
 msgid "Footer"
-msgstr "Нижний колонтитул"
+msgstr "Voettekst"
 
 #: includes/pro_banners.php:548 includes/pro_banners.php:559
 msgid "Publish"
-msgstr "Опубликовать"
+msgstr "Publiseren"
 
 #: includes/pro_banners.php:555
 msgid "Status"
-msgstr "Статус"
+msgstr "Status"
 
 #: includes/pro_banners.php:555
 msgid "New"
-msgstr "Новый"
+msgstr "Nieuw"
 
 #: includes/pro_banners.php:559
 msgid "immediately"
-msgstr "сразу"
+msgstr "onmiddellijk"
 
 #: includes/pro_banners.php:567
 msgid "Save Changes"
-msgstr "Сохранить изменения"
+msgstr "Wijzigingen Opslaan"
 
-#: pdf-print.php:42 pdf-print.php:298
+#: pdf-print.php:42 pdf-print.php:297
 msgid "Headers & Footers"
-msgstr "Колонтитулы"
+msgstr "Kopteksten & Voetteksten"
 
-#: pdf-print.php:294 pdf-print.php:305
+#: pdf-print.php:293 pdf-print.php:304
 msgid "Add New"
-msgstr "Добавить новые"
+msgstr "Nieuwe Toevoegen"
 
-#: pdf-print.php:295
+#: pdf-print.php:294
 msgid "Header & Footer Template"
-msgstr "Шаблон колонтитулов"
+msgstr "Koptekst & Voettekstsjabloon"
 
-#: pdf-print.php:377
+#: pdf-print.php:376
 msgid "Add PDF & Print Buttons to your page or post"
-msgstr "Добавьте кнопки PDF & Print на Вашу страницу или к записи"
+msgstr "Voeg PDF & Print knoppen toe aan je pagina of bericht"
 
-#: pdf-print.php:436 pdf-print.php:1543
+#: pdf-print.php:435 pdf-print.php:1521
 msgid "Print Content"
-msgstr "Печать контента"
+msgstr "Inhoud afdrukken"
 
-#: pdf-print.php:436 pdf-print.php:1532
+#: pdf-print.php:435 pdf-print.php:1510
 msgid "View PDF"
-msgstr "Просмотр в PDF"
+msgstr "Bekijk PDF"
 
-#: pdf-print.php:746
+#: pdf-print.php:739
 msgid "Support"
-msgstr "Поддержка"
+msgstr "Support"
 
-#: pdf-print.php:768
+#: pdf-print.php:761
 msgid "Loading of fonts. It might take a several minutes."
-msgstr "Загрузка шрифтов. Это может занять несколько минут."
+msgstr "Laden van lettertypen. Het kan een paar minuten duren."
 
-#: pdf-print.php:769
+#: pdf-print.php:762
 msgid "Loading of mPDF library. It might take a several minutes."
-msgstr "Загрузка библиотеки. Это может занять несколько минут."
+msgstr "Laden van mPDF Library. Het kan een paar minuten duren."
 
-#: pdf-print.php:841
+#: pdf-print.php:819
 #, php-format
 msgid "Search Results for: %s"
-msgstr "Результаты поиска для: %s"
+msgstr "Zoekresultaten voor: %s"
 
-#: pdf-print.php:1219
+#: pdf-print.php:1197
 msgid "Check your internet connection"
-msgstr "Проверьте Ваше интернет-соединение"
+msgstr "Controleer uw internetverbinding"
 
-#: pdf-print.php:1224
+#: pdf-print.php:1202
 msgid "Cannot load files in to \"uploads\" folder. Check your permissions"
-msgstr "Невозможно загрузить файлы в папку \"uploads\". Проверьте свои права"
+msgstr ""
+"Kan geen bestanden laden in de \"uploads\" map. Controleer uw machtigingen"
 
-#: pdf-print.php:1254 pdf-print.php:1367
+#: pdf-print.php:1232 pdf-print.php:1345
 msgid "Additional fonts were loaded successfully."
-msgstr "Дополнительные шрифты были успешно загружены."
+msgstr "Extra lettertypen zijn met succes geladen."
 
-#: pdf-print.php:1257 pdf-print.php:1299
+#: pdf-print.php:1235 pdf-print.php:1277
 msgid "Some errors occurred during loading files."
-msgstr "Во время загрузки файлов возникли некоторые проблемы."
+msgstr "Enkele fouten zijn opgetreden tijdens het laden van bestanden."
 
-#: pdf-print.php:1260 pdf-print.php:1302
+#: pdf-print.php:1238 pdf-print.php:1280
 msgid "Can not extract files from zip-archive."
-msgstr "Невозможно извлечь файлы из zip-архива."
+msgstr "Kan geen bestanden uitpakken van zip-archief."
 
-#: pdf-print.php:1264
+#: pdf-print.php:1242
 #, php-format
 msgid "Cannot create %s folder. Check your permissions."
-msgstr "Невозможно создать папку %s. Проверьте свои права."
+msgstr "Kan de map %s niet maken. Controleer uw machtigingen."
 
-#: pdf-print.php:1296
+#: pdf-print.php:1274
 msgid "The mPDF library V7.1.5 has been loaded successfully."
-msgstr "Версия 7.1.5 mPDF библиотеки была успешно загружена."
+msgstr "De mPDF Library V 7.1.5 is succesvol geladen."
 
-#: pdf-print.php:1306
+#: pdf-print.php:1284
 #, php-format
 msgid "Cannot extract files into %s folder. Check your permissions."
-msgstr "Невозможно извлеч файлы в папку  %s. Проверьте права доступа."
+msgstr "Kan geen bestanden uitpakken in %s map. Controleer uw machtigingen."
 
-#: pdf-print.php:1499
+#: pdf-print.php:1477
 msgid "PDF & Print Buttons"
-msgstr "Кнопки PDF & Print"
+msgstr "PDF & Print knoppen"
 
-#: pdf-print.php:1499
+#: pdf-print.php:1477
 msgid "Show PDF & Print Buttons on your site"
-msgstr "Добавьте кнопки PDF & Print на ваш сайт"
+msgstr "Toon PDF & Print knoppen op je site"
 
-#: pdf-print.php:1596
+#: pdf-print.php:1574
 msgid "Display PDF Button"
-msgstr "Отображать кнопку PDF"
+msgstr "PDF Knop Weergeven"
 
-#: pdf-print.php:1600
+#: pdf-print.php:1578
 msgid "Display Print Button"
-msgstr "Отображать кнопку Print"
+msgstr "Print Knop Weergeven"
 
 #~ msgid "Upgrade the mPDF"
 #~ msgstr "Обновите mPDF"

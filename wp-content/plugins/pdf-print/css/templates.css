@@ -28,11 +28,9 @@
 	border-top: 1px solid #e5e5e5;
 	padding: 10px 10px 0;
 }
-.pdfprnt-template-editor-shortcodes {
+.bws_info.pdfprnt-template-editor-shortcodes {
 	padding: 0 10px 10px;
 	word-break: normal;
-	color: #888;
-	font-size: 12px;
 }
 
 @media screen and (max-width: 782px) {
