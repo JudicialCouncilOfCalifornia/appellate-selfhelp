@@ -25,7 +25,7 @@
  */
 
 //Using environment variables for DB connection information
-define('WP_CACHE', true);
+define('WP_CACHE', false);
 define( 'WPCACHEHOME', 'D:\home\site\wwwroot\wp-content\plugins\wp-super-cache/' );
 define('FORCE_SSL_ADMIN', true);
 define('USE_PCONNECT', true);
@@ -38,7 +38,7 @@ foreach ($_SERVER as $key => $value) {
     if (strpos($key, "MYSQLCONNSTR_") !== 0) {
         continue;
     }
-    
+
     $connectstr_dbhost = preg_replace("/^.*Data Source=(.+?);.*$/", "\\1", $value);
     $connectstr_dbname = preg_replace("/^.*Database=(.+?);.*$/", "\\1", $value);
     $connectstr_dbusername = preg_replace("/^.*User Id=(.+?);.*$/", "\\1", $value);
@@ -83,9 +83,9 @@ define('LOGGED_IN_SALT',   'put your unique phrase here');
 define('NONCE_SALT',       'put your unique phrase here');
 
 
-/* Security for Wordpress : 
-you may wish to disable the plugin or theme editor to prevent overzealous users from being able to edit sensitive files and 
-potentially crash the site. Disabling these also provides an additional layer of security if a hacker gains access to a 
+/* Security for Wordpress :
+you may wish to disable the plugin or theme editor to prevent overzealous users from being able to edit sensitive files and
+potentially crash the site. Disabling these also provides an additional layer of security if a hacker gains access to a
 well-privileged user account.
 Note : If your plugin or theme you use with your app requires editing of the files , comment the line below for 'DISALLOW_FILE_EDIT'
 */
@@ -114,13 +114,13 @@ $table_prefix  = 'wp_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
 define( 'WP_MEMORY_LIMIT', '256M' );
 define( 'WP_MAX_MEMORY_LIMIT', '512M' );
 define('CONCATENATE_SCRIPTS', true);
 /* That's all, stop editing! Happy blogging. */
 
-//Relative URLs for swapping across app service deployment slots 
+//Relative URLs for swapping across app service deployment slots
 define('WP_HOME', 'https://'. filter_input(INPUT_SERVER, 'HTTP_HOST', FILTER_SANITIZE_STRING));
 define('WP_SITEURL', 'https://'. filter_input(INPUT_SERVER, 'HTTP_HOST', FILTER_SANITIZE_STRING));
 define('WP_CONTENT_URL', '/wp-content');
