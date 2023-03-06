@@ -25,7 +25,7 @@
  */
 
 //Using environment variables for DB connection information
-define('WP_CACHE', false);
+define('WP_CACHE', true);
 define( 'WPCACHEHOME', 'D:\home\site\wwwroot\wp-content\plugins\wp-super-cache/' );
 define('FORCE_SSL_ADMIN', true);
 define('USE_PCONNECT', true);
@@ -114,7 +114,7 @@ $table_prefix  = 'wp_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-define('WP_DEBUG', true);
+define('WP_DEBUG', false);
 define( 'WP_MEMORY_LIMIT', '256M' );
 define( 'WP_MAX_MEMORY_LIMIT', '512M' );
 define('CONCATENATE_SCRIPTS', true);
