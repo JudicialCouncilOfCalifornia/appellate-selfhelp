@@ -1,0 +1,18 @@
+/*!
+ * Select2 4.0.13
+ * https://select2.github.io
+ *
+ * Released under the MIT license
+ * https://github.com/select2/select2/blob/master/LICENSE.md
+ */
+
+/**!
+ * wp-color-picker-alpha
+ *
+ * Overwrite Automattic Iris for enabled Alpha Channel in wpColorPicker
+ * Only run in input and is defined data alpha in true
+ *
+ * Version: 3.0.2
+ * https://github.com/kallookoo/wp-color-picker-alpha
+ * Licensed under the GPLv2 license or later.
+ */
