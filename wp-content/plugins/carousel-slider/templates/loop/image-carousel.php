@@ -21,7 +21,7 @@ $link_context = $setting->should_show_lightbox() ? 'lightbox' : 'link';
 	<?php
 	// Print start anchor tag for lightbox and external link.
 	Helper::print_unescaped_internal_string( $object->get_link_html_start( $link_context, $setting->get_image_target() ) );
-
+	echo "<span class='overlay-icon'><span class='icon-overlay-inside'></span></span>";
 	// Print image.
 	if ( $setting->lazy_load_image() ) {
 		$image_src  = $object->get_image_src( $setting->get_image_size() );
@@ -38,7 +38,7 @@ $link_context = $setting->should_show_lightbox() ? 'lightbox' : 'link';
 			echo '<h4 class="title">' . esc_html( $object->get_title() ) . '</h4>';
 		}
 		if ( $setting->should_show_caption() ) {
-			echo '<p class="caption">' . esc_html( $object->get_caption() ) . '</p>';
+			echo '<p class="caption">' .  $object->get_caption() . '</p>';
 		}
 
 		echo '</div>';
