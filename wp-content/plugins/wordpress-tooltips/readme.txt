@@ -4,7 +4,7 @@ Author URI: https://tooltips.org/
 Donate link: https://paypal.me/sunpayment
 Tags:tooltip,glossary,dictionary,woocommerce,knowledge base
 Requires at least: 3.8
-Tested up to: 6.0
+Tested up to: 6.1
 Stable tag:trunk
 License: GPLv3 or later
 
@@ -298,7 +298,7 @@ FAQs can be found here: https://tooltips.org/features-of-wordpress-tooltips-plug
 15. Video Tooltips
 
 == Changelog ==
-= Version 7.9.9 =
+= Version 8.1.5 =
 please check change log at:
 >[wordpress tooltip change log:](https://tooltips.org/change-log-of-wordpress-tooltips-free-plugin/)  
 
