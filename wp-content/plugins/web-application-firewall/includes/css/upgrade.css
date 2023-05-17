@@ -1,0 +1,738 @@
+.mo_wpns_upgrade_pade_pricing {
+    color: #2a80ca;
+    font-size: 350%;
+}
+
+.mo2fa_pricing_feature_collection_supporter{
+	height: 32em;
+}
+.mo2fa_pricing_head_supporter{
+	height: 4em;
+	padding-bottom: 1em;
+}
+i.fa-check {
+	color: black;
+	margin-right: 11px;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+i.fa-times {
+	color: #b6abab;
+	margin-right: 17px;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+.fa, .fas {
+	font-weight: 900;
+	margin-right: 21px;
+	margin-top: 1em;
+	color: #b6abab;
+
+}
+.mo_wpns_upgrade_security_title
+  {
+    width: 23%;
+    min-height: 489px;
+    background-color: white;
+    float: left;
+    border-radius: 5px;
+    border-top: none; 
+	margin: 10px;
+	box-shadow:0 5px 10px rgba(0,0,0,.1);
+  }
+  .mo_wpns_upgrade_page_title_name
+{
+   /* margin-left: 10em; */
+  text-align: center;
+  background-color: #135e96;
+  min-height: 62px;
+  border-radius: 5px;
+
+}
+.mo2fa_pricing_feature_collection{
+	width: 24em;
+	height: 31em;
+	margin-top: 13px;
+	padding-top: 18px;
+	margin-left: 21px;
+	margin-right: 28px;
+}
+.mo2fa_limit_pricing_feature_mo_2fa{
+	color: #b6abab;
+	font-weight: 500;
+}
+.mo2fa_unltimate_feature{
+	color: #000000;
+	font-weight: 500;
+}
+.mo2fa_sec{
+	width: 27em;
+	border-radius: 4px;
+	box-shadow: 1px 0px 11px 0px #ccc;
+	height: 70em;
+	border: 1px solid #ccc;
+	padding-top: 2em;
+}
+.mo2fa_upgrade_my_plan{
+	border: none;
+	  top: 50%;
+	  left: 50%;
+	color: white;
+	padding: 15px 32px;
+	width: auto;
+	min-width: 70%;
+	border-radius: 26px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	background: #2a80ca;
+	font-size: 16px;
+	height: auto;
+	/*margin: 2px 18px 2px -27px;*/
+	margin-top: 24px;
+}
+.mo2fa_upgrade_my_plan:hover{
+	border: none;
+	background: #8d86f5;
+}
+.mo2fa_plugins{
+	width: 12%;
+}
+.mo2fa_pricing_tabs_mo{
+	width: auto; 
+	border-radius: 4px;
+	height: 83.5em;
+	padding-top: 2em;
+}
+.mo2fa_make_my_plan_mo{
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	width: 55%;
+	border-radius: 26px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	background: #2a80ca;
+	font-size: 16px;
+	height: auto;
+}
+.mo2fa_make_my_plan_mo:hover{
+	border: none;
+	color: white;
+	background: #8d86f5;
+}
+.mo2fa_pricing_head_mo_2fa{
+	font-size: 33px;
+	font-weight: bold;
+	color: black;
+	margin-bottom: 3%;
+	/*margin-top: 10%;*/
+}
+.mo2fa_method-list-size{
+   font-size: 11px;
+   margin-bottom: -3px!important;
+   list-style: none!important;
+   margin-left: 2em;
+   font-weight: 450;
+}
+
+.mo2fa_method-list-mo-size-cross{
+   font-size: 11px;
+   color: #b6abab;
+   margin-bottom: -3px!important;
+   list-style: none!important;
+   margin-left: 2em;
+}
+
+.mo2fa_price_mo_2fa{
+	font-size: 35px;
+	font-weight: bold;
+	color: black;
+
+}
+.mo2fa_purchase_user_limit_mo{
+	margin-top: 22px!important;
+	margin-bottom: 0px!important;
+	color: black;
+}
+
+.mo2fa_purchase_otp_limit{
+	margin-top: 10px!important;
+	margin-bottom: 4px!important;
+	color: black;
+
+}
+.mo2fa_increase_my_limit{
+	width:auto;
+	min-width: 85%;
+	color: black;
+	font-size: 11px !important;
+	background: #c9dbdb75;
+	border-radius: 3px;
+	min-height: 27px;
+	margin-left: -10px;
+	margin-right: 3px;
+}
+.mo2fa_feature{
+	margin-top: -0.5em;
+	margin-bottom: 0.5em;
+	font-size:16px;
+}
+.mo2fa_ul{
+	font-size: 15px;
+}
+.mo2fa_more_details_p,.mo2fa_more_details_p1{
+	font-size: 13px;
+	margin-bottom: -10px;
+	margin-top: 1em;
+	font-weight:bold;
+	color:#4545ff;
+	text-align: center;
+}
+.mo2fa_class{
+	background: aliceblue;
+    width: 85%;
+}
+.mo2fa_pricing{
+	padding: 16px 55px 12px 41px;
+	margin-top: 9em;
+	height: 25em;
+}
+.mo2fa_pricing_p{
+	font-size: 10px;
+	margin-bottom: -21px;
+}
+.mo2fa_dollar{
+	font-size: 46px;
+	font-weight: 600;
+	padding: 5px 5px 5px 5px;
+	margin-top: 18px;
+	color:black;
+}
+.mo2fa_country{
+	margin-top: 2px;
+}
+.mo2fa_payment_p{
+	font-size: 110%;
+}
+.mo2fa_card{
+	size: landscape;
+	width: 100px;
+	height: 27px;
+	margin-bottom: 4px;
+	margin-top: 4px;
+	opacity: 1;
+	padding-left: 8px;
+}
+.mo2fa_hr{
+	border-top: 2px solid #143af4;
+}
+.mo2fa_form_control1{
+	border-radius:5px;
+	width:70%;
+}
+.mo2fa_starting_from{
+	font-size: 10px;
+	margin-left: -24px;
+	/*margin-top: -17px;*/
+}
+.mo2fa_center{
+	text-align: center;
+}
+.mo2fa_pricing_tabs_mo_premium_lite{
+	background: ffffffad;
+	border: none!important;
+}
+.mo2fa_pricing_tabs_mo_premium{
+	height: 84em!important;
+	margin-top: -4em;
+	background: ffffffad;
+	border: none;
+	box-shadow: 12px;
+}
+.mo2fa_pricing_tabs_mo_enterprise{
+	background: ffffffad;
+	border: none!important;
+}
+.mo2f_upgrade_super_div{
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+.mo2fa_recommended{
+	width: 100%;
+	background: #2a80caa6;
+	color: white;
+	height: 3em;
+	/* border-radius: 1px 25px 25px 0px; */
+	margin-left: 0px;
+	margin-top: -2em;
+	font-size: 16px;
+	margin-bottom: 2em;
+	padding: 10px 1px 1px 1px;
+}
+.mo2fa_purchase_limit_mo{
+	font-size: 16px;
+}
+.mo2fa_pricing_head_h4{
+	margin :0.67em;
+}
+.mo2fa_h4{
+	font-size: 1.5em;
+	margin: 0.33em 0;
+	font-weight: 400;
+}
+.mo2fa_note_color{
+	color: red;
+}
+.mo2fa_note{
+	font-size:17px;
+}
+.mo2fa_setting_layout{
+	width: 81.5%;
+	margin-left: 8%;
+	margin-top: 1%;
+	box-shadow: 0px 2px 25px 0px #ccc;
+}
+.mo2fa_bank_transfer{
+	height: 28px;
+	width:auto;
+}
+.category_feature_mo_2fa{
+    font-size: 16px;
+    font-weight: 600;
+    padding-bottom: 0.3em;
+    padding-top: 0.3em;
+}
+.mo2fa_main_category_header{
+background: #d5d5d5!important;
+margin-top: 0.3em;
+margin-bottom: 0.3em;
+}
+.bg_category_main_mo_2fa{
+	font-size: 17px;
+    border :0.5px solid #c1c1c1 ;
+    background: #c9dbdb!important
+}
+.description_mo_2fa{
+    font-size: 13px!important;
+    font-weight: 400;
+}
+table.mo2fa_table_features{
+	border: 1px 1px 1px 1px;
+}
+table.mo2fa_table_features th,table.mo2fa_table_features tr{
+	text-align: left;
+	padding-left: 1em;
+	padding-right: 1em;
+	  height:25px;
+}
+table.mo2fa_table_features,table.mo2fa_table_features th,table.mo2fa_table_features td {
+  border-left: 1px solid #c1c1c1;
+  border-right: 1px solid #c1c1c1;
+  border-collapse: collapse;
+}
+table.mo2fa_table_features tr:nth-child(odd){
+	background-color: #f6f6f6;
+}
+table.mo2fa_table_features tr:last-child
+{
+   border-bottom: 1px solid #c1c1c1;
+}
+
+.mo2fa_hide1{
+	display: none;
+}
+.mo2fa_comparison{
+	font-size: 18px;
+	width: 20%;
+}
+.mo2fa_compare1{
+	min-width: 22%!important;
+	width:10%;
+}
+.mo2fa_select_option{
+	font-weight: 600;
+	font-size: 22px;
+}
+
+.mo2f_toggle,
+.mo2f_toggler {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 10px;
+}
+.mo2f_toggler {
+  color: #c0b0b0;
+  transition: 0.2s;
+  font-weight: bold;
+  font-size: 16px;
+}
+.mo2f_toggler:hover{
+	font-size: 17px;
+}
+.mo2f_toggler--is-active {
+	font-weight: 600;
+	font-size: 22px;
+  color: #2271b1;
+}
+.mo2f_toggler--is-active:hover{
+	font-size: 23px;
+}
+.mo2f_toggle {
+  position: relative;
+  width: 80px;
+  height: 35px;
+  border-radius: 100px;
+  background-color: #2271b1;
+  overflow: hidden;
+  box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.05);
+}
+.mo2f_check {
+  position: absolute;
+  display: block;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 6;
+}
+.mo2f_check:checked ~ .mo2f_switch {
+    right: 7px;
+    left: 63.5%;
+    transition: 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition-property: left, right;
+    transition-delay: 0.08s, 0s;
+}
+.mo2f_switch {
+    border-radius: 15px;
+    left: 2px;
+    height: 28px;
+    top: 3px;
+    bottom: 2px;
+    right: 57.5%;
+    background-color: #fff;
+    /* border-radius: 36px; */
+    z-index: 1;
+    transition: 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition-property: left, right;
+    transition-delay: 0s, 0.08s;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+    position: relative;
+    display: inline-block;
+    width: 27px;
+    margin-left: -50px;
+}
+.mo2f_block {
+    display: block;
+}
+.mo2fa_tooltip_sms_info {
+  position: relative;
+  display: inline-block;
+}
+.mo2f_check {
+  position: absolute;
+  display: block;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0;
+  z-index: 6;
+}
+.mo2f_check:checked ~ .mo2f_switch {
+  right: 2px;
+  left: 57.5%;
+  transition: 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transition-property: left, right;
+  transition-delay: 0.08s, 0s;
+}
+.mo2fa_tooltip_sms_info .mo2fa_sms_info {
+    visibility: hidden;
+    width: 15em;
+    background-color: #000000b8;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 7px 6px 8px 10px;
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 107%;
+}
+
+.mo2fa_tooltip_sms_info .mo2fa_sms_info::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+.mo2fa_tooltip_sms_info:hover .mo2fa_sms_info {
+  visibility: visible;
+}
+
+.mo2fa_tooltip_sms_info_cost {
+  position: relative;
+  display: inline-block;
+}
+
+.mo2fa_tooltip_sms_info_cost .mo2fa_sms_info_cost {
+    visibility: hidden;
+    width: 15em;
+    background-color: #000000b8;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 7px 0px 8px 8px;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+    margin-left: -2em;
+}
+
+.mo2fa_tooltip_sms_info_cost .mo2fa_sms_info_cost::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+.mo2fa_tooltip_sms_info_cost:hover .mo2fa_sms_info_cost {
+  visibility: visible;
+}
+.mo2fa_tooltip_sms_info .mo2fa_left_sms_info {
+	left: unset;
+	  top: -5px;
+  right: 105%;
+}
+.mo2fa_tooltip_sms_info_cost .mo2fa_left_sms_info_cost {
+	left: unset;
+	  top: -5px;
+  right: 105%;	
+}
+.mo2fa_tooltip_sms_info .mo2fa_left_sms_info::after {
+	content: " ";
+  position: absolute;
+  top: 50%;
+  left: 100%; /* To the right of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
+}
+.mo2fa_tooltip_sms_info_cost .mo2fa_left_sms_info_cost::after {
+	content: " ";
+  position: absolute;
+  top: 50%;
+  left: 100%; /* To the right of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
+}
+.mo2fa_tooltip_methodlist {
+  position: relative;
+  display: inline-block;
+}
+.mo2fa_tooltip_methodlist .methodlist {
+    visibility: hidden;
+  	width: 13em;
+    background-color: #000000b8;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 7px 0px 8px 2em;
+    position: absolute;
+    z-index: 1;
+    top: -11em;
+    left: 107%;
+}
+
+.mo2fa_tooltip_methodlist .methodlist::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+.mo2fa_tooltip_methodlist:hover .methodlist {
+  visibility: visible;
+}
+.mo2fa_tooltip_methodlist .methodlist_left {
+	left: unset;
+	  top: -11em;
+  right: 105%;	
+}
+.mo2fa_tooltip_methodlist .methodlist_left::after {
+	content: " ";
+  position: absolute;
+  top: 50%;
+  left: 100%; /* To the right of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
+}
+.mo2fa_enterprise_getting_started{
+	margin-top: -1em;
+}
+.mo2f_upgrade_main_div
+{
+    background: ffffffad;
+    background: white;
+    width: 34.33%;
+    min-height: 600px;
+    margin: 1.5%;
+    float: left;
+    width: 25%;
+}
+.mo2f_upgrade_main_div:hover
+{
+  background: ffffffad;
+  box-shadow:0 1px 0px 0px #c0c0c0;
+  margin-top: 0%;
+  transition: 1s;
+}
+
+.mo2fa_table-scrollbar{
+	overflow-y: auto; 
+	overflow-x:auto;
+	height: 50%;
+}
+.mo2fa_fa-check{
+	color: #fff!important;
+}
+.mo2fa_hide{
+	display: none !important;
+}
+button{
+	cursor: pointer;
+}
+#mo2f_plan_type{
+	margin-left: 1em;
+}
+.mo_2fa_container
+{
+  display:block;
+  box-sizing:border-box;
+  width:100%;
+  margin:auto;
+}
+.mo_2fa_card-deck
+{
+  text-align:center!important;
+  margin-bottom:1rem!important;
+  flex-flow:row wrap;
+  margin-right:-15px;
+  margin-left:-15px;
+  display:flex;
+  box-sizing:border-box;
+  justify-content:center;
+  margin:auto;
+}
+.mo_2fa_card
+{
+  margin:3px;
+  margin-top:16px;
+  border-radius:2%;
+ /* height:463px;
+  overflow: hidden;*/
+  width:26%;
+  border:1px solid #ecebeb;
+  box-sizing:border-box;
+  text-align:center!important;
+  background-color:#31ccfb1a;
+  box-shadow:1px 1px 6px -2px;
+}
+.mo_2fa_mo-supportnote
+{
+  margin:auto;
+  text-align:center;
+}
+.mo_2fa_animation:hover
+{
+  transition-property:all;
+  transition-duration:.25s;
+  transition-timing-function:linear;
+  transform:translateX(0) scale(1.02);
+}
+.mo_2fa_Card-header
+{
+  box-sizing:border-box;
+  text-align:center!important;
+  display:block;
+}
+.mo_2fa_card-body
+{
+  flex:1 1 auto;
+  padding:1.25rem;
+  padding-top: 0%;
+  box-sizing:border-box;
+  text-align:center!important;
+  display:block;
+}
+
+@media only screen and (max-width: 600px) {
+	.mo2f_toggler{
+		width: 3em;
+		margin-right: 1.5em;
+	}
+	#mo2f_unlimited_sites{
+		margin-left: -0.5em;
+	}
+	#mo2f_plan_type{
+		margin-left: -4em;
+	}
+	.mo2f_upgrade_super_div{
+		display: block;
+	}
+	.mo2f_upgrade_main_div{
+		width: 96%;
+	    margin-bottom: 6em;
+	    height: 93em;
+	}
+	.wp-core-ui select{
+		max-width: 15rem;
+	}
+	.mo2fa_compare1{
+		width: 101%;
+    	margin-top: -2em;
+	}
+	.mo2fa_setting_layout{
+		margin-left: 4%;
+	}
+	.mo_2fa_card-deck{
+		display: block;
+	}
+	.mo_2fa_card{
+		width: 98%;
+	}
+	.mo_upgrade_toggle_2fa{
+		width: 12em;
+	}
+	.mo_upgrade_toggle_2fa_lable{
+		font-size: 1em;
+		width: 12em;
+	}
+	.mo_wpns_upgrade_security_title{
+		width: 97%;
+	}
+	.mo_ns_features_only{
+		display: grid;
+	}
+}
