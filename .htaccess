@@ -73,3 +73,9 @@ MaxSpareServers 300
 MaxClients 1000
 MaxRequestsPerChild 112500
 </IfModule>
+
+<Files admin-ajax.php>
+  Order deny,allow
+  Deny from all
+  Allow from 104.42.152.64
+</Files>
