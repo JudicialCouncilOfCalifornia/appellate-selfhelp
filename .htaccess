@@ -56,9 +56,6 @@ ExpiresDefault A691200
 # END WP-HUMMINGBIRD-CACHING
 <IfModule mod_rewrite.c>
   RewriteEngine On
-
-  RewriteRule ^prepare-documents/?$ https://selfhelp.courts.ca.gov/appeals/forms [R=301,L]
-
   RewriteCond %{QUERY_STRING} !=""
   RewriteCond %{QUERY_STRING} !^s=.*
   RewriteCond %{QUERY_STRING} !^q=.*
