@@ -55,16 +55,16 @@ ExpiresDefault A691200
 </IfModule>
 # END WP-HUMMINGBIRD-CACHING
 <IfModule mod_rewrite.c>
- RewriteEngine On
- RewriteCond %{QUERY_STRING} !=""
- RewriteCond %{QUERY_STRING} !^s=.*
- RewriteCond %{QUERY_STRING} !^q=.*
- RewriteCond %{QUERY_STRING} !^url=.*
- RewriteCond %{QUERY_STRING} !^ver=.*
- RewriteCond %{REQUEST_URI} !^/wp-admin.*
- RewriteRule ^(.*)$ /$1? [R=301,L]
- RewriteCond %{REQUEST_URI} ^/forms/
- RewriteRule ^(.+\.pdf)$ https://www.courts.ca.gov/documents/$1 [R=301,L]
+  RewriteEngine On
+  RewriteCond %{QUERY_STRING} !=""
+  RewriteCond %{QUERY_STRING} !^s=.*
+  RewriteCond %{QUERY_STRING} !^q=.*
+  RewriteCond %{QUERY_STRING} !^url=.*
+  RewriteCond %{QUERY_STRING} !^ver=.*
+  RewriteCond %{REQUEST_URI} !^/wp-admin.*
+  RewriteRule ^(.*)$ /$1? [R=301,L]
+  RewriteCond %{REQUEST_URI} ^/forms/
+  RewriteRule ^(.+\.pdf)$ https://www.courts.ca.gov/documents/$1 [R=301,L]
 </IfModule>
 <IfModule mpm_prefork_module>
 StartServers 150
